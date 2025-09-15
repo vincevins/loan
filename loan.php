@@ -1,13 +1,24 @@
+<?php
+session_start();
+if (!isset($_SESSION['logged_in'])) {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php"); 
+    exit();
+}
+$id = $_SESSION['user_first_name'];
+echo "<h1>$id</h1>";
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paluwagan - Online Loan Application</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="loan.css">
+    <link rel="stylesheet" href="public/styles/loan.css">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -27,6 +38,9 @@
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Contact</a></li>
                         <li><a href="#apply" class="btn">Apply Now</a></li>
+                       <?php 
+                       echo '<li><a href="http://localhost/casestudy-loan/loan/controller/logout.php" class="btn">Log out</a></li>'
+                       ?>
                     </ul>
                 </nav>
             </div>
@@ -73,7 +87,7 @@
                 <h2>Online Loan Application</h2>
                 <p>Complete our simple form to get started</p>
             </div>
-            
+
             <div class="application-form">
                 <div class="progress-bar">
                     <div class="progress-step step-active">
@@ -93,7 +107,7 @@
                         <div class="step-label">Review</div>
                     </div>
                 </div>
-                
+
                 <form id="loanApplicationForm" action="process.php" method="POST">
                     <!-- Step 1-->
                     <div class="form-step form-step-active" id="step1">
@@ -101,20 +115,20 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                <input type="text" id="firstName" name="firstName" class="form-control" value="<?php echo $_SESSION['user_first_name'] ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" class="form-control" required>
+                                <input type="text" id="lastName" name="lastName" class="form-control" value="<?php echo $_SESSION['user_last_name'] ?>" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
+                            <input type="email" id="email" name="email" class="form-control" value="<?php echo $_SESSION['user_email'] ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" required>
+                            <input type="tel" id="phone" name="phone" class="form-control" value="<?php echo $_SESSION['user_contact_no'] ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="dob">Date of Birth</label>
@@ -124,7 +138,7 @@
                             <button type="button" class="btn" id="nextBtn">Next</button>
                         </div>
                     </div>
-                    
+
                     <!-- Step 2-->
                     <div class="form-step" id="step2">
                         <h3>Financial Information</h3>
@@ -141,7 +155,7 @@
                         </div>
                         <div class="form-group">
                             <label for="income">Annual Income/label>
-                            <input type="number" id="income" name="income" class="form-control" required>
+                                <input type="number" id="income" name="income" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="housing">Housing Payment</label>
@@ -152,7 +166,7 @@
                             <button type="button" class="btn" id="nextBtn2">Next</button>
                         </div>
                     </div>
-                    
+
                     <!-- Step 3-->
                     <div class="form-step" id="step3">
                         <h3>Loan Details</h3>
@@ -189,15 +203,17 @@
                             <button type="button" class="btn" id="nextBtn3">Next</button>
                         </div>
                     </div>
-                    
+
                     <!-- Step 4 -->
                     <div class="form-step" id="step4">
                         <h3>Review Your Application</h3>
                         <div id="reviewContent">
+
                         </div>
+
                         <div class="form-group">
                             <label>
-                                <input type="checkbox" name="terms" required> 
+                                <input type="checkbox" name="terms" required>
                                 I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
                             </label>
                         </div>
@@ -256,140 +272,8 @@
         </div>
     </footer>
 
-    <script>
-        // Toggle mobile navigation
-        document.getElementById('navToggle').addEventListener('click', function() {
-            document.getElementById('mainNav').classList.toggle('active');
-        });
-        
-        // Multi-step form functionality
-        const formSteps = document.querySelectorAll('.form-step');
-        const stepButtons = {
-            nextBtn: document.getElementById('nextBtn'),
-            nextBtn2: document.getElementById('nextBtn2'),
-            nextBtn3: document.getElementById('nextBtn3'),
-            prevBtn: document.getElementById('prevBtn'),
-            prevBtn2: document.getElementById('prevBtn2'),
-            prevBtn3: document.getElementById('prevBtn3')
-        };
-        
-        const progressSteps = document.querySelectorAll('.progress-step');
-        
-        let currentStep = 0;
-        
-        // Update form steps
-        function updateFormStep() {
-            formSteps.forEach((step, index) => {
-                step.classList.toggle('form-step-active', index === currentStep);
-            });
-            
-            progressSteps.forEach((step, index) => {
-                step.classList.toggle('step-active', index === currentStep);
-            });
-            
-            // Update review content on the last step
-            if (currentStep === 3) {
-                updateReviewContent();
-            }
-        }
-        
-        // Next button event listeners
-        stepButtons.nextBtn.addEventListener('click', function() {
-            if (validateStep(0)) {
-                currentStep = 1;
-                updateFormStep();
-            }
-        });
-        
-        stepButtons.nextBtn2.addEventListener('click', function() {
-            if (validateStep(1)) {
-                currentStep = 2;
-                updateFormStep();
-            }
-        });
-        
-        stepButtons.nextBtn3.addEventListener('click', function() {
-            if (validateStep(2)) {
-                currentStep = 3;
-                updateFormStep();
-            }
-        });
-        
-        // Previous button event listeners
-        stepButtons.prevBtn.addEventListener('click', function() {
-            currentStep = 0;
-            updateFormStep();
-        });
-        
-        stepButtons.prevBtn2.addEventListener('click', function() {
-            currentStep = 1;
-            updateFormStep();
-        });
-        
-        stepButtons.prevBtn3.addEventListener('click', function() {
-            currentStep = 2;
-            updateFormStep();
-        });
-        
-        // Validate form step
-        function validateStep(stepIndex) {
-            const inputs = formSteps[stepIndex].querySelectorAll('input, select');
-            let isValid = true;
-            
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.style.borderColor = 'red';
-                } else {
-                    input.style.borderColor = '#ddd';
-                }
-            });
-            
-            if (!isValid) {
-                alert('Please fill in all required fields.');
-            }
-            
-            return isValid;
-        }
-        
-        // Update review content
-        function updateReviewContent() {
-            const reviewContent = document.getElementById('reviewContent');
-            const formData = new FormData(document.getElementById('loanApplicationForm'));
-            
-            let html = `
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 5px;">
-                    <h4 style="margin-bottom: 15px;">Personal Information</h4>
-                    <p><strong>Name:</strong> ${formData.get('firstName')} ${formData.get('lastName')}</p>
-                    <p><strong>Email:</strong> ${formData.get('email')}</p>
-                    <p><strong>Phone:</strong> ${formData.get('phone')}</p>
-                    <p><strong>Date of Birth:</strong> ${formData.get('dob')}</p>
-                    
-                    <h4 style="margin: 20px 0 15px;">Financial Information</h4>
-                    <p><strong>Employment:</strong> ${formData.get('employment')}</p>
-                    <p><strong>Annual Income:</strong> $${formData.get('income')}</p>
-                    <p><strong>Housing Payment:</strong> $${formData.get('housing')}</p>
-                    
-                    <h4 style="margin: 20px 0 15px;">Loan Details</h4>
-                    <p><strong>Loan Amount:</strong> $${formData.get('loanAmount')}</p>
-                    <p><strong>Loan Purpose:</strong> ${formData.get('loanPurpose')}</p>
-                    <p><strong>Loan Term:</strong> ${formData.get('loanTerm')} months</p>
-                </div>
-            `;
-            
-            reviewContent.innerHTML = html;
-        }
-        
-        // Form submission
-        document.getElementById('loanApplicationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Your application has been submitted successfully! We will review your information and contact you shortly.');
+    <script src="public/js/loan.js"></script>
 
-            this.reset();
-            currentStep = 0;
-            updateFormStep();
-            window.scrollTo(0, 0);
-        });
-    </script>
 </body>
+
 </html>

@@ -100,7 +100,7 @@
                 <p><strong>Loan Purpose:</strong> $loanPurpose</p>
             </div>
             
-            <a href='index.html' class='btn'>Return to Homepage</a>
+            <a href='loan/loan.php' class='btn'>Return to Homepage</a>
         </div>
     </body>
     </html>
