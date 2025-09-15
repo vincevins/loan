@@ -1,0 +1,268 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: whitesmoke;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 1000px;
+  min-height: 600px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.form-container {
+  flex: 1;
+  padding: 30px 40px;
+  transition: transform 0.6s ease-in-out;
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.welcome-container {
+  flex: 1;
+  background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+  color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-text {
+  z-index: 2;
+}
+
+.welcome-container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.welcome-container p {
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background: white;
+  color: #333333;
+}
+
+.form-title {
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border: none;
+  background: #f5f5f5;
+  border-radius: 50px;
+  outline: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  background: #e8e8e8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  width: 18px;
+  height: 18px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.form-footer a {
+  color: #333333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+.login-container {
+  transform: translateX(0);
+}
+
+.signup-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  transform: translateX(100%);
+}
+
+.container.active .login-container {
+  transform: translateX(-100%);
+}
+
+.container.active .signup-container {
+  transform: translateX(0);
+}
+
+.decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.circle-1 {
+  width: 250px;
+  height: 250px;
+  top: -50px;
+  left: -50px;
+}
+
+.circle-2 {
+  width: 200px;
+  height: 200px;
+  bottom: -30px;
+  right: -30px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.form-row .input-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    max-width: 400px;
+    min-height: auto;
+  }
+
+  .welcome-container {
+    display: none;
+  }
+
+  .form-container {
+    padding: 30px 20px;
+    max-height: none;
+  }
+
+  .signup-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    transform: none;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-row .input-group {
+    margin-bottom: 18px;
+  }
+
+  .mobile-toggle {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .mobile-toggle-btn {
+    background: transparent;
+    border: none;
+    color: #333333;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 20px 15px;
+  }
+
+  .input-group input {
+    padding: 10px 12px 10px 40px;
+    font-size: 13px;
+  }
+}
