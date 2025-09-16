@@ -44,7 +44,7 @@
                 e.preventDefault();
                 alert('Please fill in all fields');
             }
-             const url = 'http://localhost/casestudy-loan/loan/controller/authLogin.php';
+             const url = 'http://localhost/final-loan/loan/controller/authLogin.php';
             try{
                 const res = await fetch(url,{
                     method: 'POST',
@@ -52,14 +52,14 @@
                 });
                 const result =await res.json()
                 if (result.reset_required) {
-                     window.location.href = "http://localhost/casestudy-loan/loan/public/pages/set_password.php";
+                     window.location.href = "http://localhost/final-loan/loan/set_password.php";
                 } else if(result.status === 'error')  {
                   console.log(result.status)
                 }else if (result.reset_required === false) {
-                    window.location.href ="http://localhost/casestudy-loan/loan/public/pages/loan.php"
+                    window.location.href ="http://localhost/final-loan/loan/loan.php"
                     console.log('success')
                 }else{
-                    window.location.href = "http://localhost/casestudy-loan/loan/public/pages/index.php";
+                    window.location.href = "http://localhost/final-loan/loan/index.php";
                 }
 
 

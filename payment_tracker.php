@@ -1,3 +1,6 @@
+<?php
+include 'nav.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,29 +12,6 @@
    <link rel="stylesheet" href="public/styles/payment_tracker.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-hand-holding-usd"></i>
-                    <h1>Paluwagan</h1>
-                </div>
-                <button class="responsive-nav-toggle" id="navToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav id="mainNav">
-                    <ul>
-                        <li><a href="loan.php">Home</a></li>
-                        <li><a href="payment-tracker.php">Payment Tracker</a></li>
-                        <li><a href="#">Loan Options</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
     <section class="dashboard">
         <div class="container">
             <div class="dashboard-header">

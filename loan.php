@@ -1,11 +1,12 @@
 <?php
+include 'nav.php';
 session_start();
 if (!isset($_SESSION['logged_in'])) {
     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php"); 
     exit();
 }
 $id = $_SESSION['user_first_name'];
-echo "<h1>$id</h1>";
+// echo "<h1>$id</h1>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,33 +21,6 @@ echo "<h1>$id</h1>";
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-hand-holding-usd"></i>
-                    <h1>Paluwagan</h1>
-                </div>
-                <button class="responsive-nav-toggle" id="navToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav id="mainNav">
-                    <ul>
-                        <li><a href="loan.php">Home</a></li>
-                        <li><a href="payment_tracker.php">Payment Tracker</a></li>
-                        <li><a href="#">Loan Options</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#apply" class="btn">Apply Now</a></li>
-                       <?php 
-                       echo '<li><a href="http://localhost/casestudy-loan/loan/controller/logout.php" class="btn">Log out</a></li>'
-                       ?>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
     <section class="hero">
         <div class="container">
             <h2>Get The Funds You Need Quickly & Securely</h2>
