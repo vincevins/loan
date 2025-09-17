@@ -23,6 +23,6 @@ session_start();
       <button type="submit" name="btnSetPassword" class="submit-btn">Save Password</button>
     </form>
   </div>
-   <script src="public/js/authSetpassword.js"></script>
+   <script src="../js/authSetpassword.js"></script>
 </body>
 </html>

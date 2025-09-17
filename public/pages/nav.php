@@ -117,7 +117,7 @@ box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
                         <li><a href="#">Contact</a></li>
                         <li><a href="#apply" class="btn">Apply Now</a></li>
                         <?php 
-                       echo '<li><a href="http://localhost/final-loan/loan/controller/logout.php" class="btn">Log out</a></li>'
+                       echo '<li><a href="http://localhost/casestudy-loan/loan/controller/logout.php" class="btn">Log out</a></li>'
                        ?>
                     </ul>
                 </nav>

@@ -2,11 +2,11 @@
 include 'nav.php';
 session_start();
 if (!isset($_SESSION['logged_in'])) {
-    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php"); 
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
 }
-$id = $_SESSION['user_first_name'];
-// echo "<h1>$id</h1>";
+$id = $_SESSION['user_account_id'];
+echo "<h1>$id</h1>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +17,7 @@ $id = $_SESSION['user_first_name'];
     <title>Paluwagan - Online Loan Application</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="public/styles/loan.css">
+    <link rel="stylesheet" href="../styles/loan.css">
 </head>
 
 <body>
@@ -82,8 +82,8 @@ $id = $_SESSION['user_first_name'];
                     </div>
                 </div>
 
-                <form id="loanApplicationForm" action="process.php" method="POST">
-                    <!-- Step 1-->
+                <form id="loanApplicationForm" method="POST">
+                    <!-- Step 1: Personal Information -->
                     <div class="form-step form-step-active" id="step1">
                         <h3>Personal Information</h3>
                         <div class="form-row">
@@ -92,30 +92,54 @@ $id = $_SESSION['user_first_name'];
                                 <input type="text" id="firstName" name="firstName" class="form-control" value="<?php echo $_SESSION['user_first_name'] ?>" required>
                             </div>
                             <div class="form-group">
+                                <label for="middleName">Middle Name</label>
+                                <input type="text" id="middleName" name="middleName" class="form-control" value="<?php echo $_SESSION['user_middle_name'] ?>" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="lastName">Last Name</label>
                                 <input type="text" id="lastName" name="lastName" class="form-control" value="<?php echo $_SESSION['user_last_name'] ?>" required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-control" value="<?php echo $_SESSION['user_email'] ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" value="<?php echo $_SESSION['user_contact_no'] ?>" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-control" value="<?php echo $_SESSION['user_email'] ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Contact Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" value="<?php echo $_SESSION['user_contact_no'] ?>" required>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="dob">Date of Birth</label>
                             <input type="date" id="dob" name="dob" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="province">Province</label>
+                                <input type="text" id="province" name="province" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode">ZIP Code</label>
+                                <input type="text" id="zipCode" name="zipCode" class="form-control" required>
+                            </div>
                         </div>
                         <div class="form-navigation">
                             <button type="button" class="btn" id="nextBtn">Next</button>
                         </div>
                     </div>
 
-                    <!-- Step 2-->
+                    <!-- Step 2: Employment & Financial Information -->
                     <div class="form-step" id="step2">
-                        <h3>Financial Information</h3>
+                        <h3>Employment & Financial Information</h3>
                         <div class="form-group">
                             <label for="employment">Employment Status</label>
                             <select id="employment" name="employment" class="form-control" required>
@@ -127,13 +151,32 @@ $id = $_SESSION['user_first_name'];
                                 <option value="student">Student</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="income">Annual Income/label>
-                                <input type="number" id="income" name="income" class="form-control" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="employerName">Employer Name</label>
+                                <input type="text" id="employerName" name="employerName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employmentLength">Employment Length</label>
+                                <select id="employmentLength" name="employmentLength" class="form-control" required>
+                                    <option value="">Select Employment Length</option>
+                                    <option value="less_than_1_year">Less than 1 year</option>
+                                    <option value="1_2_years">1-2 years</option>
+                                    <option value="3_5_years">3-5 years</option>
+                                    <option value="6_10_years">6-10 years</option>
+                                    <option value="more_than_10_years">More than 10 years</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="housing">Housing Payment</label>
-                            <input type="number" id="housing" name="housing" class="form-control" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="income">Annual Income ($)</label>
+                                <input type="number" id="income" name="income" class="form-control" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="housing">Housing Payment ($)</label>
+                                <input type="number" id="housing" name="housing" class="form-control" step="0.01" required>
+                            </div>
                         </div>
                         <div class="form-navigation">
                             <button type="button" class="btn" id="prevBtn">Previous</button>
@@ -141,36 +184,55 @@ $id = $_SESSION['user_first_name'];
                         </div>
                     </div>
 
-                    <!-- Step 3-->
+                    <!-- Step 3: Loan Details -->
                     <div class="form-step" id="step3">
                         <h3>Loan Details</h3>
-                        <div class="form-group">
-                            <label for="loanAmount">Loan Amount ($)</label>
-                            <input type="number" id="loanAmount" name="loanAmount" class="form-control" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="loanAmount">Loan Amount ($)</label>
+                                <input type="number" id="loanAmount" name="loanAmount" class="form-control" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="loanPurpose">Loan Purpose</label>
+                                <select id="loanPurpose" name="loanPurpose" class="form-control" required>
+                                    <option value="">Select Purpose</option>
+                                    <option value="debt_consolidation">Debt Consolidation</option>
+                                    <option value="home_improvement">Home Improvement</option>
+                                    <option value="car_finance">Car Finance</option>
+                                    <option value="medical">Medical Expenses</option>
+                                    <option value="education">Education</option>
+                                    <option value="business">Business</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="loanPurpose">Loan Purpose</label>
-                            <select id="loanPurpose" name="loanPurpose" class="form-control" required>
-                                <option value="">Select Purpose</option>
-                                <option value="debt_consolidation">Debt Consolidation</option>
-                                <option value="home_improvement">Home Improvement</option>
-                                <option value="car_finance">Car Finance</option>
-                                <option value="medical">Medical Expenses</option>
-                                <option value="education">Education</option>
-                                <option value="business">Business</option>
-                                <option value="other">Other</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="loanTerm">Loan Term (months)</label>
+                                <select id="loanTerm" name="loanTerm" class="form-control" required>
+                                    <option value="">Select Term</option>
+                                    <option value="12">12 months</option>
+                                    <option value="24">24 months</option>
+                                    <option value="36">36 months</option>
+                                    <option value="48">48 months</option>
+                                    <option value="60">60 months</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="percentageInterest">Interest Rate (%)</label>
+                                <input type="text" id="percentageInterest" name="percentageInterest" class="form-control" value="1.3" disabled required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="loanTerm">Loan Term (months)</label>
-                            <select id="loanTerm" name="loanTerm" class="form-control" required>
-                                <option value="">Select Term</option>
-                                <option value="12">12 months</option>
-                                <option value="24">24 months</option>
-                                <option value="36">36 months</option>
-                                <option value="48">48 months</option>
-                                <option value="60">60 months</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="monthlyRateNoInterest">Monthly Payment (No Interest) (₱)</label>
+                                <input type="text" id="monthlyRateNoInterest" name="RateNoInterest" readonly class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="wInterest">Monthly Payment (With Interest) (₱)</label>
+                                <input type="text" id="wInterest" name="withInterest" readonly class="form-control" required>
+
+                            </div>
                         </div>
                         <div class="form-navigation">
                             <button type="button" class="btn" id="prevBtn2">Previous</button>
@@ -178,13 +240,12 @@ $id = $_SESSION['user_first_name'];
                         </div>
                     </div>
 
-                    <!-- Step 4 -->
+                    <!-- Step 4: Review Your Application -->
                     <div class="form-step" id="step4">
                         <h3>Review Your Application</h3>
                         <div id="reviewContent">
-
+                            <!-- Review content will be populated by JavaScript -->
                         </div>
-
                         <div class="form-group">
                             <label>
                                 <input type="checkbox" name="terms" required>
@@ -246,8 +307,7 @@ $id = $_SESSION['user_first_name'];
         </div>
     </footer>
 
-    <script src="public/js/loan.js"></script>
-
+    <script src="../js/loan.js"></script>
 </body>
 
 </html>

@@ -7,29 +7,31 @@ class AuthLogin extends Database{
         $loginQuery = "SELECT * FROM `tbl_accounts` WHERE email = ?";
         $stmt = $this->conn->prepare($loginQuery);
         if (!$stmt) {
-            return json_encode(['success' => false,'message' => 'Database error: ' . $this->conn->error]);
+            return json_encode(['success' => false, 'message' => 'Database error: ' . $this->conn->error]);
         }
         $stmt->bind_param('s', $user_email);
         $stmt->execute();
         $res  = $stmt->get_result();
         $user = $res->fetch_assoc();
         if (!$user) {
-            return json_encode(['success' => false,'message' => 'Invalid email or password.']);
+            return json_encode(['success' => false, 'message' => 'Invalid email or password.']);
         }
         if (!empty($user['tmp_password']) && password_verify($user_password, $user['tmp_password'])) {
             $_SESSION['set_user_id'] = $user['id'];
             $_SESSION['set_user_email'] = $user['email'];
-            return json_encode(['success' => true,'reset_required' => true, 'message' => 'Temporary password please set a new password.']);
+            return json_encode(['success' => true, 'reset_required' => true, 'message' => 'Temporary password please set a new password.']);
         }
         if (password_verify($user_password, $user['password'])) {
             $_SESSION['logged_in'] = true;
             $_SESSION['user_id']  = $user['id'];
+            $_SESSION['user_account_id'] = $user['account_id'];
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_first_name'] = $user['first_name'];
+            $_SESSION['user_middle_name'] = $user['middle_name'];
             $_SESSION['user_last_name'] = $user['last_name'];
             $_SESSION['user_contact_no'] = $user['contact_no'];
             $_SESSION['user_birthdate'] = $user['birthdate'];
-            return json_encode(["status" => "success",'reset_required' => false,'message' => 'Login successful']);
+            return json_encode(["status" => "success", 'reset_required' => false, 'message' => 'Login successful']);
         }
         return json_encode(['status' => "error", 'message' => 'Invalid email or password.']);
     }

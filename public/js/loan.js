@@ -1,4 +1,5 @@
-// Toggle mobile navigation
+        // document.addEventListener("DOMContentLoaded", function () {
+        // Toggle mobile navigation
         document.getElementById('navToggle').addEventListener('click', function() {
             document.getElementById('mainNav').classList.toggle('active');
         });
@@ -98,25 +99,29 @@
             const reviewContent = document.getElementById('reviewContent');
             const formData = new FormData(document.getElementById('loanApplicationForm'));
             
-            let html = `
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 5px;">
-                    <h4 style="margin-bottom: 15px;">Personal Information</h4>
-                    <p><strong>Name:</strong> ${formData.get('firstName')} ${formData.get('lastName')}</p>
-                    <p><strong>Email:</strong> ${formData.get('email')}</p>
-                    <p><strong>Phone:</strong> ${formData.get('phone')}</p>
-                    <p><strong>Date of Birth:</strong> ${formData.get('dob')}</p>
-                    
-                    <h4 style="margin: 20px 0 15px;">Financial Information</h4>
-                    <p><strong>Employment:</strong> ${formData.get('employment')}</p>
-                    <p><strong>Annual Income:</strong> ₱ ${formData.get('income')}</p>
-                    <p><strong>Housing Payment:</strong> ₱ ${formData.get('housing')}</p>
-                    
-                    <h4 style="margin: 20px 0 15px;">Loan Details</h4>
-                    <p><strong>Loan Amount:</strong> ₱ ${formData.get('loanAmount')}</p>
-                    <p><strong>Loan Purpose:</strong> ${formData.get('loanPurpose')}</p>
-                    <p><strong>Loan Term:</strong> ${formData.get('loanTerm')} months</p>
-                </div>
-            `;
+            let html = `<div style="background: #f8f9fa; padding: 20px; border-radius: 5px;">
+                <h4 style="margin-bottom: 15px;">Personal Information</h4>
+                <p><strong>Name:</strong> ${formData.get('firstName')} ${formData.get('middleName')} ${formData.get('lastName')}</p>
+                <p><strong>Email:</strong> ${formData.get('email')}</p>
+                <p><strong>Phone:</strong> ${formData.get('phone')}</p>
+                <p><strong>Date of Birth:</strong> ${formData.get('dob')}</p>
+                <p><strong>Address:</strong> ${formData.get('address')}, ${formData.get('city')}, ${formData.get('province')} ${formData.get('zipCode')}</p>
+                
+                <h4 style="margin: 20px 0 15px;">Financial Information</h4>
+                <p><strong>Employment:</strong> ${formData.get('employment')}</p>
+                <p><strong>Employer Name:</strong> ${formData.get('employerName')}</p>
+                <p><strong>Employment Length:</strong> ${formData.get('employmentLength')}</p>
+                <p><strong>Annual Income:</strong> ₱ ${formData.get('income')}</p>
+                <p><strong>Housing Payment:</strong> ₱ ${formData.get('housing')}</p>
+                
+                <h4 style="margin: 20px 0 15px;">Loan Details</h4>
+                <p><strong>Loan Amount:</strong> ₱ ${formData.get('loanAmount')}</p>
+                <p><strong>Loan Purpose:</strong> ${formData.get('loanPurpose')}</p>
+                <p><strong>Loan Term:</strong> ${formData.get('loanTerm')} months</p>
+                <p><strong>Interest Rate:</strong> ${document.getElementById('percentageInterest').value}%</p>
+                <p><strong>Monthly Payment (No Interest):</strong> ₱ ${document.getElementById('monthlyRateNoInterest').value}</p>
+                <p><strong>Monthly Payment (With Interest):</strong> ₱ ${document.getElementById('wInterest').value}</p>
+            </div>`;
             reviewContent.innerHTML = html;
         }
         document.getElementById('loanApplicationForm').addEventListener('submit', async function(e) {
@@ -144,3 +149,23 @@
                 alert("Something went wrong: " + error.message);
             }
         });
+        const loanAmount = document.getElementById("loanAmount");
+        const loanTerm = document.getElementById("loanTerm");
+        const monthlyRateNoInterest = document.getElementById("monthlyRateNoInterest");
+        const wInterest = document.getElementById("wInterest");
+        function computeInterest() {
+        const amount = parseFloat(loanAmount.value) || 0;
+        const term = parseInt(loanTerm.value) || 0;
+        const interest = 1.3; 
+          const monthlyNoInterest = amount / term;
+          monthlyRateNoInterest.value = monthlyNoInterest.toFixed(2);
+          const convert = interest / 100;
+          const monthlyInterest = amount * convert;
+          const monthlyWithInterest = monthlyNoInterest + monthlyInterest;
+          wInterest.value = monthlyWithInterest.toFixed(2);
+        }
+        loanAmount.addEventListener("input", computeInterest);
+        loanTerm.addEventListener("change", computeInterest);
+       
+
+
