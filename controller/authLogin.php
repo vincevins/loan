@@ -2,8 +2,10 @@
 require_once '../config/config.php';
 header('Content-Type: application/json');
 session_start();
-class AuthLogin extends Database{
-    public function login($user_email, $user_password){
+class AuthLogin extends Database
+{
+    public function login($user_email, $user_password)
+    {
         $loginQuery = "SELECT * FROM `tbl_accounts` WHERE email = ?";
         $stmt = $this->conn->prepare($loginQuery);
         if (!$stmt) {
@@ -31,12 +33,28 @@ class AuthLogin extends Database{
             $_SESSION['user_last_name'] = $user['last_name'];
             $_SESSION['user_contact_no'] = $user['contact_no'];
             $_SESSION['user_birthdate'] = $user['birthdate'];
-            return json_encode(["status" => "success", 'reset_required' => false, 'message' => 'Login successful']);
+            $_SESSION['user_role'] = $user['role'];
+            $_SESSION['loan_id'];
+            return json_encode(["status" => "success", 'reset_required' => false, 'message' => 'Login successful', "role" => $user['role']]);
         }
         return json_encode(['status' => "error", 'message' => 'Invalid email or password.']);
     }
+    public function getinfo()
+    {
+        $getQuery = "SELECT * FROM `loan_information`";
+        $stmt = $this->conn->prepare($getQuery);
+        if (!$stmt) {
+            die("Prepare failed: " . $this->conn->error);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            $_SESSION['loan_id'] = $row['loanID'];
+        }
+    }
 }
 $auth = new AuthLogin();
+$auth->getinfo();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
     $user_email = trim($_POST['email']);
     $user_password = $_POST['password'];

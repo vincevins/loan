@@ -1,12 +1,17 @@
 <?php
 include 'nav.php';
-session_start();
 if (!isset($_SESSION['logged_in'])) {
     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
 }
-$id = $_SESSION['user_account_id'];
-echo "<h1>$id</h1>";
+$role = $_SESSION['user_role'];
+if ($role != 'user') {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+$id =  $_SESSION['loan_id'];
+echo $id
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +23,7 @@ echo "<h1>$id</h1>";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/loan.css">
+
 </head>
 
 <body>
@@ -32,7 +38,7 @@ echo "<h1>$id</h1>";
     <section class="features">
         <div class="container">
             <div class="section-title">
-                <h2>Why Choose Paluwagan ni Carlos?</h2>
+                <h2>Why Choose F.L.O.W?</h2>
                 <p>We make borrowing simple, transparent, and convenient</p>
             </div>
             <div class="features-grid">
@@ -223,6 +229,10 @@ echo "<h1>$id</h1>";
                                 <input type="text" id="percentageInterest" name="percentageInterest" class="form-control" value="1.3" disabled required>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="totalInterest">Interest</label>
+                            <input type="text" id="totalInterest" name="totalInterest" class="form-control" readonly required>
+                        </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="monthlyRateNoInterest">Monthly Payment (No Interest) (₱)</label>
@@ -231,7 +241,6 @@ echo "<h1>$id</h1>";
                             <div class="form-group">
                                 <label for="wInterest">Monthly Payment (With Interest) (₱)</label>
                                 <input type="text" id="wInterest" name="withInterest" readonly class="form-control" required>
-
                             </div>
                         </div>
                         <div class="form-navigation">
@@ -302,7 +311,7 @@ echo "<h1>$id</h1>";
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Paluwagan ni Carlos. All rights reserved.</p>
+                <p>&copy; 2025 F.L.O.W. All rights reserved.</p>
             </div>
         </div>
     </footer>

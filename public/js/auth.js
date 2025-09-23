@@ -51,14 +51,20 @@
                     body: formData
                 });
                 const result =await res.json()
+                 if (!res.ok) {
+                    throw new Error(result.message || `Error ${response.status}`);
+                }
+                alert(result.message || "Application submitted successfully!");
                 if (result.reset_required) {
                      window.location.href = "http://localhost/casestudy-loan/loan/public/pages/set_password.php";
                 } else if(result.status === 'error')  {
                   console.log(result.status)
-                }else if (result.reset_required === false) {
+                }else if (result.role === 'user') {
                     window.location.href ="http://localhost/casestudy-loan/loan/public/pages/loan.php"
-                    console.log('success')
-                }else{
+                }else if(result.role === 'admin'){
+                    window.location.href ="http://localhost/casestudy-loan/loan/public/pages/testApproval.php"
+                }
+                else{
                     window.location.href = "http://localhost/casestudy-loan/loan/public/pages/index.php";
                 }
             } catch (error) {
