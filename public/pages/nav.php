@@ -48,6 +48,8 @@ nav ul {
 display: flex;
 list-style: none;
 gap: 30px;
+margin-top: 10px;
+margin-left: 10px
 }
 
 nav a {
@@ -55,6 +57,7 @@ text-decoration: none;
 color: #333;
 font-weight: 500;
 transition: color 0.3s;
+margin-top: -100px
 }
 
 nav a:hover {
@@ -103,7 +106,7 @@ box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-hand-holding-usd"></i>
-                    <h1>Paluwagan</h1>
+                    <h1>F.L.O.W</h1>
                 </div>
                 <button class="responsive-nav-toggle" id="navToggle">
                     <i class="fas fa-bars"></i>

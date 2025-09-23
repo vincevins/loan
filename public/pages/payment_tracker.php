@@ -6,7 +6,7 @@ include 'nav.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Tracker - SecureLoan</title>
+    <title>Payment Tracker - Paluwagan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="../styles/payment_tracker.css">
@@ -22,11 +22,11 @@ include 'nav.php';
             <div class="loan-summary">
                 <div class="summary-card">
                     <h3>Total Loan Amount</h3>
-                    <div class="amount" id="totalLoanAmount">$15,000.00</div>
+                    <div class="amount" id="totalLoanAmount">15,000.00</div>
                 </div>
                 <div class="summary-card">
                     <h3>Remaining Balance</h3>
-                    <div class="amount" id="remainingBalance">$12,500.00</div>
+                    <div class="amount" id="remainingBalance">12,500.00</div>
                 </div>
                 <div class="summary-card">
                     <h3>Next Payment Due</h3>
@@ -34,7 +34,7 @@ include 'nav.php';
                 </div>
                 <div class="summary-card">
                     <h3>Next Payment Amount</h3>
-                    <div class="amount" id="nextPaymentAmount">$350.00</div>
+                    <div class="amount" id="nextPaymentAmount">350.00</div>
                 </div>
             </div>
 
