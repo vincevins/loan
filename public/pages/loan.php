@@ -1,12 +1,12 @@
 <?php
 include 'nav.php';
-session_start();
-if (!isset($_SESSION['logged_in'])) {
-    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
-    exit();
-}
-$id = $_SESSION['user_account_id'];
-echo "<h1>$id</h1>";
+// session_start();
+// if (!isset($_SESSION['logged_in'])) {
+//     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+//     exit();
+// }
+// $id = $_SESSION['user_account_id'];
+// echo "<h1>$id</h1>";
 ?>
 <!DOCTYPE html>
 <html lang="en">

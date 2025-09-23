@@ -48,6 +48,7 @@ nav ul {
 display: flex;
 list-style: none;
 gap: 30px;
+margin-top: 10px
 }
 
 nav a {
@@ -55,6 +56,7 @@ text-decoration: none;
 color: #333;
 font-weight: 500;
 transition: color 0.3s;
+margin-top: -100px
 }
 
 nav a:hover {
