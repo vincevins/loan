@@ -3,7 +3,7 @@ require_once '../config/config.php';
 session_start();
 class PaymentSchedule extends Database{
     public function getSchedule($id) {
-    $getQuery = "SELECT * FROM `loan_payment_schedule` WHERE `loanID` = ?";
+    $getQuery = "SELECT * FROM `loan_payment_schedule` WHERE `account_id` = ?";
     $stmt = $this->conn->prepare($getQuery);
     if (!$stmt) {
         die("Prepare failed: " . $this->conn->error);
@@ -22,6 +22,6 @@ class PaymentSchedule extends Database{
 }
 
 }
-$id= $_SESSION['loan_id'];
+$id=  $_SESSION['user_account_id'];
 $getResched = new PaymentSchedule();
 $getResched->getSchedule($id);

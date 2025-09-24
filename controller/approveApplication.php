@@ -23,6 +23,7 @@ class ApproveApplication extends Database{
         return $response;
     }
     public function setSched(){
+        $accountID =   $_SESSION['accountID_info'];
         $total_interest = $_SESSION['total_interest'];
         $loanID = $_SESSION['loan_id'];
         $noInterest = $_SESSION['no_interest'];
@@ -38,14 +39,15 @@ class ApproveApplication extends Database{
             $schedID = 'SCHEDULE-' . bin2hex(random_bytes(8));
             $dueDate = date("Y-m-d H:i:s", strtotime("+$i months", strtotime($approval_date)));
             $endBalance = $balance - $withInterest;
-            $setSchedule = "INSERT INTO `loan_payment_schedule`(`schedule_id`, `loanID`, `payment_number`, `due_date`, `monthly_payment_no_interest`,`interest`, `total_payment_due`, `beginning_balance`, `ending_balance`, `payment_status`)  
-            VALUES (?,?,?,?,?,?,?,?,?,?)";
+            $setSchedule = "INSERT INTO `loan_payment_schedule`(`schedule_id`, `loanID`, `account_id`, `payment_number`, `due_date`, `monthly_payment_no_interest`,`interest`, `total_payment_due`, `beginning_balance`, `ending_balance`, `payment_status`)  
+            VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $this->conn->prepare($setSchedule);
-            $stmt->bind_param('ssisddddds', $schedID, $loanID, $payment_number, $dueDate, $noInterest,$total_interest, $withInterest, $balance, $endBalance, $status);
+            $stmt->bind_param('sssisddddds', $schedID, $loanID,$accountID, $payment_number, $dueDate, $noInterest,$total_interest, $withInterest, $balance, $endBalance, $status);
             $stmt->execute();
              $schedules[] = [
                 "schedule_id" => $schedID,
                 "loanID" => $loanID,
+                "account_id" => $accountID,
                 "payment_number" => $payment_number,
                 "due_date" => $dueDate,
                 "monthly_payment_no_interest" => $noInterest,

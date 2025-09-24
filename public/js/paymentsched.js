@@ -2,6 +2,29 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
   .then((response) => response.json())
   .then((data) => {
     console.log("Fetched:", data);
+    const totalAmmount = document.getElementById('totalLoanAmount')
+    const remaining = document.getElementById('remainingBalance')
+    const nextDue = document.getElementById('nextPaymentDate')
+    const nextPayment = document.getElementById('nextPaymentAmount')
+
+    if(data[11].payment_status === 'paid'){
+      totalAmmount.textContent = "₱ 0.00"
+    }else{
+     totalAmmount.textContent = '₱' + Number(data[0].beginning_balance).toLocaleString();
+    }
+    let display = null;
+    for (let index = 0; index < data.length; index++) {
+      if(data[index].payment_status !== 'paid'){
+        display = data[index];
+        break
+      }
+    }
+    remaining.textContent = '₱'+Number(display.beginning_balance).toLocaleString();
+    var date = new Date(display.due_date)
+    let dateFormat = date.toDateString();
+    nextDue.textContent = dateFormat;
+    nextPayment.textContent = '₱'+Number(display.total_payment_due).toLocaleString();
+
 
     const ListContainer = document.querySelector(".paymentScheduleBody");
     ListContainer.innerHTML = "";
