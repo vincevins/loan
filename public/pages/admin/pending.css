@@ -1,0 +1,51 @@
+table.dataTable {
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: #fff;
+}
+
+table.dataTable thead {
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+}
+th, td {
+    pointer-events: none;
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+table.dataTable tbody tr:hover {
+    background: #ecf6fd;
+    cursor: pointer;
+}
+
+.dt-buttons {
+    margin-bottom: 15px;
+}
+
+.dt-button {
+    background: #3498db !important;
+    border: none !important;
+    border-radius: 6px !important;
+    color: white !important;
+    font-size: 14px;
+    padding: 6px 12px !important;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dt-button:hover {
+    background: #217dbb !important;
+}
+
+.dataTables_filter input {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 5px 10px;
+}
