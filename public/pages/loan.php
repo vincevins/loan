@@ -1,6 +1,5 @@
 <?php
 include 'nav.php';
-session_start();
 if (!isset($_SESSION['logged_in'])) {
     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
@@ -11,7 +10,7 @@ if ($role != 'user') {
     exit();
 }
 $id =   $_SESSION['user_account_id'];
-echo $id
+// echo $id
 
 ?>
 <!DOCTYPE html>
@@ -32,7 +31,7 @@ echo $id
         <div class="container">
             <h2>Get The Funds You Need Quickly & Securely</h2>
             <p>Our online loan application process is fast, secure, and designed to get you the money you need with competitive rates and flexible terms.</p>
-            <a href="#apply" class="btn">Start Application</a>
+            <a href="#apply" class="btnLoan">Start Application</a>
         </div>
     </section>
 
@@ -140,7 +139,7 @@ echo $id
                             </div>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btn" id="nextBtn">Next</button>
+                            <button type="button" class="btnLoan" id="nextBtn">Next</button>
                         </div>
                     </div>
 
@@ -186,8 +185,8 @@ echo $id
                             </div>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btn" id="prevBtn">Previous</button>
-                            <button type="button" class="btn" id="nextBtn2">Next</button>
+                            <button type="button" class="btnLoan" id="prevBtn">Previous</button>
+                            <button type="button" class="btnLoan" id="nextBtn2">Next</button>
                         </div>
                     </div>
 
@@ -245,8 +244,8 @@ echo $id
                             </div>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btn" id="prevBtn2">Previous</button>
-                            <button type="button" class="btn" id="nextBtn3">Next</button>
+                            <button type="button" class="btnLoan" id="prevBtn2">Previous</button>
+                            <button type="button" class="btnLoan" id="nextBtn3">Next</button>
                         </div>
                     </div>
 
@@ -263,8 +262,8 @@ echo $id
                             </label>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btn" id="prevBtn3">Previous</button>
-                            <button type="submit" class="btn">Submit Application</button>
+                            <button type="button" class="btnLoan" id="prevBtn3">Previous</button>
+                            <button type="submit" class="btnLoan">Submit Application</button>
                         </div>
                     </div>
                 </form>
