@@ -27,7 +27,6 @@
             </form>
         </div>
 
-
         <div class="form-container signup-container">
             <form class="signup-form" id="signupform" action="" method="POST">
                 <h2 class="form-title">Create Account</h2>
@@ -94,6 +93,7 @@
      <script>
         feather.replace();
      </script>
+     
 </body>
 
 </html>

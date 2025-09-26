@@ -1,107 +1,17 @@
+<?php session_start(); ?>
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/profile.css">
+    <link rel="stylesheet" href="../styles/nav.css">
     <title>Document</title>
 </head>
+
 <body>
-    <style>
-.container {
-width: 100%;
-max-width: 1200px;
-margin: 0 auto;
-padding: 0 20px;
-}
-
-header {
-background: #fff;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-position: sticky;
-top: 0;
-z-index: 100;
-}
-
-.header-content {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 20px 0;
-}
-
-.logo {
-display: flex;
-align-items: center;
-gap: 10px;
-}
-
-.logo i {
-color: #4361ee;
-font-size: 28px;
-}
-
-.logo h1 {
-font-weight: 700;
-color: #4361ee;
-}
-
-nav ul {
-display: flex;
-list-style: none;
-gap: 30px;
-margin-top: 10px;
-margin-left: 10px
-}
-
-nav a {
-text-decoration: none;
-color: #333;
-font-weight: 500;
-transition: color 0.3s;
-margin-top: -100px
-}
-
-nav a:hover {
-color: #4361ee;
-}
-
-.hero {
-padding: 80px 0;
-text-align: center;
-}
-
-.hero h2 {
-font-size: 2.5rem;
-margin-bottom: 20px;
-color: #333;
-}
-
-.hero p {
-font-size: 1.2rem;
-max-width: 700px;
-margin: 0 auto 40px;
-color: #555;
-}
-
-.btn {
-display: inline-block;
-background: #4361ee;
-color: white;
-padding: 12px 30px;
-border-radius: 50px;
-text-decoration: none;
-font-weight: 600;
-transition: all 0.3s;
-border: none;
-cursor: pointer;
-}
-
-.btn:hover {
-background: #3a56d4;
-transform: translateY(-3px);
-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-    </style>
-        <header>
+    <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
@@ -112,20 +22,311 @@ box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
                     <i class="fas fa-bars"></i>
                 </button>
                 <nav id="mainNav">
-                    <ul>
+                    <ul class="navCenter">
                         <li><a href="loan.php">Home</a></li>
-                        <li><a href="payment_tracker.php">Payment Tracker</a></li>
                         <li><a href="#">Loan Options</a></li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Contact</a></li>
-                        <li><a href="#apply" class="btn">Apply Now</a></li>
-                        <?php 
-                       echo '<li><a href="http://localhost/casestudy-loan/loan/controller/logout.php" class="btn">Log out</a></li>'
-                       ?>
                     </ul>
                 </nav>
+                <div class="profile-dropdown">
+                    <button class="profile-btn" onclick="toggleProfileDropdown()">
+                        <?php
+                        $firstName = $_SESSION['user_first_name'] ?? 'User';
+                        $lastName = $_SESSION['user_last_name'] ?? 'Name';
+                        $profilePicture = $_SESSION['profile_picture'] ?? null;
+
+                        if ($profilePicture && file_exists($profilePicture)) {
+                            echo '<img src="' . htmlspecialchars($profilePicture) . '" alt="Profile" class="profile-img">';
+                        } else {
+                            $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                            echo '<div class="profile-initials">' . $initials . '</div>';
+                        }
+                        ?>
+                    </button>
+                    <div class="profile-dropdown-menu">
+                        <button id="btnProfile" class="dropdown-item">
+                            <i class="fa fa-user"></i> Profile
+                        </button>
+                        <button onclick="window.location.href='settings'" class="dropdown-item">
+                            <i class="fa fa-cogs"></i> Settings
+                        </button>
+                        <hr class="dropdown-divider">
+                        <button class="dropdown-item logout">
+                            <a href="http://localhost/casestudy-loan/loan/controller/logout.php" style="text-decoration: none;">
+                                <i class="fa fa-sign-out-alt"></i> Log Out
+                            </a>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
+
+
+    <div id="profileModal" class="modal">
+        <div id="personalInfoModal" style="display: block;">
+            <div class="personal-information">
+                <div class="loan-summary">
+                    <div class="summary-card">
+                        <h3>Total Loan Amount</h3>
+                        <div class="amount" id="totalLoanAmount"></div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Remaining Balance</h3>
+                        <div class="amount" id="remainingBalance"></div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Next Payment Due</h3>
+                        <div class="amount" id="nextPaymentDate"></div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Next Payment Amount</h3>
+                        <div class="amount" id="nextPaymentAmount"></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="settings-container-profile">
+                    <div class="personal-information-sidebar">
+                        <div>
+                            <div class="profile-wrapper">
+                                <label for="file-upload">
+                                    <?php
+                                    $firstName = $_SESSION['user_first_name'] ?? 'User';
+                                    $lastName = $_SESSION['user_last_name'] ?? 'Name';
+                                    $profilePicture = $_SESSION['profile_picture'] ?? null;
+
+                                    if ($profilePicture && file_exists($profilePicture)) {
+                                        echo '<img src="' . htmlspecialchars($profilePicture) . '" alt="Profile" class="profile-img">';
+                                    } else {
+                                        $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                                        echo '<div class="profile-initials">' . $initials . '</div>';
+                                    }
+                                    ?>
+                                </label>
+                            </div>
+
+                            <form method="POST" enctype="multipart/form-data" id="upload-form">
+                                <input type="file" id="file-upload" name="profile_picture" accept="image/*" required onchange="previewImage(event)" style="display:none;">
+                                <button type="submit" id="submit-btn" class="btn" style="display:none;">Change Profile</button>
+                            </form>
+
+                            <div class="user-info">
+                                <h2><?php $fName = $_SESSION['user_first_name'];
+                                    $lName = $_SESSION['user_last_name'];
+                                    $name = $lName . ", " . $fName;
+                                    echo $name ?>
+                                </h2>
+                                <h3><?php echo $_SESSION['user_email'] ?></h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="content">
+                            <ul class="personal-information-sidebar">
+                                <li>
+                                    <button id="btnPersonalInfo" class="tab-btn active">
+                                        <i class="fa-solid fa-table-columns"></i> Personal Information
+                                    </button>
+                                </li>
+                                <li>
+                                    <button id="btnPaymentSched" class="tab-btn">
+                                        <i class="fa-solid fa-list"></i> Payment Schedule
+                                    </button>
+                                </li>
+                                <li>
+                                    <button id="btnPaymentHistory" class="tab-btn">
+                                        <i class="fa-solid fa-list"></i> Payment History
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="content-container active">
+                            <h1>Personal Information</h1>
+                            <div class="personal-information-container">
+                                <div>
+                                    <h2>First Name</h2>
+                                    <p><?php echo $_SESSION['user_first_name'] ?></p>
+                                </div>
+                                <div>
+                                    <h2>Middle Name</h2>
+                                    <p><?php echo  $_SESSION['user_middle_name'] ?></p>
+                                </div>
+                                <div>
+                                    <h2>Last Name</h2>
+                                    <p><?php echo $_SESSION['user_last_name'] ?></p>
+                                </div>
+                                <div>
+                                    <h2>Email</h2>
+                                    <p><?php echo $_SESSION['user_email'] ?></p>
+                                </div>
+                                <div>
+                                    <h2>Contact Number</h2>
+                                    <p><?php echo $_SESSION['user_contact_no'] ?></p>
+                                </div>
+                                <div>
+                                    <h2>Age</h2>
+                                    <p><?php echo $_SESSION['user_id'] ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+        <div id="paymentSchedModal" style="display: none;">
+            <div class="personal-information">
+                <div class="settings-container-profile">
+                    <div class="personal-information-sidebar">
+                        <div>
+                            <div class="profile-wrapper">
+                                <label for="file-upload">
+                                    <?php
+                                    $firstName = $_SESSION['user_first_name'] ?? 'User';
+                                    $lastName = $_SESSION['user_last_name'] ?? 'Name';
+                                    $profilePicture = $_SESSION['profile_picture'] ?? null;
+                                    if ($profilePicture && file_exists($profilePicture)) {
+                                        echo '<img src="' . htmlspecialchars($profilePicture) . '" alt="Profile" class="profile-img">';
+                                    } else {
+                                        $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                                        echo '<div class="profile-initials">' . $initials . '</div>';
+                                    }
+                                    ?>
+                                </label>
+                            </div>
+                            <form method="POST" enctype="multipart/form-data" id="upload-form">
+                                <input type="file" id="file-upload" name="profile_picture" accept="image/*" required onchange="previewImage(event)" style="display:none;">
+                                <button type="submit" id="submit-btn" class="btn" style="display:none;">Change Profile</button>
+                            </form>
+
+                            <div class="user-info">
+                                <h2><?php $fName = $_SESSION['user_first_name'];
+                                    $lName = $_SESSION['user_last_name'];
+                                    $name = $lName . ", " . $fName;
+                                    echo $name ?>
+                                </h2>
+                                <h3><?php echo $_SESSION['user_email'] ?></h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="content">
+                            <ul class="personal-information-sidebar">
+                                <li>
+                                    <button id="btnPersonalInformation" class="tab-btn active">
+                                        <i class="fa-solid fa-table-columns"></i> Personal Information
+                                    </button>
+                                </li>
+                                <li>
+                                    <button id="btnPaymentSched" class="tab-btn">
+                                        <i class="fa-solid fa-list"></i> Payment Schedule
+                                    </button>
+                                </li>
+                                <li>
+                                    <button id="btnPaymentHistory" class="tab-btn">
+                                        <i class="fa-solid fa-list"></i> Payment History
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="loan-summary">
+                                <div class="summary-card">
+                                    <h3>Total Loan Amount</h3>
+                                    <div class="amount" id="totalLoanAmountSched"></div>
+                                </div>
+                                <div class="summary-card">
+                                    <h3>Remaining Balance</h3>
+                                    <div class="amount" id="remainingBalanceSched"></div>
+                                </div>
+                                <div class="summary-card">
+                                    <h3>Next Payment Due</h3>
+                                    <div class="amount" id="nextPaymentDateSched"></div>
+                                </div>
+                                <div class="summary-card">
+                                    <h3>Next Payment Amount</h3>
+                                    <div class="amount" id="nextPaymentAmountSched"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="content-container active">
+                            <div class="payment-schedule">
+                                <div class="schedule-header">
+                                    <h3>Payment Schedule</h3>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Due Date</th>
+                                            <th>Amount Due</th>
+                                            <th>Principal</th>
+                                            <th>Interest</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="paymentScheduleBody"> </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <script>
+        function toggleProfileDropdown() {
+            const dropdown = document.querySelector('.profile-dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.profile-dropdown');
+            if (dropdown && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownMenu = document.querySelector('.profile-dropdown-menu');
+            if (dropdownMenu) {
+                dropdownMenu.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            }
+
+            const btnPaymentSched = document.getElementById("btnPaymentSched");
+            const btnPersonalInfo = document.getElementById("btnPersonalInfo");
+            const personalInfoModal = document.getElementById("personalInfoModal");
+            const paymentSchedModal = document.getElementById("paymentSchedModal");
+
+            btnPersonalInfo.addEventListener("click", () => {
+                personalInfoModal.style.display = "block";
+                paymentSchedModal.style.display = "none";
+            });
+            btnPaymentSched.addEventListener("click", () => {
+                paymentSchedModal.style.display = "block";
+                personalInfoModal.style.display = "none";
+            });
+            const modal = document.getElementById("profileModal");
+            const btn = document.getElementById("btnProfile");
+            btn.addEventListener("click", () => {
+                modal.style.display = "block";
+            });
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+
+        });
+    </script>
+    <script src="../js/paymentsched.js"></script>
 </body>
+
 </html>

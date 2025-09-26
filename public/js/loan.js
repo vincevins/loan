@@ -1,4 +1,3 @@
-        // document.addEventListener("DOMContentLoaded", function () {
         // Toggle mobile navigation
         document.getElementById('navToggle').addEventListener('click', function() {
             document.getElementById('mainNav').classList.toggle('active');
@@ -152,20 +151,38 @@
         const loanAmount = document.getElementById("loanAmount");
         const loanTerm = document.getElementById("loanTerm");
         const monthlyRateNoInterest = document.getElementById("monthlyRateNoInterest");
+        const totalInterest = document.getElementById("totalInterest");
         const wInterest = document.getElementById("wInterest");
+
         function computeInterest() {
         const amount = parseFloat(loanAmount.value) || 0;
         const term = parseInt(loanTerm.value) || 0;
-        const interest = 1.3; 
-          const monthlyNoInterest = amount / term;
-          monthlyRateNoInterest.value = monthlyNoInterest.toFixed(2);
-          const convert = interest / 100;
-          const monthlyInterest = amount * convert;
-          const monthlyWithInterest = monthlyNoInterest + monthlyInterest;
-          wInterest.value = monthlyWithInterest.toFixed(2);
+        const interest = 1.3;
+
+        if (amount > 0 && term > 0) {
+            const monthlyNoInterest = amount / term;
+            monthlyRateNoInterest.value = monthlyNoInterest.toFixed(2);
+            const convert = interest / 100;
+            const monthlyInterest = amount * convert;
+            const totalInterestValue = monthlyInterest * term;
+            totalInterest.value = monthlyInterest.toFixed(2);
+            const monthlyWithInterest = monthlyNoInterest + monthlyInterest;
+            wInterest.value = monthlyWithInterest.toFixed(2);
+
+            console.log("Amount:", amount, "Term:", term, "Total Interest:", totalInterestValue);
+        } else {
+            monthlyRateNoInterest.value = "";
+            totalInterest.value = "";
+            wInterest.value = "";
         }
+        }
+
         loanAmount.addEventListener("input", computeInterest);
+        loanTerm.addEventListener("input", computeInterest);
         loanTerm.addEventListener("change", computeInterest);
-       
+
+ 
+
+
 
 

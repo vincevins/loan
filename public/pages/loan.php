@@ -1,12 +1,17 @@
 <?php
 include 'nav.php';
-// session_start();
-// if (!isset($_SESSION['logged_in'])) {
-//     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
-//     exit();
-// }
-// $id = $_SESSION['user_account_id'];
-// echo "<h1>$id</h1>";
+if (!isset($_SESSION['logged_in'])) {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+$role = $_SESSION['user_role'];
+if ($role != 'user') {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+$id =   $_SESSION['user_account_id'];
+// echo $id
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +23,7 @@ include 'nav.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/loan.css">
+
 </head>
 
 <body>
@@ -25,14 +31,14 @@ include 'nav.php';
         <div class="container">
             <h2>Get The Funds You Need Quickly & Securely</h2>
             <p>Our online loan application process is fast, secure, and designed to get you the money you need with competitive rates and flexible terms.</p>
-            <a href="#apply" class="btn">Start Application</a>
+            <a href="#apply" class="btnLoan">Start Application</a>
         </div>
     </section>
 
     <section class="features">
         <div class="container">
             <div class="section-title">
-                <h2>Why Choose Paluwagan ni Carlos?</h2>
+                <h2>Why Choose F.L.O.W?</h2>
                 <p>We make borrowing simple, transparent, and convenient</p>
             </div>
             <div class="features-grid">
@@ -133,7 +139,7 @@ include 'nav.php';
                             </div>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btn" id="nextBtn">Next</button>
+                            <button type="button" class="btnLoan" id="nextBtn">Next</button>
                         </div>
                     </div>
 
@@ -179,8 +185,8 @@ include 'nav.php';
                             </div>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btn" id="prevBtn">Previous</button>
-                            <button type="button" class="btn" id="nextBtn2">Next</button>
+                            <button type="button" class="btnLoan" id="prevBtn">Previous</button>
+                            <button type="button" class="btnLoan" id="nextBtn2">Next</button>
                         </div>
                     </div>
 
@@ -223,6 +229,10 @@ include 'nav.php';
                                 <input type="text" id="percentageInterest" name="percentageInterest" class="form-control" value="1.3" disabled required>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="totalInterest">Interest</label>
+                            <input type="text" id="totalInterest" name="totalInterest" class="form-control" readonly required>
+                        </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="monthlyRateNoInterest">Monthly Payment (No Interest) (₱)</label>
@@ -231,12 +241,11 @@ include 'nav.php';
                             <div class="form-group">
                                 <label for="wInterest">Monthly Payment (With Interest) (₱)</label>
                                 <input type="text" id="wInterest" name="withInterest" readonly class="form-control" required>
-
                             </div>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btn" id="prevBtn2">Previous</button>
-                            <button type="button" class="btn" id="nextBtn3">Next</button>
+                            <button type="button" class="btnLoan" id="prevBtn2">Previous</button>
+                            <button type="button" class="btnLoan" id="nextBtn3">Next</button>
                         </div>
                     </div>
 
@@ -253,8 +262,8 @@ include 'nav.php';
                             </label>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btn" id="prevBtn3">Previous</button>
-                            <button type="submit" class="btn">Submit Application</button>
+                            <button type="button" class="btnLoan" id="prevBtn3">Previous</button>
+                            <button type="submit" class="btnLoan">Submit Application</button>
                         </div>
                     </div>
                 </form>
@@ -302,7 +311,7 @@ include 'nav.php';
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Paluwagan ni Carlos. All rights reserved.</p>
+                <p>&copy; 2025 F.L.O.W. All rights reserved.</p>
             </div>
         </div>
     </footer>
