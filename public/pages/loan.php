@@ -10,7 +10,11 @@ include 'nav.php';
 //     exit();
 // }
 // $id =   $_SESSION['user_account_id'];
+<<<<<<< HEAD
 // // echo $id
+=======
+// echo $id
+>>>>>>> 99e7349f64072b9510ce7d963db56c640f1e1999
 
 ?>
 <!DOCTYPE html>
