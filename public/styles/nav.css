@@ -28,7 +28,7 @@
 }
 
 .profile-dropdown {
-  margin-left: auto; /* Push to far right */
+  margin-left: auto; 
 }
 
 .profile-btn {
@@ -155,9 +155,9 @@ header {
   padding: 20px 0;
 }
 #mainNav {
-  flex: 1; /* Take available space between logo and profile */
+  flex: 1; 
   display: flex;
-  justify-content: center; /* Center nav links */
+  justify-content: center; 
 }
 .logo {
   display: flex;
