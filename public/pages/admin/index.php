@@ -1,3 +1,6 @@
+<?php
+include 'sidebar.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,53 +10,8 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-
 </head>
 <body>
-    <div class="dashboard-container">
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <h2>Loan Admin</h2>
-            </div>
-            <ul class="sidebar-nav">
-                <li><a href="index.php" class="active"><i class="icon-dashboard"></i>Dashboard</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-loans"></i>Loan Application
-                        <span class="dropdown-arrow">▼</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Pending</a></li>
-                        <li><a href="#">Under Review</a></li>
-                        <li><a href="#">Approved</a></li>
-                        <li><a href="#">Rejected</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-loans"></i>Active Loan
-                        <span class="dropdown-arrow">▼</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Payment History</a></li>
-                        <li><a href="#">Overdue</a></li>
-                        <li><a href="#">Paid Loans</a></li>
-                        <li><a href="#">Pending Loans</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-loans"></i>Fully Paid/Closed
-                        <span class="dropdown-arrow">▼</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Employee's Loan</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-
         <!-- Main Content -->
         <main class="main-content">
             <header class="main-header">
@@ -131,16 +89,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Dropdown logic
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            const menu = this.nextElementSibling;
-            menu.classList.toggle('show');
-        });
-    });
-
     // Notifications
     const bell = document.querySelector('.notification-bell');
     const dropdown = document.querySelector('.notification-dropdown');
