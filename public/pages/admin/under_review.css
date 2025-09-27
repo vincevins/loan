@@ -1,6 +1,5 @@
 table.dataTable {
-    border-collapse: separate; 
-    border-spacing: 0 10px; 
+    border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -13,27 +12,12 @@ table.dataTable thead {
     font-weight: bold;
 }
 
-th, td {
-    padding: 12px 15px;
-    vertical-align: middle;
-}
-
-
-table.dataTable tbody tr {
-    background: #fff; 
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
 table.dataTable tbody tr:nth-child(odd) {
     background: #f9f9f9;
 }
 
 table.dataTable tbody tr:hover {
     background: #ecf6fd;
-}
-
-table.dataTable tbody tr:hover td {
     cursor: pointer;
 }
 
@@ -46,8 +30,8 @@ table.dataTable tbody tr:hover td {
     border: none !important;
     border-radius: 6px !important;
     color: white !important;
-    font-size: 30px;
-    padding: 10px 15px !important;
+    font-size: 20px;
+    padding: 8px 12px !important;
     margin-right: 5px;
     cursor: pointer;
     transition: 0.3s;

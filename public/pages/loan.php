@@ -1,20 +1,20 @@
 <?php
 include 'nav.php';
-// if (!isset($_SESSION['logged_in'])) {
-//     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
-//     exit();
-// }
-// $role = $_SESSION['user_role'];
-// if ($role != 'user') {
-//     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
-//     exit();
-// }
-// $id =   $_SESSION['user_account_id'];
-<<<<<<< HEAD
+if (!isset($_SESSION['logged_in'])) {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+$role = $_SESSION['user_role'];
+if ($role != 'user') {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+$id =   $_SESSION['user_account_id'];
+// <<<<<<< HEAD
+// // // echo $id
+// =======
 // // echo $id
-=======
-// echo $id
->>>>>>> 99e7349f64072b9510ce7d963db56c640f1e1999
+// >>>>>>> 99e7349f64072b9510ce7d963db56c640f1e1999
 
 ?>
 <!DOCTYPE html>

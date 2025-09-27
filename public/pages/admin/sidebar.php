@@ -13,9 +13,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="pending.php">Pending</a></li>
-                        <li><a href="#">Under Review</a></li>
-                        <li><a href="#">Approved</a></li>
-                        <li><a href="#">Rejected</a></li>
+                        <li><a href="under_review.php">Under Review</a></li>
+                        <li><a href="approved.php">Approved</a></li>
+                        <li><a href="rejected.php">Rejected</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -76,56 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', function() {
         profileDropdown.style.display = 'none';
     });
-
-
-    // Charts
-    const ctxLeft = document.getElementById('barChartLeft').getContext('2d');
-    const ctxRight = document.getElementById('barChartRight').getContext('2d');
-
-    new Chart(ctxLeft, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Application Monthly Rate',
-                data: [5, 10, 20, 30, 40, 10, 20, 30, 40,5, 10, 20],
-                borderColor: 'rgba(52, 152, 219, 1)',
-                backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                fill: true,
-                tension: 0.3,
-                pointBackgroundColor: 'rgba(52, 152, 219, 1)',
-                pointRadius: 5
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: { legend: { display: true } },
-            scales: { y: { beginAtZero: true } }
-        }
-    });
-
-    new Chart(ctxRight, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Revenue',
-                data: [5, 10, 20, 30, 40, 10, 20, 30, 40,5, 10, 20],
-                borderColor: 'rgba(52, 152, 219, 1)',
-                backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                fill: true,
-                tension: 0.3,
-                pointBackgroundColor: 'rgba(52, 152, 219, 1)',  
-                pointRadius: 5
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: { legend: { display: true } },
-            scales: { y: { beginAtZero: true } }
-        }
-    });
-
     console.log('Line charts initialized ✅');
 });
 </script>
