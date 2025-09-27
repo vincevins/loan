@@ -1,5 +1,15 @@
 <?php
 include 'nav.php';
+if (!isset($_SESSION['logged_in'])) {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+$role = $_SESSION['user_role'];
+if ($role != 'user') {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}   
+$id =   $_SESSION['user_account_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

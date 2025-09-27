@@ -30,6 +30,7 @@ if ($role != 'user') {
                 <nav id="mainNav">
                     <ul class="navCenter">
                         <li><a href="loan.php">Home</a></li>
+                        <li><a href="payment_tracker.php">Payment Tracker</a></li>
                         <li><a href="#">Loan Options</a></li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Contact</a></li>

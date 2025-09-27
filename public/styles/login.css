@@ -36,7 +36,7 @@ body {
 
 .welcome-container {
   flex: 1;
-  background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, #4361ee 0%, #222236 100%);
   color: white;
   padding: 40px;
   display: flex;
@@ -122,7 +122,7 @@ body {
   width: 100%;
   padding: 15px;
   border: none;
-  background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, #4361ee 0%, #222236 100%);
   color: white;
   border-radius: 50px;
   cursor: pointer;
