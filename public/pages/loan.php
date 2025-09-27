@@ -1,17 +1,20 @@
 <?php
 include 'nav.php';
 if (!isset($_SESSION['logged_in'])) {
+    session_unset();
+    session_destroy();
     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
 }
 $role = $_SESSION['user_role'];
 if ($role != 'user') {
+    session_unset();
+    session_destroy();
     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
 }
-$id =   $_SESSION['user_account_id'];
+$id =   $_SESSION['created'];
 // echo $id
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +26,11 @@ $id =   $_SESSION['user_account_id'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/loan.css">
-
+    <link rel="stylesheet" href="../styles/progressApplication.css">
 </head>
+<style>
+
+</style>
 
 <body>
     <section class="hero">
@@ -34,7 +40,7 @@ $id =   $_SESSION['user_account_id'];
             <a href="#apply" class="btnLoan">Start Application</a>
         </div>
     </section>
-
+    <div id="sessionLoan" data-session-status="<?php echo htmlspecialchars($_SESSION['user_status_loan']) ?>"></div>
     <section class="features">
         <div class="container">
             <div class="section-title">
@@ -68,7 +74,7 @@ $id =   $_SESSION['user_account_id'];
                 <p>Complete our simple form to get started</p>
             </div>
 
-            <div class="application-form">
+            <div class="application-form" id="application-form">
                 <div class="progress-bar">
                     <div class="progress-step step-active">
                         <div class="step-number">1</div>
@@ -268,6 +274,30 @@ $id =   $_SESSION['user_account_id'];
                     </div>
                 </form>
             </div>
+            <div class="container-application" id="hasLoan" style="display:none;">
+                <div class="progress-bar-application">
+                    <div class="progress-step-application step-active-application" id="step1">
+                        <div class="step-number-application">✔</div>
+                        <div class="step-label-application">Submitted:</div>
+                        <div class="step-label-application" id="submittedDate"></div>
+                    </div>
+                    <div class="progress-step-application step-active-application" id="step2">
+                        <div class="step-number-application"><i class="fas fa-user-check text-warning"></i></div>
+                        <div class="step-label-application">HR Verification</div>
+                        <div class="step-label-application" id="hrverifyStatus"></div>
+                    </div>
+                    <div class="progress-step-application step-active-application" id="step3">
+                        <div class="step-number-application">✔</div>
+                        <div class="step-label-application">Loan Officer Approval</div>
+                        <div class="step-label-application" id="verifyStatus"></div>
+                    </div>
+                    <div class="progress-step-application step-active-application" id="step4">
+                        <div class="step-number-application">✔</div>
+                        <div class="step-label-application">Application Approved</div>
+                        <div class="step-label-application" id="applicationStatus"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -314,9 +344,11 @@ $id =   $_SESSION['user_account_id'];
                 <p>&copy; 2025 F.L.O.W. All rights reserved.</p>
             </div>
         </div>
-    </footer>
 
+    </footer>
+    <style></style>
     <script src="../js/loan.js"></script>
+    <script src="../js/loanForm.js"></script>
 </body>
 
 </html>

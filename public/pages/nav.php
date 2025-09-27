@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php session_start(); 
+$role = $_SESSION['user_role'];
+if ($role != 'user') {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+?>
 
 <html lang="en">
 
@@ -317,6 +323,7 @@
             const btn = document.getElementById("btnProfile");
             btn.addEventListener("click", () => {
                 modal.style.display = "block";
+                dropdownMenu.style.display = "none";
             });
             window.addEventListener("click", (event) => {
                 if (event.target === modal) {

@@ -1,3 +1,13 @@
+<?php
+session_start();
+$role = $_SESSION['user_role'];
+if ($role != 'admin') {
+    session_unset();
+    session_destroy();
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

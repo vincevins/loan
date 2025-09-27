@@ -24,7 +24,8 @@ class Getapplication extends Database
             $_SESSION['amount_loan'] = $row['loan_amount'];
             $_SESSION['loan_id'] = $row['loanID'];
             $_SESSION['total_interest'] = $row['interest'];
-             $_SESSION['accountID_info'] = $row['account_id'];
+            $_SESSION['accountID_info'] = $row['account_id'];
+            $_SESSION['created'] = $row['created_at'];
         }
         echo json_encode($information);
     }

@@ -34,6 +34,7 @@ class AuthLogin extends Database
             $_SESSION['user_contact_no'] = $user['contact_no'];
             $_SESSION['user_birthdate'] = $user['birthdate'];
             $_SESSION['user_role'] = $user['role'];
+            $_SESSION['user_status_loan'] = $user['hasLoan'];
             return json_encode(["status" => "success", 'reset_required' => false, 'message' => 'Login successful', "role" => $user['role']]);
         }
         return json_encode(['status' => "error", 'message' => 'Invalid email or password.']);
