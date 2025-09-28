@@ -23,6 +23,7 @@ class ApproveApplication extends Database{
         return $response;
     }
     public function setSched(){
+        $studentNo = $_SESSION['user_student_no'];
         $accountID =   $_SESSION['accountID_info'];
         $total_interest = $_SESSION['total_interest'];
         $loanID = $_SESSION['loan_id'];
@@ -39,12 +40,13 @@ class ApproveApplication extends Database{
             $schedID = 'SCHEDULE-' . bin2hex(random_bytes(8));
             $dueDate = date("Y-m-d H:i:s", strtotime("+$i months", strtotime($approval_date)));
             $endBalance = $balance - $withInterest;
-            $setSchedule = "INSERT INTO `loan_payment_schedule`(`schedule_id`, `loanID`, `account_id`, `payment_number`, `due_date`, `monthly_payment_no_interest`,`interest`, `total_payment_due`, `beginning_balance`, `ending_balance`, `payment_status`)  
-            VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            $setSchedule = "INSERT INTO `loan_payment_schedule`(`student_no`,`schedule_id`, `loanID`, `account_id`, `payment_number`, `due_date`, `monthly_payment_no_interest`,`interest`, `total_payment_due`, `beginning_balance`, `ending_balance`, `payment_status`)  
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $this->conn->prepare($setSchedule);
-            $stmt->bind_param('sssisddddds', $schedID, $loanID,$accountID, $payment_number, $dueDate, $noInterest,$total_interest, $withInterest, $balance, $endBalance, $status);
+            $stmt->bind_param('ssssisddddds', $studentNo,$schedID, $loanID,$accountID, $payment_number, $dueDate, $noInterest,$total_interest, $withInterest, $balance, $endBalance, $status);
             $stmt->execute();
              $schedules[] = [
+                "Student_no" => $studentNo,
                 "schedule_id" => $schedID,
                 "loanID" => $loanID,
                 "account_id" => $accountID,
@@ -62,27 +64,12 @@ class ApproveApplication extends Database{
         $response = ["status" => "success", "message" => "Record sched successfully", "data" => $schedules ];
         return $response;
     }
-    public function hasLoan(){
-        $hasLoan = true;
-        $id = $_SESSION['accountID_info'];
-        $updateStatus = "UPDATE `tbl_accounts` SET hasLoan = ? where account_id = ?";
-        $stmt = $this->conn->prepare($updateStatus);
-        $stmt->bind_param('ss',$hasLoan,$id);
-        if ($stmt->execute()) {
-            http_response_code(200);
-            $response = ["status" => "success", "message" => "Record updated successfully."];
-        }else {
-            http_response_code(500);
-            $response = ["status" => "error", "message" => "Failed to update record."];
-        }
-        return $response;
-    }
+
 }
 $approval = new ApproveApplication();
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
     $approvalData = $approval->approveApplications($id); 
     $schedData = $approval->setSched();
-    $loan = $approval->hasLoan();
-    echo json_encode(["approval"=> $approvalData,"schedule" => $schedData,"loan" => $loan]);
+    echo json_encode(["approval"=> $approvalData,"schedule" => $schedData]);
 }

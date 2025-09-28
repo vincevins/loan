@@ -13,7 +13,7 @@ if ($role != 'user') {
     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
 }
-$id =   $_SESSION['created'];
+// $id =   $_SESSION['created'];
 // echo $id
 ?>
 <!DOCTYPE html>
@@ -152,17 +152,24 @@ $id =   $_SESSION['created'];
                     <!-- Step 2: Employment & Financial Information -->
                     <div class="form-step" id="step2">
                         <h3>Employment & Financial Information</h3>
-                        <div class="form-group">
-                            <label for="employment">Employment Status</label>
-                            <select id="employment" name="employment" class="form-control" required>
-                                <option value="">Select Employment Status</option>
-                                <option value="employed">Employed</option>
-                                <option value="self-employed">Self-Employed</option>
-                                <option value="unemployed">Unemployed</option>
-                                <option value="retired">Retired</option>
-                                <option value="student">Student</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="employeeID">Employee ID</label>
+                                <input type="text" id="employeeID" name="employeeID" placeholder="Input Your Student No." class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employment">Employment Status</label>
+                                <select id="employment" name="employment" class="form-control" required>
+                                    <option value="">Select Employment Status</option>
+                                    <option value="employed">Employed</option>
+                                    <option value="self-employed">Self-Employed</option>
+                                    <option value="unemployed">Unemployed</option>
+                                    <option value="retired">Retired</option>
+                                    <option value="student">Student</option>
+                                </select>
+                            </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="employerName">Employer Name</label>
@@ -286,7 +293,7 @@ $id =   $_SESSION['created'];
                         <div class="step-number-application" id="step2Review"> <i class="fas fa-file-alt"></i>
                             <i class="fas fa-search"></i>
                         </div>
-                         <div class="step-number-application" id="step2Approved" style="display: none;">✔</div>
+                        <div class="step-number-application" id="step2Approved" style="display: none;">✔</div>
                         <div class="step-label-application">HR Verification</div>
                         <div class="step-label-application" id="hrverifyStatus"></div>
                     </div>

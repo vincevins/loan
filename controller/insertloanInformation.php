@@ -3,12 +3,11 @@ session_start();
 require_once '../config/config.php';
 header("Content-Type: application/json; charset=UTF-8");
 class InsertloanInformation extends Database{
-    public function insertData($applicationId, $loanID, $accountId, $firstName, $middleName, $lastName, $email, $phone, $dob, $address, $city, $province, $zipCode, $employment, $employerName, $employmentLength, $income, $housing, $loanAmount, $loanPurpose, $loanTerm, $interestRate,$totalInterest, $monthlyPaymentNoInterest, $monthlyPayment, $appDate){
-        $insertQuery = "INSERT INTO `loan_information`
-        (`application_id`, `loanID`, `account_id`, `first_name`, `middle_name`, `last_name`, `email`, `contact_no`, `dob`, `address`, `city`, `province`, `zip_code`, `employment_status`, `employer_name`, `employment_length`, `annual_income`, `housing_payment`, `loan_amount`, `loan_purpose`, `loan_term`, `interest_rate`,`interest`, `monthly_payment_no_interest`, `monthly_payment`, `application_date`) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public function insertData($employeeID,$applicationId, $loanID, $accountId, $firstName, $middleName, $lastName, $email, $phone, $dob, $address, $city, $province, $zipCode, $employment, $employerName, $employmentLength, $income, $housing, $loanAmount, $loanPurpose, $loanTerm, $interestRate,$totalInterest, $monthlyPaymentNoInterest, $monthlyPayment, $appDate){
+        $insertQuery = "INSERT INTO `loan_information` (`student_no`,`application_id`, `loanID`, `account_id`, `first_name`, `middle_name`, `last_name`, `email`, `contact_no`, `dob`, `address`, `city`, `province`, `zip_code`, `employment_status`, `employer_name`, `employment_length`, `annual_income`, `housing_payment`, `loan_amount`, `loan_purpose`, `loan_term`, `interest_rate`,`interest`, `monthly_payment_no_interest`, `monthly_payment`, `application_date`) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($insertQuery);
-        $stmt->bind_param('ssssssssssssssssdddsddddds',$applicationId,$loanID,$accountId,$firstName,$middleName,$lastName,$email,$phone,$dob,$address,$city,
+        $stmt->bind_param('sssssssssssssssssdddsddddds',$employeeID,$applicationId,$loanID,$accountId,$firstName,$middleName,$lastName,$email,$phone,$dob,$address,$city,
             $province,$zipCode,$employment,$employerName,$employmentLength,$income,$housing,$loanAmount,$loanPurpose,$loanTerm,$interestRate,$totalInterest,$monthlyPaymentNoInterest,$monthlyPayment,$appDate);
         if ($stmt->execute()) {
             http_response_code(200);
@@ -18,7 +17,23 @@ class InsertloanInformation extends Database{
             echo json_encode(["status" => "error", "message" => "Failed to insert data: " . $stmt->error]);
         }
     }
+        public function hasLoan(){
+        $hasLoan = true;
+        $id = $_SESSION['user_account_id'];
+        $updateStatus = "UPDATE `tbl_accounts` SET hasLoan = ? where account_id = ?";
+        $stmt = $this->conn->prepare($updateStatus);
+        $stmt->bind_param('ss',$hasLoan,$id);
+        if ($stmt->execute()) {
+            http_response_code(200);
+            $response = ["status" => "success", "message" => "Record updated successfully."];
+        }else {
+            http_response_code(500);
+            $response = ["status" => "error", "message" => "Failed to update record."];
+        }
+        return $response;
+    }
 }
+
 $loan = new InsertloanInformation();
 $timestamp = time();
 $randomNumber = mt_rand(1000, 9999);
@@ -50,6 +65,8 @@ if (isset($_POST['firstName'])) {
     $monthlyPaymentNoInterest = $_POST['RateNoInterest'];
     $monthlyPayment = $_POST['withInterest'];
     $totalInterest = $_POST['totalInterest'];
-    $loan->insertData($applicationId,$loanID,$accountId,$firstName,$middleName,$lastName,$email,$phone,$dob,$address,$city,$province,$zipCode,
+    $employeeID = $_POST['employeeID'];
+    $loan->insertData($employeeID,$applicationId,$loanID,$accountId,$firstName,$middleName,$lastName,$email,$phone,$dob,$address,$city,$province,$zipCode,
         $employment,$employerName,$employmentLength,$income,$housing,$loanAmount,$loanPurpose,$loanTerm,$interestRate,$totalInterest,$monthlyPaymentNoInterest,$monthlyPayment,$appDate);
+    $loan->hasLoan();
 }
