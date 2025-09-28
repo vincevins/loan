@@ -45,19 +45,20 @@ async function getApplication() {
       const txtApproval = capitalizeFirstLetter(hrApproval);
       hrverifyStatus.textContent = txtApproval;
     }
-    if(adminApproval.trim().toLowerCase() === "approved"){
-        step3Review.style.display = "none"
-        step3Approved.style.display = "flex"
-        const txtAdmin = capitalizeFirstLetter(adminApproval)
-        verifyStatus.textContent = txtAdmin
+    if (adminApproval.trim().toLowerCase() === "approved") {
+      step3Review.style.display = "none";
+      step3Approved.style.display = "flex";
+      const txtAdmin = capitalizeFirstLetter(adminApproval);
+      verifyStatus.textContent = txtAdmin;
     }
-    if(adminApproval.trim().toLowerCase() === "approved" && hrApproval.trim().toLowerCase() === "approved" ){
-        step4Approved.style.display = "flex"
-        step4Review.style.display = "none"
-        step4Txt.textContent = "Approved"
+    if (
+      adminApproval.trim().toLowerCase() === "approved" &&
+      hrApproval.trim().toLowerCase() === "approved"
+    ) {
+      step4Approved.style.display = "flex";
+      step4Review.style.display = "none";
+      step4Txt.textContent = "Approved";
     }
-
-
     console.log("Data: ", result);
   } catch (error) {
     console.error(error.message);
@@ -65,3 +66,4 @@ async function getApplication() {
   }
 }
 getApplication();
+

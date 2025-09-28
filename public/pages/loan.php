@@ -282,37 +282,45 @@ if ($role != 'user') {
                 </form>
             </div>
             <div class="container-application" id="hasLoan" style="display:none;">
-                <h1 style="text-align: center; margin-bottom:20px;">Application Status</h1>
-                <div class="progress-bar-application">
-                    <div class="progress-step-application step-active-application" id="step1">
-                        <div class="step-number-application">✔</div>
-                        <div class="step-label-application">Submitted:</div>
-                        <div class="step-label-application" id="submittedDate"></div>
-                    </div>
-                    <div class="progress-step-application step-active-application" id="step2">
-                        <div class="step-number-application" id="step2Review"> <i class="fas fa-file-alt"></i>
-                            <i class="fas fa-search"></i>
+                <div id="applicationFormStatus">
+                    <h1 style="text-align: center; margin-bottom:20px;">Application Status</h1>
+                    <div class="progress-bar-application">
+                        <div class="progress-step-application step-active-application" id="step1">
+                            <div class="step-number-application">✔</div>
+                            <div class="step-label-application">Submitted:</div>
+                            <div class="step-label-application" id="submittedDate"></div>
                         </div>
-                        <div class="step-number-application" id="step2Approved" style="display: none;">✔</div>
-                        <div class="step-label-application">HR Verification</div>
-                        <div class="step-label-application" id="hrverifyStatus"></div>
-                    </div>
-                    <div class="progress-step-application step-active-application" id="step3">
-                        <div class="step-number-application" id="step3Review"> <i class="fas fa-file-alt"></i>
-                            <i class="fas fa-search"></i>
+                        <div class="progress-step-application step-active-application" id="step2">
+                            <div class="step-number-application" id="step2Review"> <i class="fas fa-file-alt"></i>
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="step-number-application" id="step2Approved" style="display: none;">✔</div>
+                            <div class="step-label-application">HR Verification</div>
+                            <div class="step-label-application" id="hrverifyStatus"></div>
                         </div>
-                        <div class="step-number-application" id="step3Approved" style="display: none;">✔</div>
-                        <div class="step-label-application">Loan Officer Approval</div>
-                        <div class="step-label-application" id="verifyStatus"></div>
-                    </div>
-                    <div class="progress-step-application step-active-application" id="step4">
-                        <div class="step-number-application" id="step4Review"> <i class="fas fa-file-alt"></i>
-                            <i class="fas fa-search"></i>
+                        <div class="progress-step-application step-active-application" id="step3">
+                            <div class="step-number-application" id="step3Review"> <i class="fas fa-file-alt"></i>
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="step-number-application" id="step3Approved" style="display: none;">✔</div>
+                            <div class="step-label-application">Loan Officer Approval</div>
+                            <div class="step-label-application" id="verifyStatus"></div>
                         </div>
-                        <div class="step-number-application" id="step4Approved" style="display: none;">✔</div>
-                        <div class="step-label-application">Application Status</div>
-                        <div class="step-label-application" id="step4Txt">Application Under Review</div>
+                        <div class="progress-step-application step-active-application" id="step4">
+                            <div class="step-number-application" id="step4Review"> <i class="fas fa-file-alt"></i>
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="step-number-application" id="step4Approved" style="display: none;">✔</div>
+                            <div class="step-label-application">Application Status</div>
+                            <div class="step-label-application" id="step4Txt">Application Under Review</div>
+                        </div>
                     </div>
+                </div>
+
+                <button type="button" class="viewApplication" id="viewApplication">View Application Details</button>
+                <button type="button" class="ApplicationStatus" id="ApplicationStatus" style="display:none;">Back to Application Status</button>
+                <div id="ApplicationDetails">
+                    <!-- Review content will be populated by JavaScript -->
                 </div>
             </div>
         </div>
@@ -361,9 +369,8 @@ if ($role != 'user') {
                 <p>&copy; 2025 F.L.O.W. All rights reserved.</p>
             </div>
         </div>
-
     </footer>
-    <style></style>
+    <script src="../js/btnViewApplication.js"></script>
     <script src="../js/loan.js"></script>
     <script src="../js/loanForm.js"></script>
 </body>

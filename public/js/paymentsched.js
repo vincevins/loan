@@ -54,14 +54,11 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
         break;
       }
     }
-    remaining.textContent =
-      "₱" + Number(display.beginning_balance).toLocaleString();
+    remaining.textContent ="₱" + Number(display.beginning_balance).toLocaleString();
     var date = new Date(display.due_date);
     let dateFormat = date.toDateString();
     nextDue.textContent = dateFormat;
-    nextPayment.textContent =
-      "₱" + Number(display.total_payment_due).toLocaleString();
-
+    nextPayment.textContent ="₱" + Number(display.total_payment_due).toLocaleString();
     const ListContainer = document.querySelector(".paymentScheduleBody");
     ListContainer.innerHTML = "";
     data.forEach((item, index) => {
@@ -94,15 +91,12 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
 
   btnPersonalInfo.addEventListener("click", () => {
     personalInfoModal.style.display = "block";
-     paymentSchedModal.style.display = "none";
-    
+    paymentSchedModal.style.display = "none";
 
   });
   btnPaymentSched.addEventListener("click", () => {
     personalInfoModal.style.display = "none";
     paymentSchedModal.style.display = "block";
-    
-
   });
 
 

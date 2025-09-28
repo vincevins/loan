@@ -17,7 +17,7 @@ class InsertloanInformation extends Database{
             echo json_encode(["status" => "error", "message" => "Failed to insert data: " . $stmt->error]);
         }
     }
-        public function hasLoan(){
+    public function hasLoan(){
         $hasLoan = true;
         $id = $_SESSION['user_account_id'];
         $updateStatus = "UPDATE `tbl_accounts` SET hasLoan = ? where account_id = ?";

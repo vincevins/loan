@@ -63,3 +63,37 @@
   color: #4361ee;
   font-weight: 600;
 }
+.viewApplication {
+  border-width: 2px;
+  border-style: solid;
+  border-color: blue;
+  width: 255px;
+  height: 50px;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  background-color: white;
+  color: black;
+  text-align: center;
+  line-height: 39px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+.ApplicationStatus {
+  border-width: 2px;
+  border-style: solid;
+  border-color: blue;
+  width: 255px;
+  height: 50px;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  background-color: white;
+  color: black;
+  text-align: center;
+  line-height: 39px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
