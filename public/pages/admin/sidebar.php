@@ -36,7 +36,7 @@
                         <span class="dropdown-arrow">▼</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Employee's Loan</a></li>
+                        <li><a href="emp_loan.php">Employee's Loan</a></li>
                     </ul>
                 </li>
             </ul>
