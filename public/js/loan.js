@@ -87,7 +87,7 @@
             });
             
             if (!isValid) {
-                alert('Please fill in all required fields.');
+               showToast('error','Please fill in all required fields.')
             }
             
             return isValid;
@@ -123,6 +123,36 @@
             </div>`;
             reviewContent.innerHTML = html;
         }
+        function showToast(type, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            let iconClass = '';
+            if (type === 'success') {
+                iconClass = 'fa fa-check';
+            } else if (type === 'error') {
+                iconClass = 'fa fa-times';
+            }
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="${iconClass}" aria-hidden="true"></i>
+                </div>
+                <div class="toast-message">${message}</div>
+                <button class="toast-close" onclick="closeToast(this)">x</button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                closeToast(toast.querySelector('.toast-close'));
+            }, 5000);
+        }
+        function closeToast(btn) {
+            const toast = btn.parentElement;
+            toast.classList.add('removing');
+
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }
         document.getElementById('loanApplicationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this); 
@@ -137,7 +167,12 @@
                 if (!response.ok) {
                     throw new Error(result.message || `Error ${response.status}`);
                 }
-                alert(result.message || "Application submitted successfully!");
+                // alert(result.message || "Application submitted successfully!");
+                if(result.success){
+                    showToast('success', result.message)
+                }else{
+                    showToast('error', result.message)
+                }
                 this.reset();
                 currentStep = 0;
                 updateFormStep();

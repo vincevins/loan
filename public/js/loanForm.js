@@ -28,9 +28,9 @@ async function getApplication() {
   const url = "http://localhost/casestudy-loan/loan/controller/application.php";
   try {
     const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`Response status: ${res.status}`);
-    }
+    // if (!res.ok) {
+    //   throw new Error(`Response status: ${res.status}`);
+    // }
     const result = await res.json();
     const date = new Date(result[0].created_at);
     const options = { month: "long", day: "numeric", year: "numeric" };
@@ -61,8 +61,8 @@ async function getApplication() {
     }
     console.log("Data: ", result);
   } catch (error) {
-    console.error(error.message);
-    alert("Something went wrong: " + error.message);
+    // console.error(error.message);
+    // alert("Something went wrong: " + error.message);
   }
 }
 getApplication();
