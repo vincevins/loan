@@ -20,14 +20,22 @@
   background: #f8f9fa;
 }
 
-.profile-img {
-  width: 35px;
-  height: 35px;
+.navProfile-img {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e9ecef;
+  
 }
-
+.profile-img {
+  object-fit: cover;
+  border: 2px solid #e9ecef;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  cursor: pointer;
+}
 .profile-initials {
   width: 35px;
   height: 35px;
@@ -125,7 +133,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 #mainNav {
   flex: 1; 

@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 $role = $_SESSION['user_role'];
 if ($role != 'user') {
     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
@@ -41,10 +41,9 @@ if ($role != 'user') {
                         <?php
                         $firstName = $_SESSION['user_first_name'] ?? 'User';
                         $lastName = $_SESSION['user_last_name'] ?? 'Name';
-                        $profilePicture = $_SESSION['profile_picture'] ?? null;
-
-                        if ($profilePicture && file_exists($profilePicture)) {
-                            echo '<img src="' . htmlspecialchars($profilePicture) . '" alt="Profile" class="profile-img">';
+                        if (!empty($_SESSION['profile_picture'])) {
+                            $base64 = base64_encode($_SESSION['profile_picture']);
+                            echo '<img src="data:image/jpeg;base64,' . $base64 . '"  alt="Profile" class="navProfile-img" id="navProfile-img">';
                         } else {
                             $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
                             echo '<div class="profile-initials">' . $initials . '</div>';
@@ -101,10 +100,11 @@ if ($role != 'user') {
                                     <?php
                                     $firstName = $_SESSION['user_first_name'] ?? 'User';
                                     $lastName = $_SESSION['user_last_name'] ?? 'Name';
-                                    $profilePicture = $_SESSION['profile_picture'] ?? null;
-
-                                    if ($profilePicture && file_exists($profilePicture)) {
-                                        echo '<img src="' . htmlspecialchars($profilePicture) . '" alt="Profile" class="profile-img">';
+                                    // $profilePicture = $_SESSION['profile_picture'] ?? null;
+                                    if (!empty($_SESSION['profile_picture'])) {
+                                        $base64 = base64_encode($_SESSION['profile_picture']);
+                                        echo '<img src="data:image/jpeg;base64,' . $base64 . '"  alt="Profile" class="profile-img" id="profile-img"
+                                        >';
                                     } else {
                                         $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
                                         echo '<div class="profile-initials">' . $initials . '</div>';
@@ -112,12 +112,7 @@ if ($role != 'user') {
                                     ?>
                                 </label>
                             </div>
-
-                            <form method="POST" enctype="multipart/form-data" id="upload-form">
-                                <input type="file" id="file-upload" name="profile_picture" accept="image/*" required onchange="previewImage(event)" style="display:none;">
-                                <button type="submit" id="submit-btn" class="btn" style="display:none;">Change Profile</button>
-                            </form>
-
+                            <input type="file" id="file-upload" name="profile_picture" accept="image/*" style="display:none;">
                             <div class="user-info">
                                 <h2><?php $fName = $_SESSION['user_first_name'];
                                     $lName = $_SESSION['user_last_name'];
@@ -174,7 +169,7 @@ if ($role != 'user') {
                                 </div>
                                 <div>
                                     <h2>Age</h2>
-                                    <p><?php echo $_SESSION['user_id'] ?></p>
+                                    <p><?php echo $_SESSION['user_age'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -194,9 +189,9 @@ if ($role != 'user') {
                                     <?php
                                     $firstName = $_SESSION['user_first_name'] ?? 'User';
                                     $lastName = $_SESSION['user_last_name'] ?? 'Name';
-                                    $profilePicture = $_SESSION['profile_picture'] ?? null;
-                                    if ($profilePicture && file_exists($profilePicture)) {
-                                        echo '<img src="' . htmlspecialchars($profilePicture) . '" alt="Profile" class="profile-img">';
+                                    if (!empty($_SESSION['profile_picture'])) {
+                                        $base64 = base64_encode($_SESSION['profile_picture']);
+                                        echo '<img src="data:image/jpeg;base64,' . $base64 . '" alt="Profile" class="profile-img" id="profile-img">';
                                     } else {
                                         $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
                                         echo '<div class="profile-initials">' . $initials . '</div>';
@@ -205,8 +200,17 @@ if ($role != 'user') {
                                 </label>
                             </div>
                             <form method="POST" enctype="multipart/form-data" id="upload-form">
-                                <input type="file" id="file-upload" name="profile_picture" accept="image/*" required onchange="previewImage(event)" style="display:none;">
-                                <button type="submit" id="submit-btn" class="btn" style="display:none;">Change Profile</button>
+                                <input
+                                    type="file"
+                                    id="file-upload"
+                                    name="profile_picture"
+                                    accept="image/*"
+                                    required
+                                    onchange="previewImage(event)"
+                                    style="display:none;">
+                                <button type="submit" id="submit-btn" class="btn" style="display:none; margin-top:10px;">
+                                    Change Profile
+                                </button>
                             </form>
 
                             <div class="user-info">
@@ -334,6 +338,7 @@ if ($role != 'user') {
 
         });
     </script>
+    <script src="../js/profilePic.js"></script>
     <script src="../js/paymentsched.js"></script>
 </body>
 

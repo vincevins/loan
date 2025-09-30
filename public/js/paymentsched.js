@@ -2,20 +2,13 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
   .then((response) => response.json())
   .then((data) => {
     console.log("Fetched:", data);
-    const totalLoanAmountSched = document.getElementById(
-      "totalLoanAmountSched"
-    );
-    const remainingBalanceSched = document.getElementById(
-      "remainingBalanceSched"
-    );
-    const nextPaymentDateSched = document.getElementById(
-      "nextPaymentDateSched"
-    );
-    const nextPaymentAmountSched = document.getElementById(
-      "nextPaymentAmountSched"
-    );
-
-    if (data[11].payment_status === "paid") {
+    const totalLoanAmountSched = document.getElementById("totalLoanAmountSched");
+    const remainingBalanceSched = document.getElementById("remainingBalanceSched");
+    const nextPaymentDateSched = document.getElementById("nextPaymentDateSched");
+    const nextPaymentAmountSched = document.getElementById("nextPaymentAmountSched");
+    if(totalLoanAmountSched === '' || totalLoanAmountSched === null){
+       totalLoanAmountSched.textContent = "₱ 0.00";
+    }else if (data[11].payment_status === "paid") {
       totalLoanAmountSched.textContent = "₱ 0.00";
     } else {
       totalLoanAmountSched.textContent =
@@ -28,13 +21,11 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
         break;
       }
     }
-    remainingBalanceSched.textContent =
-      "₱" + Number(dis.beginning_balance).toLocaleString();
+    remainingBalanceSched.textContent ="₱" + Number(dis.beginning_balance).toLocaleString();
     var date = new Date(dis.due_date);
     let dateFormatter = date.toDateString();
     nextPaymentDateSched.textContent = dateFormatter;
-    nextPaymentAmountSched.textContent =
-      "₱" + Number(dis.total_payment_due).toLocaleString();
+    nextPaymentAmountSched.textContent ="₱" + Number(dis.total_payment_due).toLocaleString();
 
     const totalAmmount = document.getElementById("totalLoanAmount");
     const remaining = document.getElementById("remainingBalance");
