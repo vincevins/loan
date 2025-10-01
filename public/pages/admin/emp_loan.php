@@ -27,7 +27,7 @@ include 'sidebar.php';
         <h1>Employee Loan Applications</h1>
         <div class="user-info">
             <div class="notification-container">
-                <img src="pictures/notification.gif" alt="Notifications" class="notification-bell">
+                <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
                 <div class="notification-dropdown">
                     <p>No new notifications</p>
                 </div>
