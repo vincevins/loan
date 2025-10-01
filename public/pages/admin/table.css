@@ -1,7 +1,7 @@
 table.dataTable {
-    border-collapse: separate; 
-    border-spacing: 0 10px; 
-    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0 8px; 
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     background: #fff;
@@ -13,28 +13,22 @@ table.dataTable thead {
     font-weight: bold;
 }
 
-th, td {
-    padding: 12px 15px;
-    vertical-align: middle;
-}
-
-
 table.dataTable tbody tr {
-    background: #fff; 
-    border-radius: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-table.dataTable tbody tr:nth-child(odd) {
-    background: #f9f9f9;
 }
 
 table.dataTable tbody tr:hover {
     background: #ecf6fd;
+    transform: scale(1.01);
+    cursor: pointer;
 }
 
-table.dataTable tbody tr:hover td {
-    cursor: pointer;
+table.dataTable tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
 }
 
 .dt-buttons {
@@ -46,8 +40,8 @@ table.dataTable tbody tr:hover td {
     border: none !important;
     border-radius: 6px !important;
     color: white !important;
-    font-size: 30px;
-    padding: 10px 15px !important;
+    font-size: 16px;
+    padding: 8px 12px !important;
     margin-right: 5px;
     cursor: pointer;
     transition: 0.3s;
@@ -60,14 +54,29 @@ table.dataTable tbody tr:hover td {
 .dataTables_filter input {
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 5px 10px;
+    padding: 6px 10px;
+}
+
+.status-approved {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.status-pending {
+    font-weight: bold;
+    color: #f39c12;
+}
+
+.status-rejected {
+    font-weight: bold;
+    color: #e74c3c;
 }
 
 .btn-approve, .btn-reject, .btn-view {
     border: none;
     padding: 6px 10px;
     margin: 2px;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     color: #fff;
     font-size: 0.9rem;
