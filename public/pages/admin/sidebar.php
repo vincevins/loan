@@ -137,7 +137,7 @@ font-size: 0.9rem;
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="paymenthistory.php">Payment History</a></li>
-                        <li><a href="overdue.php">Overdue</a></li>
+                        <li><a href="../admin/overdue.php">Overdue</a></li>
                         <li><a href="paidloans.php">Paid Loans</a></li>
                         <li><a href="pendingloans.php">Pending Loans</a></li>
                     </ul>
