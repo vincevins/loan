@@ -2,33 +2,22 @@ fetch("http://localhost/casestudy-loan/loan/controller/getapplication.php")
   .then((response) => response.json())
   .then((data) => {
     console.log("Fetched:", data);
-
     const ListContainer = document.querySelector(".list tbody");
     ListContainer.innerHTML = "";
-
-
     data.forEach((item, index) => {
       const tblRow = document.createElement("tr");
-
       const id = document.createElement("td");
       id.textContent = index + 1;
-
       const firstName = document.createElement("td");
       firstName.textContent = item.first_name;
-
       const lastName = document.createElement("td");
       lastName.textContent = item.last_name;
-
       const application_status = document.createElement("td");
       application_status.textContent = item.application_status;
-
       const approveBtn = document.createElement("td");
       approveBtn.innerHTML = `<button class="approve-btn" data-id="${item.id}">APPROVE</button>`;
 
-      // append cells to row
       tblRow.append(id, firstName, lastName, application_status, approveBtn);
-
-      // append row to tbody
       ListContainer.appendChild(tblRow);
     });
   })

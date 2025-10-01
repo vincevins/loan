@@ -1,17 +1,20 @@
 <?php
 include 'nav.php';
-// if (!isset($_SESSION['logged_in'])) {
-//     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
-//     exit();
-// }
-// $role = $_SESSION['user_role'];
-// if ($role != 'user') {
-//     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
-//     exit();
-// }
-// $id =   $_SESSION['user_account_id'];
-// echo $id
-
+if (!isset($_SESSION['logged_in'])) {
+    session_unset();
+    session_destroy();
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+$role = $_SESSION['user_role'];
+if ($role != 'user') {
+    session_unset();
+    session_destroy();
+    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    exit();
+}
+$id =   $_SESSION['user_account_id'];
+echo $id
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +26,12 @@ include 'nav.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/loan.css">
-
+    <link rel="stylesheet" href="../styles/progressApplication.css">
+     <link rel="stylesheet" href="../styles/toast.css">
 </head>
+<style>
+
+</style>
 
 <body>
     <section class="hero">
@@ -34,7 +41,7 @@ include 'nav.php';
             <a href="#apply" class="btnLoan">Start Application</a>
         </div>
     </section>
-
+    <div id="sessionLoan" data-session-status="<?php echo htmlspecialchars($_SESSION['user_status_loan']) ?>"></div>
     <section class="features">
         <div class="container">
             <div class="section-title">
@@ -68,7 +75,7 @@ include 'nav.php';
                 <p>Complete our simple form to get started</p>
             </div>
 
-            <div class="application-form">
+            <div class="application-form" id="application-form">
                 <div class="progress-bar">
                     <div class="progress-step step-active">
                         <div class="step-number">1</div>
@@ -146,17 +153,24 @@ include 'nav.php';
                     <!-- Step 2: Employment & Financial Information -->
                     <div class="form-step" id="step2">
                         <h3>Employment & Financial Information</h3>
-                        <div class="form-group">
-                            <label for="employment">Employment Status</label>
-                            <select id="employment" name="employment" class="form-control" required>
-                                <option value="">Select Employment Status</option>
-                                <option value="employed">Employed</option>
-                                <option value="self-employed">Self-Employed</option>
-                                <option value="unemployed">Unemployed</option>
-                                <option value="retired">Retired</option>
-                                <option value="student">Student</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="employeeID">Employee ID</label>
+                                <input type="text" id="employeeID" name="employeeID" placeholder="Input Your Student No." class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employment">Employment Status</label>
+                                <select id="employment" name="employment" class="form-control" required>
+                                    <option value="">Select Employment Status</option>
+                                    <option value="employed">Employed</option>
+                                    <option value="self-employed">Self-Employed</option>
+                                    <option value="unemployed">Unemployed</option>
+                                    <option value="retired">Retired</option>
+                                    <option value="student">Student</option>
+                                </select>
+                            </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="employerName">Employer Name</label>
@@ -268,6 +282,49 @@ include 'nav.php';
                     </div>
                 </form>
             </div>
+            <div class="container-application" id="hasLoan" style="display:none;">
+                <div id="applicationFormStatus">
+                    <h1 style="text-align: center; margin-bottom:20px;">Application Status</h1>
+                    <div class="progress-bar-application">
+                        <div class="progress-step-application step-active-application" id="step1">
+                            <div class="step-number-application">✔</div>
+                            <div class="step-label-application">Submitted:</div>
+                            <div class="step-label-application" id="submittedDate"></div>
+                        </div>
+                        <div class="progress-step-application step-active-application" id="step2">
+                            <div class="step-number-application" id="step2Review"> <i class="fas fa-file-alt"></i>
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="step-number-application" id="step2Approved" style="display: none;">✔</div>
+                            <div class="step-label-application">HR Verification</div>
+                            <div class="step-label-application" id="hrverifyStatus"></div>
+                        </div>
+                        <div class="progress-step-application step-active-application" id="step3">
+                            <div class="step-number-application" id="step3Review"> <i class="fas fa-file-alt"></i>
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="step-number-application" id="step3Approved" style="display: none;">✔</div>
+                            <div class="step-label-application">Loan Officer Approval</div>
+                            <div class="step-label-application" id="verifyStatus"></div>
+                        </div>
+                        <div class="progress-step-application step-active-application" id="step4">
+                            <div class="step-number-application" id="step4Review"> <i class="fas fa-file-alt"></i>
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="step-number-application" id="step4Approved" style="display: none;">✔</div>
+                            <div class="step-label-application">Application Status</div>
+                            <div class="step-label-application" id="step4Txt">Application Under Review</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="viewApplication" id="viewApplication">View Application Details</button>
+               
+                <div id="ApplicationDetails">
+                    
+                </div>
+                 <button type="button" class="ApplicationStatus" id="ApplicationStatus" style="display:none;">Back to Application Status</button>
+            </div>
         </div>
     </section>
 
@@ -315,8 +372,10 @@ include 'nav.php';
             </div>
         </div>
     </footer>
-
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="../js/btnViewApplication.js"></script>
     <script src="../js/loan.js"></script>
+    <script src="../js/loanForm.js"></script>
 </body>
 
 </html>

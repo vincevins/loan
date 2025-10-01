@@ -1,117 +1,5 @@
-<style>
-.dashboard-container {
-display: flex;
-min-height: 100vh;
-}
-
-.sidebar {
-    width: 250px;
-    background: #ffffff; /* 🔹 whole sidebar white */
-    color: #000;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-    padding-top: 20px;
-}
-
-.sidebar-header {
-padding: 20px;
-border-bottom: 1px solid #34495e;
-}
-
-.sidebar-header h2 {
-font-size: 1.5rem;
-}
-
-.sidebar-nav {
-    list-style: none;
-    padding: 0;
-    background: none;
-}
-
-.sidebar-nav a {
-    display: block;
-    padding: 15px 20px;
-    margin: 10px;           
-    border-radius: 10px;       
-    text-align: center;        
-    color: #fff;            
-    background: #3498db;     
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-.sidebar-nav .dropdown-toggle {
-    display: block;                  /* like normal links */
-    padding: 15px 20px;
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
-    color: #fff;
-    background: #3498db;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.sidebar-nav .dropdown-toggle:hover,
-.sidebar-nav .dropdown-toggle.active {
-    background: #2980b9;
-    color: #fff;
-}
-
-.sidebar-nav li {
-    border: none;
-}
-
-.sidebar-nav i {
-margin-right: 10px;
-width: 20px;
-text-align: center;
-}
-
-.dropdown {
-position: relative;
-}
-
-
-.dropdown-arrow {
-    margin-left: 8px;
-    transition: transform 0.3s ease;
-}
-
-.dropdown-menu {
-    list-style: none;
-    padding-left: 20px;
-    margin: 0;
-    overflow: hidden;              /* hide content while collapsing */
-    max-height: 0;                 /* collapsed by default */
-    transition: max-height 0.3s ease; /* smooth animation */
-    border-radius: 5px;
-}
-.dropdown-menu.show {
-    max-height: 500px; /* enough height to show all items */
-}
-
-
-
-.dropdown:hover .dropdown-menu {
-display: block;
-}
-
-.dropdown:hover .dropdown-arrow {
-transform: rotate(180deg);
-}
-
-.dropdown-menu li {
-border-bottom: 1px solid #2c3e50;
-}
-
-.dropdown-menu a {
-padding: 12px 15px;
-font-size: 0.9rem;
-}
-  </style>
-  <div class="dashboard-container">
+<link rel="stylesheet" href="style.css">
+<div class="dashboard-container">
         <nav class="sidebar">
             <div class="sidebar-header">
                 <h2>Loan Admin</h2>
@@ -124,10 +12,10 @@ font-size: 0.9rem;
                         <span class="dropdown-arrow">▼</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Pending</a></li>
-                        <li><a href="#">Under Review</a></li>
-                        <li><a href="#">Approved</a></li>
-                        <li><a href="#">Rejected</a></li>
+                        <li><a href="pending.php">Pending</a></li>
+                        <li><a href="under_review.php">Under Review</a></li>
+                        <li><a href="approved.php">Approved</a></li>
+                        <li><a href="rejected.php">Rejected</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -148,14 +36,15 @@ font-size: 0.9rem;
                         <span class="dropdown-arrow">▼</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Employee's Loan</a></li>
+                        <li><a href="emp_loan.php">Employee's Loan</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
 
 <script>
-        // Dropdown logic
+document.addEventListener('DOMContentLoaded', function () {
+        // Dropdown Logic
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
     dropdownToggles.forEach(toggle => {
         toggle.addEventListener('click', function (e) {
@@ -164,4 +53,29 @@ font-size: 0.9rem;
             menu.classList.toggle('show');
         });
     });
+    // Notifications
+    const bell = document.querySelector('.notification-bell');
+    const dropdown = document.querySelector('.notification-dropdown');
+    bell.addEventListener('click', function (e) {
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+    document.addEventListener('click', function () {
+        dropdown.style.display = 'none';
+    });
+    // Profile ICON
+    const profileIcon = document.querySelector('.profile-icon');
+    const profileDropdown = document.querySelector('.profile-dropdown');
+
+    profileIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        profileDropdown.style.display = 
+            profileDropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', function() {
+        profileDropdown.style.display = 'none';
+    });
+    console.log('Line charts initialized ✅');
+});
 </script>

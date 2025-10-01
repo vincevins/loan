@@ -2,20 +2,13 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
   .then((response) => response.json())
   .then((data) => {
     console.log("Fetched:", data);
-    const totalLoanAmountSched = document.getElementById(
-      "totalLoanAmountSched"
-    );
-    const remainingBalanceSched = document.getElementById(
-      "remainingBalanceSched"
-    );
-    const nextPaymentDateSched = document.getElementById(
-      "nextPaymentDateSched"
-    );
-    const nextPaymentAmountSched = document.getElementById(
-      "nextPaymentAmountSched"
-    );
-
-    if (data[11].payment_status === "paid") {
+    const totalLoanAmountSched = document.getElementById("totalLoanAmountSched");
+    const remainingBalanceSched = document.getElementById("remainingBalanceSched");
+    const nextPaymentDateSched = document.getElementById("nextPaymentDateSched");
+    const nextPaymentAmountSched = document.getElementById("nextPaymentAmountSched");
+    if(totalLoanAmountSched === '' || totalLoanAmountSched === null){
+       totalLoanAmountSched.textContent = "₱ 0.00";
+    }else if (data[11].payment_status === "paid") {
       totalLoanAmountSched.textContent = "₱ 0.00";
     } else {
       totalLoanAmountSched.textContent =
@@ -28,13 +21,11 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
         break;
       }
     }
-    remainingBalanceSched.textContent =
-      "₱" + Number(dis.beginning_balance).toLocaleString();
+    remainingBalanceSched.textContent ="₱" + Number(dis.beginning_balance).toLocaleString();
     var date = new Date(dis.due_date);
     let dateFormatter = date.toDateString();
     nextPaymentDateSched.textContent = dateFormatter;
-    nextPaymentAmountSched.textContent =
-      "₱" + Number(dis.total_payment_due).toLocaleString();
+    nextPaymentAmountSched.textContent ="₱" + Number(dis.total_payment_due).toLocaleString();
 
     const totalAmmount = document.getElementById("totalLoanAmount");
     const remaining = document.getElementById("remainingBalance");
@@ -54,14 +45,11 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
         break;
       }
     }
-    remaining.textContent =
-      "₱" + Number(display.beginning_balance).toLocaleString();
+    remaining.textContent ="₱" + Number(display.beginning_balance).toLocaleString();
     var date = new Date(display.due_date);
     let dateFormat = date.toDateString();
     nextDue.textContent = dateFormat;
-    nextPayment.textContent =
-      "₱" + Number(display.total_payment_due).toLocaleString();
-
+    nextPayment.textContent ="₱" + Number(display.total_payment_due).toLocaleString();
     const ListContainer = document.querySelector(".paymentScheduleBody");
     ListContainer.innerHTML = "";
     data.forEach((item, index) => {
@@ -94,15 +82,12 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
 
   btnPersonalInfo.addEventListener("click", () => {
     personalInfoModal.style.display = "block";
-     paymentSchedModal.style.display = "none";
-    
+    paymentSchedModal.style.display = "none";
 
   });
   btnPaymentSched.addEventListener("click", () => {
     personalInfoModal.style.display = "none";
     paymentSchedModal.style.display = "block";
-    
-
   });
 
 
