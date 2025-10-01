@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../../styles/admin_style.css">
 <div class="dashboard-container">
         <nav class="sidebar">   
             <div class="sidebar-header">
