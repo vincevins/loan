@@ -5,23 +5,20 @@ if ($role != 'user') {
     exit();
 }
 ?>
-
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/profile.css">
-    <link rel="stylesheet" href="../styles/nav.css">
+    <link rel="stylesheet" href="../../styles/profile.css">
+    <link rel="stylesheet" href="../../styles/nav.css">
     <title>Document</title>
 </head>
-
 <body>
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <i class="fas fa-hand-holding-usd"></i>
+                    <img src="../../img/logo1.1.png" alt=" Company Logo" style="width: 35px; height: 35px; object-fit: contain; display:block;">
                     <h1>F.L.O.W</h1>
                 </div>
                 <button class="responsive-nav-toggle" id="navToggle">
@@ -338,8 +335,8 @@ if ($role != 'user') {
 
         });
     </script>
-    <script src="../js/profilePic.js"></script>
-    <script src="../js/paymentsched.js"></script>
+    <script src="../../js/profilePic.js"></script>
+    <script src="../../js/paymentsched.js"></script>
 </body>
 
 </html>

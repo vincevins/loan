@@ -1,8 +1,9 @@
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../../styles/admin_style.css">
 <div class="dashboard-container">
-        <nav class="sidebar">
+        <nav class="sidebar">   
             <div class="sidebar-header">
-                <h2>Loan Admin</h2>
+                <img src="../../img/logo1.1.png" alt="Company Logo">
+                <h1>F.L.O.W</h1>
             </div>
             <ul class="sidebar-nav">
                 <li><a href="index.php" class="active"><i class="icon-dashboard"></i>Dashboard</a></li>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../styles/admin_style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -12,7 +12,8 @@
     <div class="dashboard-container">
         <nav class="sidebar">
             <div class="sidebar-header">
-                <h2>Loan Admin</h2>
+                <img src="../../img/logo1.1.png" alt="Company Logo">
+                <h1>F.L.O.W</h1>
             </div>
             <ul class="sidebar-nav">
                 <li><a href="index.php" class="active"><i class="icon-dashboard"></i>Dashboard</a></li>
@@ -57,7 +58,7 @@
                 <h1>Dashboard Overview</h1>
                 <div class="user-info">
                     <div class="notification-container">
-                        <img src="pictures/notification.gif" alt="Notifications" class="notification-bell">
+                        <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
                         <div class="notification-dropdown">
                             <p>No new notifications</p>
                         </div>

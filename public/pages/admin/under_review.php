@@ -19,8 +19,8 @@ include 'sidebar.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="under_review.css">
+    <link rel="stylesheet" href="../../styles/admin_style.css">
+    <link rel="stylesheet" href="../../styles/table.css">
 </head>
 <body>
 <main class="main-content">
@@ -28,7 +28,7 @@ include 'sidebar.php';
         <h1>Under Review</h1>
         <div class="user-info">
             <div class="notification-container">
-                <img src="pictures/notification.gif" alt="Notifications" class="notification-bell">
+                <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
                 <div class="notification-dropdown">
                     <p>No new notifications</p>
                 </div>
@@ -126,11 +126,9 @@ $(document).ready(function () {
         dom: 'Bfrtip',
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         buttons: [
-            { extend: 'copy', text: '<i class="fa fa-copy"></i>' },
-            { extend: 'excel', text: '<i class="fa fa-file-excel"></i>' },
-            { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>' },
-            { extend: 'print', text: '<i class="fa fa-print"></i>' }
-        ]
+            { extend: 'excel', text: '<i class="fa fa-file-excel"></i>', attr: { title: 'Export to Excel' } },
+            { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>', attr: { title: 'Export to PDF' } },
+            { extend: 'print', text: '<i class="fa fa-print"></i>', attr: { title: 'Print Table' } }        ]
     });
 
     // Action button functionalities

@@ -19,7 +19,7 @@ include 'sidebar.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="emp_loan.css">
+    <link rel="stylesheet" href="../../styles/table.css">
 </head>
 <body>
 <main class="main-content">
@@ -27,7 +27,7 @@ include 'sidebar.php';
         <h1>Employee Loan Applications</h1>
         <div class="user-info">
             <div class="notification-container">
-                <img src="pictures/notification.gif" alt="Notifications" class="notification-bell">
+                <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
                 <div class="notification-dropdown">
                     <p>No new notifications</p>
                 </div>
@@ -37,7 +37,7 @@ include 'sidebar.php';
                 <div class="profile-dropdown">
                     <a href="#">My Profile</a>
                     <a href="#">Settings</a>
-                    <a href="../loan.php">Logout</a>
+                    <a href="../loan.php">Logout</a> 
                 </div>
             </div>
         </div>
@@ -60,7 +60,6 @@ include 'sidebar.php';
                 </tr>
             </thead>
             <tbody>
-                <!-- Example rows -->
                 <tr>
                     <td>Loan-201</td>
                     <td>Ana Santos</td>
@@ -113,14 +112,12 @@ $(document).ready(function () {
         dom: 'Bfrtip',
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         buttons: [
-            { extend: 'copy', text: '<i class="fa fa-copy"></i>' },
-            { extend: 'excel', text: '<i class="fa fa-file-excel"></i>' },
-            { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>' },
-            { extend: 'print', text: '<i class="fa fa-print"></i>' }
+            { extend: 'excel', text: '<i class="fa fa-file-excel"></i>', attr: { title: 'Export to Excel' } },
+            { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>', attr: { title: 'Export to PDF' } },
+            { extend: 'print', text: '<i class="fa fa-print"></i>', attr: { title: 'Print Table' } }
         ]
     });
 
-    // Loan Details Popup
     $('#employeeLoansTable tbody').on('click', '.btn-view', function () {
         let rowData = $(this).closest('tr').find('td').map(function () {
             return $(this).text();

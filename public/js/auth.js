@@ -60,7 +60,6 @@
             }, 300);
         }
 
-        // Form validation
         const loginForm = document.getElementById('loginForm');
         const signupForm = document.getElementById('signupform');
 
@@ -89,12 +88,12 @@
                 } else if(result.status === 'error')  {
                  showToast('error', result.message)
                 }else if (result.role === 'user') {
-                    window.location.href ="http://localhost/casestudy-loan/loan/public/pages/loan.php"
+                    window.location.href ="http://localhost/casestudy-loan/loan/public/pages/user/loan.php"
                 }else if(result.role === 'admin'){
                     window.location.href ="http://localhost/casestudy-loan/loan/public/pages/testApproval.php"
                 }
                 else{
-                    window.location.href = "http://localhost/casestudy-loan/loan/public/pages/index.php";
+                    window.location.href = "http://localhost/casestudy-loan/loan/public/pages/user/index.php";
                 }
             } catch (error) {
                 console.error(error.message);
@@ -114,7 +113,14 @@
             const email = this.querySelector('input[name="email"]').value;
             const password = this.querySelector('input[name="password"]').value;
             const confirmPassword = this.querySelector('input[name="confirm_password"]').value;
-
+            var minNumberofChars = 6;
+            var maxNumberofChars = 16;
+            var regularExpression  = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+            if(password < minNumberofChars || password > maxNumberofChars || regularExpression.test(password)){
+                e.preventDefault()
+                showToast('error','password should contain atleast one number and one special character')
+                return
+            }
             if (firstName.trim() === '' || middleName.trim() === '' || lastName.trim() === '' ||
                 age.trim() === '' || contact.trim() === '' || email.trim() === '' ||
                 password.trim() === '' || confirmPassword.trim() === '') {
@@ -122,7 +128,6 @@
                 alert('Please fill in all fields');
                 return;
             }
-
             if (age < 13 || age > 120) {
                 e.preventDefault();
                 alert('Please enter a valid age between 13 and 120');
@@ -156,8 +161,6 @@
                 const result =await res.json()
                 if(result.success){
                     showToast('success', result.message)
-                }else{
-                     showToast('error', result.message)
                 }
                 this.reset();
                 console.log(result);

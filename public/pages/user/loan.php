@@ -13,8 +13,8 @@ if ($role != 'user') {
     header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
 }
-$id =   $_SESSION['user_account_id'];
-echo $id
+// $id =   $_SESSION['user_account_id'];
+// echo $id
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,9 +25,10 @@ echo $id
     <title>Paluwagan - Online Loan Application</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/loan.css">
-    <link rel="stylesheet" href="../styles/progressApplication.css">
-     <link rel="stylesheet" href="../styles/toast.css">
+    <link rel="stylesheet" href="../../styles/loan.css">
+    <link rel="stylesheet" href="../../styles/progressApplication.css">
+
+    <link rel="stylesheet" href="../../styles/toast.css">
 </head>
 <style>
 
@@ -319,11 +320,11 @@ echo $id
                 </div>
 
                 <button type="button" class="viewApplication" id="viewApplication">View Application Details</button>
-               
+
                 <div id="ApplicationDetails">
-                    
+
                 </div>
-                 <button type="button" class="ApplicationStatus" id="ApplicationStatus" style="display:none;">Back to Application Status</button>
+                <button type="button" class="ApplicationStatus" id="ApplicationStatus" style="display:none;">Back to Application Status</button>
             </div>
         </div>
     </section>
@@ -373,9 +374,9 @@ echo $id
         </div>
     </footer>
     <div class="toast-container" id="toastContainer"></div>
-    <script src="../js/btnViewApplication.js"></script>
-    <script src="../js/loan.js"></script>
-    <script src="../js/loanForm.js"></script>
+    <script src="../../js/btnViewApplication.js"></script>
+    <script src="../../js/loan.js"></script>
+    <script src="../../js/loanForm.js"></script>
 </body>
 
 </html>
