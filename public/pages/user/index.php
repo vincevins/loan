@@ -7,8 +7,8 @@
     <title>Login & Sign Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../styles/login.css">
-     <link rel="stylesheet" href="../styles/toast.css">
+    <link rel="stylesheet" href="../../styles/login.css">
+    <link rel="stylesheet" href="../../styles/toast.css">
 </head>
 
 
@@ -97,7 +97,7 @@
     <script>
     </script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="../js/auth.js"></script>
+    <script src="../../js/auth.js"></script>
     <script>
         feather.replace();
     </script>
