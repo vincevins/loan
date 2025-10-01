@@ -91,7 +91,6 @@ $(document).ready(function () {
         dom: 'Bfrtip',
         lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ], 
         buttons: [
-            { extend: 'copy', text: '<i class="fa fa-copy"></i>', attr: { title: 'Copy' } },
             { extend: 'excel', text: '<i class="fa fa-file-excel"></i>', attr: { title: 'Export to Excel' } },
             { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>', attr: { title: 'Export to PDF' } },
             { extend: 'print', text: '<i class="fa fa-print"></i>', attr: { title: 'Print Table' } }
