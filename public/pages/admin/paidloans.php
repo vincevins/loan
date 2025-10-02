@@ -4,225 +4,129 @@ include 'sidebar.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paid Loans</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paid Loans</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    h2, h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #1b2232;
-    }
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
-    /* 🔍 Search Bar */
-    .search-container {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-      padding: 0 10px;
-    }
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-    .search-container input {
-      width: 100%;
-      max-width: 400px;
-      padding: 12px 15px;
-      border: 2px solid #4a78a6;
-      border-radius: 30px;
-      font-size: 14px;
-      outline: none;
-      transition: 0.3s;
-    }
+    <!-- Icons + SweetAlert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    .search-container input:focus {
-      border-color: #1b2232;
-      box-shadow: 0 0 8px rgba(74, 120, 166, 0.4);
-    }
-
-    /* 📋 Table Wrapper */
-    .table-wrapper {
-      overflow-x: auto;
-      margin-top: 10px;
-    }
-
-    .loan-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      min-width: 600px;
-    }
-
-    .loan-table th, .loan-table td {
-      padding: 14px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
-
-    .loan-table th {
-      background: #4a78a6;
-      color: white;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    .loan-table tr:hover {
-      background: #f9fbfd;
-    }
-
-    /* 🎛️ Action Button */
-    .action-btn {
-      padding: 8px 18px;
-      margin: 3px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      color: white;
-      display: inline-block;
-    }
-
-    .view {
-      background: #28a745;
-    }
-    .view:hover {
-      background: #218838;
-      transform: scale(1.05);
-    }
-
-    /* 📱 Responsive */
-    @media (max-width: 768px) {
-      .loan-table th, .loan-table td {
-        padding: 10px;
-        font-size: 12px;
-      }
-      .action-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .search-container input {
-        max-width: 100%;
-      }
-      h1 {
-        font-size: 20px;
-      }
-    }
-  </style>
+    <!-- Custom Table CSS -->
+    <link rel="stylesheet" href="../../styles/table.css">
 </head>
 <body>
-  <!-- Main Content -->
-  <main class="main-content">
+<main class="main-content">
     <header class="main-header">
-      <h1>Paid Loans</h1>
-      <div class="user-info">
-        <div class="notification-container">
-          <img src="pictures/notification.gif" alt="Notifications" class="notification-bell">
-          <div class="notification-dropdown">
-            <p>No new notifications</p>
-          </div>
+        <h1>Paid Loans</h1>
+        <div class="user-info">
+            <div class="notification-container">
+                <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
+                <div class="notification-dropdown">
+                    <p>No new notifications</p>
+                </div>
+            </div>
+            <div class="profile-container">
+                <i class="fa-solid fa-user-circle profile-icon"></i>
+                <div class="profile-dropdown">
+                    <a href="#">My Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="../loan.php">Logout</a>
+                </div>
+            </div>
         </div>
-        <div class="profile-container">
-          <i class="fa-solid fa-user-circle profile-icon"></i>
-          <div class="profile-dropdown">
-            <a href="#">My Profile</a>
-            <a href="#">Settings</a>
-            <a href="../loan.php">Logout</a>
-          </div>
-        </div>
-      </div>
     </header>
 
-    <!-- 🔍 Search -->
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Search borrower...">
+    <div class="page-content">
+        <!-- Paid Loans Table -->
+        <table id="paidLoansTable" class="dataTable display nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Borrower</th>
+                    <th>Loan Amount</th>
+                    <th>Date Paid</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PAID-5001</td>
+                    <td>Juan Dela Cruz</td>
+                    <td>₱50,000</td>
+                    <td>2025-09-20</td>
+                    <td><span class="status-approved">Paid</span></td>
+                    <td><button class="btn-view" onclick="viewReceipt('PAID-5001','Juan Dela Cruz','₱50,000','2025-09-20')">View Receipt</button></td>
+                </tr>
+                <tr>
+                    <td>PAID-5002</td>
+                    <td>Maria Santos</td>
+                    <td>₱120,000</td>
+                    <td>2025-09-25</td>
+                    <td><span class="status-approved">Paid</span></td>
+                    <td><button class="btn-view" onclick="viewReceipt('PAID-5002','Maria Santos','₱120,000','2025-09-25')">View Receipt</button></td>
+                </tr>
+                <tr>
+                    <td>PAID-5003</td>
+                    <td>Pedro Reyes</td>
+                    <td>₱75,000</td>
+                    <td>2025-09-28</td>
+                    <td><span class="status-approved">Paid</span></td>
+                    <td><button class="btn-view" onclick="viewReceipt('PAID-5003','Pedro Reyes','₱75,000','2025-09-28')">View Receipt</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</main>
 
-    <!--  Paid Loans Table -->
-    <div class="table-wrapper">
-      <table class="loan-table" id="loanTable">
-        <thead>
-          <tr>
-            <th>Loan ID</th>
-            <th>Borrower</th>
-            <th>Paid Date</th>
-            <th>Amount Paid</th>
-            <th>Payment Method</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Sample Data -->
-          <tr>
-            <td>2001</td>
-            <td>Juan Dela Cruz</td>
-            <td>2025-09-18</td>
-            <td>₱20,000</td>
-            <td>GCash</td>
-            <td style="color:green; font-weight:bold;">Paid</td>
-            <td><button class="action-btn view" onclick="viewReceipt('Juan Dela Cruz')">View Receipt</button></td>
-          </tr>
-          <tr>
-            <td>2002</td>
-            <td>Maria Santos</td>
-            <td>2025-09-20</td>
-            <td>₱15,000</td>
-            <td>Cash</td>
-            <td style="color:green; font-weight:bold;">Paid</td>
-            <td><button class="action-btn view" onclick="viewReceipt('Maria Santos')">View Receipt</button></td>
-          </tr>
-          <tr>
-            <td>2003</td>
-            <td>Pedro Reyes</td>
-            <td>2025-09-22</td>
-            <td>₱12,000</td>
-            <td>Bank Transfer</td>
-            <td style="color:green; font-weight:bold;">Paid</td>
-            <td><button class="action-btn view" onclick="viewReceipt('Pedro Reyes')">View Receipt</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<script>
+$(document).ready(function () {
+    $('#paidLoansTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        responsive: true,
+        dom: 'Bfrtip',
+        lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ], 
+        buttons: [
+            { extend: 'excel', text: '<i class="fa fa-file-excel"></i>', className: 'dt-button' },
+            { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>', className: 'dt-button' },
+            { extend: 'print', text: '<i class="fa fa-print"></i>', className: 'dt-button' }
+        ]
+    });
+});
 
-    <script>
-      // 🔍 Search bar filter (Borrower column = 1)
-      document.getElementById("searchInput").addEventListener("keyup", function() {
-        let filter = this.value.toLowerCase();
-        let rows = document.querySelectorAll("#loanTable tbody tr");
-
-        rows.forEach(row => {
-          let borrower = row.cells[1].textContent.toLowerCase();
-          row.style.display = borrower.includes(filter) ? "" : "none";
-        });
-      });
-
-      // 🧾 SweetAlert - View Receipt
-      function viewReceipt(name) {
-        Swal.fire({
-          title: 'Receipt',
-          html: '<p>Showing receipt for <b>' + name + '</b>.</p><p>(This is just a demo.)</p>',
-          icon: 'info',
-          confirmButtonColor: '#28a745',
-        })
-      }
-    </script>
-  </main>
+// SweetAlert View Receipt
+function viewReceipt(loanId, borrower, amount, date) {
+    Swal.fire({
+        title: 'Payment Receipt',
+        html: `
+            <p><strong>Loan ID:</strong> ${loanId}</p>
+            <p><strong>Borrower:</strong> ${borrower}</p>
+            <p><strong>Amount Paid:</strong> ${amount}</p>
+            <p><strong>Date Paid:</strong> ${date}</p>
+        `,
+        icon: 'info',
+        confirmButtonText: 'Close',
+        confirmButtonColor: '#3498db'
+    });
+}
+</script>
 </body>
 </html>

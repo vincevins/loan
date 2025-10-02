@@ -89,5 +89,5 @@ table.dataTable tbody td {
 .btn-reject { background-color: #e74c3c; }
 .btn-reject:hover { background-color: #ff4d4d; }
 
-.btn-view { background-color: #3498db; }
+.btn-view { background-color: hsl(204, 70%, 53%); }
 .btn-view:hover { background-color: #5dade2; }

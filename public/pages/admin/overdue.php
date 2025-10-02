@@ -4,237 +4,139 @@ include 'sidebar.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Overdue Loans</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overdue Loans</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    h2, h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #1b2232;
-    }
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
-    /* 🔍 Search Bar */
-    .search-container {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-      padding: 0 10px;
-    }
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-    .search-container input {
-      width: 100%;
-      max-width: 400px;
-      padding: 12px 15px;
-      border: 2px solid #4a78a6;
-      border-radius: 30px;
-      font-size: 14px;
-      outline: none;
-      transition: 0.3s;
-    }
+    <!-- Icons + SweetAlert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    .search-container input:focus {
-      border-color: #1b2232;
-      box-shadow: 0 0 8px rgba(74, 120, 166, 0.4);
-    }
-
-    /* 📋 Table Wrapper */
-    .table-wrapper {
-      overflow-x: auto;
-      margin-top: 10px;
-    }
-
-    .loan-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      min-width: 600px;
-    }
-
-    .loan-table th, .loan-table td {
-      padding: 14px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
-
-    .loan-table th {
-      background: #4a78a6;
-      color: white;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    .loan-table tr:hover {
-      background: #f9fbfd;
-    }
-
-    /* 🎛️ Reminder Button */
-    .action-btn {
-      padding: 8px 18px;
-      margin: 3px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      color: white;
-      display: inline-block;
-    }
-
-    .remind {
-      background: #ffc107;
-      color: #1b2232;
-    }
-    .remind:hover {
-      background: #e0a800;
-      transform: scale(1.05);
-    }
-
-    /* 📱 Responsive */
-    @media (max-width: 768px) {
-      .loan-table th, .loan-table td {
-        padding: 10px;
-        font-size: 12px;
-      }
-      .action-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .search-container input {
-        max-width: 100%;
-      }
-      h1 {
-        font-size: 20px;
-      }
-    }
-  </style>
+    <!-- Custom Table CSS -->
+    <link rel="stylesheet" href="../../styles/table.css">
 </head>
 <body>
-  <!-- Main Content -->
-  <main class="main-content">
+<main class="main-content">
     <header class="main-header">
-      <h1>Overdue Loans</h1>
-      <div class="user-info">
-        <div class="notification-container">
-          <img src="pictures/notification.gif" alt="Notifications" class="notification-bell">
-          <div class="notification-dropdown">
-            <p>No new notifications</p>
-          </div>
+        <h1>Overdue Loans</h1>
+        <div class="user-info">
+            <div class="notification-container">
+                <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
+                <div class="notification-dropdown">
+                    <p>No new notifications</p>
+                </div>
+            </div>
+            <div class="profile-container">
+                <i class="fa-solid fa-user-circle profile-icon"></i>
+                <div class="profile-dropdown">
+                    <a href="#">My Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="../loan.php">Logout</a>
+                </div>
+            </div>
         </div>
-        <div class="profile-container">
-          <i class="fa-solid fa-user-circle profile-icon"></i>
-          <div class="profile-dropdown">
-            <a href="#">My Profile</a>
-            <a href="#">Settings</a>
-            <a href="../loan.php">Logout</a>
-          </div>
-        </div>
-      </div>
     </header>
 
-    <!-- 🔍 Search -->
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Search borrower...">
+    <div class="page-content">
+        <!-- Overdue Loans Table -->
+        <table id="overdueLoansTable" class="dataTable display nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Borrower</th>
+                    <th>Loan Amount</th>
+                    <th>Due Date</th>
+                    <th>Days Overdue</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>LOAN-3001</td>
+                    <td>Juan Dela Cruz</td>
+                    <td>₱50,000</td>
+                    <td>2025-08-15</td>
+                    <td>45</td>
+                    <td><span class="status-overdue">Overdue</span></td>
+                    <td><button class="btn-reject" onclick="sendReminder('Juan Dela Cruz')">Send Reminder</button></td>
+                </tr>
+                <tr>
+                    <td>LOAN-3002</td>
+                    <td>Maria Santos</td>
+                    <td>₱120,000</td>
+                    <td>2025-09-01</td>
+                    <td>30</td>
+                    <td><span class="status-overdue">Overdue</span></td>
+                    <td><button class="btn-reject" onclick="sendReminder('Maria Santos')">Send Reminder</button></td>
+                </tr>
+                <tr>
+                    <td>LOAN-3003</td>
+                    <td>Pedro Reyes</td>
+                    <td>₱75,000</td>
+                    <td>2025-09-10</td>
+                    <td>20</td>
+                    <td><span class="status-overdue">Overdue</span></td>
+                    <td><button class="btn-reject" onclick="sendReminder('Pedro Reyes')">Send Reminder</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</main>
 
-    <!-- 📋 Overdue Loans Table -->
-    <div class="table-wrapper">
-      <table class="loan-table" id="loanTable">
-        <thead>
-          <tr>
-            <th>Loan ID</th>
-            <th>Borrower</th>
-            <th>Due Date</th>
-            <th>Amount Due</th>
-            <th>Balance</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Sample Data -->
-          <tr>
-            <td>1001</td>
-            <td>Juan Dela Cruz</td>
-            <td>2025-09-10</td>
-            <td>₱20,000</td>
-            <td>₱15,000</td>
-            <td style="color:red; font-weight:bold;">Overdue</td>
-            <td><button class="action-btn remind" onclick="sendReminder('Juan Dela Cruz')">Send Reminder</button></td>
-          </tr>
-          <tr>
-            <td>1002</td>
-            <td>Maria Santos</td>
-            <td>2025-09-12</td>
-            <td>₱10,000</td>
-            <td>₱5,000</td>
-            <td style="color:red; font-weight:bold;">Overdue</td>
-            <td><button class="action-btn remind" onclick="sendReminder('Maria Santos')">Send Reminder</button></td>
-          </tr>
-          <tr>
-            <td>1003</td>
-            <td>Pedro Reyes</td>
-            <td>2025-09-15</td>
-            <td>₱8,000</td>
-            <td>₱8,000</td>
-            <td style="color:red; font-weight:bold;">Overdue</td>
-            <td><button class="action-btn remind" onclick="sendReminder('Pedro Reyes')">Send Reminder</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<script>
+$(document).ready(function () {
+    $('#overdueLoansTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        responsive: true,
+        dom: 'Bfrtip',
+        lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ], 
+        buttons: [
+            { extend: 'excel', text: '<i class="fa fa-file-excel"></i>', className: 'dt-button' },
+            { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>', className: 'dt-button' },
+            { extend: 'print', text: '<i class="fa fa-print"></i>', className: 'dt-button' }
+        ]
+    });
+});
 
-    <script>
-      // 🔍 Search bar filter (Borrower column = 1)
-      document.getElementById("searchInput").addEventListener("keyup", function() {
-        let filter = this.value.toLowerCase();
-        let rows = document.querySelectorAll("#loanTable tbody tr");
-
-        rows.forEach(row => {
-          let borrower = row.cells[1].textContent.toLowerCase();
-          row.style.display = borrower.includes(filter) ? "" : "none";
-        });
-      });
-
-      // 🔔 SweetAlert Reminder
-      function sendReminder(name) {
-        Swal.fire({
-          title: 'Send Reminder?',
-          text: "Do you want to remind " + name + " about their overdue loan?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#eeb408ff',
-          cancelButtonColor: '#6c757d',
-          confirmButtonText: 'Yes, send it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
+// SweetAlert Reminder
+function sendReminder(borrower) {
+    Swal.fire({
+        title: 'Send Reminder?',
+        text: 'Do you want to send a payment reminder to ' + borrower + '?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Send it!',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#e74c3c',
+        cancelButtonColor: '#95a5a6'
+    }).then((result) => {
+        if (result.isConfirmed) {
             Swal.fire(
-              'Reminder Sent!',
-              'A payment reminder was sent to ' + name,
-              'success'
+                'Reminder Sent!',
+                'A payment reminder has been sent to ' + borrower + '.',
+                'success'
             )
-          }
-        })
-      }
-    </script>
-  </main>
+        }
+    });
+}
+</script>
 </body>
 </html>

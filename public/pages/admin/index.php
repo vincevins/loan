@@ -35,10 +35,10 @@
                         <span class="dropdown-arrow">▼</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Payment History</a></li>
-                        <li><a href="#">Overdue</a></li>
-                        <li><a href="#">Paid Loans</a></li>
-                        <li><a href="#">Pending Loans</a></li>
+                        <li><a href="paymenthistory.php">Payment History</a></li>
+                        <li><a href="overdue.php">Overdue</a></li>
+                        <li><a href="paidloans.php">Paid Loans</a></li>
+                        <li><a href="pendingloans.php">Pending Loans</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
