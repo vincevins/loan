@@ -6,10 +6,14 @@ include 'sidebar.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pending Loans</title>
+    <title>Paid Loans</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+    <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
@@ -17,13 +21,18 @@ include 'sidebar.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Icons + SweetAlert -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Custom Table CSS -->
     <link rel="stylesheet" href="../../styles/table.css">
 </head>
 <body>
 <main class="main-content">
     <header class="main-header">
-        <h1>Pending Loans</h1>
+        <h1>Paid Loans</h1>
         <div class="user-info">
             <div class="notification-container">
                 <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
@@ -43,45 +52,51 @@ include 'sidebar.php';
     </header>
 
     <div class="page-content">
-        <table id="loansTable" class="display nowrap" style="width:100%">
+        <!-- Paid Loans Table -->
+        <table id="paidLoansTable" class="dataTable display nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>Loan ID</th>
                     <th>Borrower</th>
-                    <th>Amount</th>
+                    <th>Loan Amount</th>
+                    <th>Date Paid</th>
                     <th>Status</th>
-                    <th>Date Applied</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Kurakot 1</td>
-                    <td>Zeldy Co</td>
-                    <td>₱454,000,000</td>
-                    <td>Pending</td>
-                    <td>2025-09-01</td>
+                    <td>PAID-5001</td>
+                    <td>Juan Dela Cruz</td>
+                    <td>₱50,000</td>
+                    <td>2025-09-20</td>
+                    <td><span class="status-approved">Paid</span></td>
+                    <td><button class="btn-view" onclick="viewReceipt('PAID-5001','Juan Dela Cruz','₱50,000','2025-09-20')">View Receipt</button></td>
                 </tr>
                 <tr>
-                    <td>Kurakot 2</td>
-                    <td>Sarah Discaya</td>
-                    <td>₱454,000,000</td>
-                    <td>Pending</td>
-                    <td>2025-09-05</td>
+                    <td>PAID-5002</td>
+                    <td>Maria Santos</td>
+                    <td>₱120,000</td>
+                    <td>2025-09-25</td>
+                    <td><span class="status-approved">Paid</span></td>
+                    <td><button class="btn-view" onclick="viewReceipt('PAID-5002','Maria Santos','₱120,000','2025-09-25')">View Receipt</button></td>
                 </tr>
                 <tr>
-                    <td>Kurakot 3</td>
-                    <td>Engr. Alcantara</td>
-                    <td>₱454,000,000</td>
-                    <td>Pending</td>
-                    <td>2025-09-10</td>
+                    <td>PAID-5003</td>
+                    <td>Pedro Reyes</td>
+                    <td>₱75,000</td>
+                    <td>2025-09-28</td>
+                    <td><span class="status-approved">Paid</span></td>
+                    <td><button class="btn-view" onclick="viewReceipt('PAID-5003','Pedro Reyes','₱75,000','2025-09-28')">View Receipt</button></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
+
 <script>
 $(document).ready(function () {
-    $('#loansTable').DataTable({
+    $('#paidLoansTable').DataTable({
         paging: true,
         searching: true,
         ordering: true,
@@ -90,12 +105,28 @@ $(document).ready(function () {
         dom: 'Bfrtip',
         lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ], 
         buttons: [
-            { extend: 'excel', text: '<i class="fa fa-file-excel"></i>', attr: { title: 'Export to Excel' } },
-            { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>', attr: { title: 'Export to PDF' } },
-            { extend: 'print', text: '<i class="fa fa-print"></i>', attr: { title: 'Print Table' } }
+            { extend: 'excel', text: '<i class="fa fa-file-excel"></i>', className: 'dt-button' },
+            { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i>', className: 'dt-button' },
+            { extend: 'print', text: '<i class="fa fa-print"></i>', className: 'dt-button' }
         ]
     });
 });
+
+// SweetAlert View Receipt
+function viewReceipt(loanId, borrower, amount, date) {
+    Swal.fire({
+        title: 'Payment Receipt',
+        html: `
+            <p><strong>Loan ID:</strong> ${loanId}</p>
+            <p><strong>Borrower:</strong> ${borrower}</p>
+            <p><strong>Amount Paid:</strong> ${amount}</p>
+            <p><strong>Date Paid:</strong> ${date}</p>
+        `,
+        icon: 'info',
+        confirmButtonText: 'Close',
+        confirmButtonColor: '#3498db'
+    });
+}
 </script>
 </body>
 </html>

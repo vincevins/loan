@@ -1,8 +1,9 @@
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../../styles/admin_style.css">
 <div class="dashboard-container">
-        <nav class="sidebar">
+        <nav class="sidebar">   
             <div class="sidebar-header">
-                <h2>Loan Admin</h2>
+                <img src="../../img/logo1.1.png" alt="Company Logo">
+                <h1>F.L.O.W</h1>
             </div>
             <ul class="sidebar-nav">
                 <li><a href="index.php" class="active"><i class="icon-dashboard"></i>Dashboard</a></li>
@@ -24,10 +25,10 @@
                         <span class="dropdown-arrow">▼</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Payment History</a></li>
-                        <li><a href="#">Overdue</a></li>
-                        <li><a href="#">Paid Loans</a></li>
-                        <li><a href="#">Pending Loans</a></li>
+                        <li><a href="paymenthistory.php">Payment History</a></li>
+                        <li><a href="../admin/overdue.php">Overdue</a></li>
+                        <li><a href="paidloans.php">Paid Loans</a></li>
+                        <li><a href="pendingloans.php">Pending Loans</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
