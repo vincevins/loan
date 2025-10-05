@@ -8,9 +8,8 @@ function showToast(type, message) {
     } else if (type === 'error') {
         iconClass = 'fa fa-times';
     }
-    toast.innerHTML = `
-    <div class="toast-icon">
-    <i class="${iconClass}" aria-hidden="true"></i>
+    toast.innerHTML = ` <div class="toast-icon">
+     <i class="${iconClass}" aria-hidden="true"></i>
     </div>
     <div class="toast-message">${message}</div>
     <button class="toast-close" onclick="closeToast(this)">x</button>

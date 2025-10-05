@@ -8,9 +8,10 @@ if (!isset($_SESSION['logged_in'])) {
 }
 $role = $_SESSION['user_role'];
 if ($role != 'user') {
-    session_unset();
-    session_destroy();
-    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    header("http://localhost/casestudy-loan/loan/controller/logout.php");
+    // session_unset();
+    // session_destroy();
+    // header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
 }
 // $id =   $_SESSION['user_account_id'];

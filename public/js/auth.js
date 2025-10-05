@@ -116,11 +116,11 @@
             var minNumberofChars = 6;
             var maxNumberofChars = 16;
             var regularExpression  = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-            if(password < minNumberofChars || password > maxNumberofChars || regularExpression.test(password)){
-                e.preventDefault()
-                showToast('error','password should contain atleast one number and one special character')
-                return
-            }
+            // if(password < minNumberofChars || password > maxNumberofChars || regularExpression.test(password)){
+            //     e.preventDefault()
+            //     showToast('error','password should contain atleast one number and one special character')
+            //     return
+            // }
             if (firstName.trim() === '' || middleName.trim() === '' || lastName.trim() === '' ||
                 age.trim() === '' || contact.trim() === '' || email.trim() === '' ||
                 password.trim() === '' || confirmPassword.trim() === '') {
