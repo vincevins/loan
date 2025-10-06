@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
     <div class="dashboard-container">
         <nav class="sidebar">
@@ -58,7 +60,7 @@
                 <h1>Dashboard Overview</h1>
                 <div class="user-info">
                     <div class="notification-container">
-                        <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
+                        <img src="../../img/logo.png" alt="Notifications" class="notification-bell">
                         <div class="notification-dropdown">
                             <p>No new notifications</p>
                         </div>
@@ -77,39 +79,55 @@
             <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
                     <div class="stat-info">
-                        <i class="fa-solid fa-sack-dollar stat-icon"></i>
                         <h3>Total Active Loans</h3>
-                        <span class="stat-number">0</span>
-                        <h3>Amount (Without Interest)</h3>
-                        <span class="stat-number">0</span>
+                        <p>24,583</p>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>12.5%</span>
+                        </div>
                     </div>
                 </div>
                 <div class="stat-card">
+                    <div class="stat-icon">
+                     <i class="fas fa-hourglass-half"></i>
+                    </div>
                     <div class="stat-info">
-                        <i class="fa-solid fa-hourglass-half stat-icon"></i>
                         <h3>Pending Application</h3>
-                        <span class="stat-number">0</span>
-                        <h3>Amount (Without Interest)</h3>
-                        <span class="stat-number">0</span>
+                        <p>24,583</p>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>12.5%</span>
+                        </div>
                     </div>
                 </div>
                 <div class="stat-card">
+                    <div class="stat-icon">
+                           <i class="fa-solid fa-file"></i>
+                    </div>
                     <div class="stat-info">
-                        <i class="fa-solid fa-circle-check stat-icon"></i>
                         <h3>Approved Application</h3>
-                        <span class="stat-number">0</span>
-                        <h3>Amount (Without Interest)</h3>
-                        <span class="stat-number">0</span>
+                        <p>24,583</p>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>12.5%</span>
+                        </div>
                     </div>
                 </div>
                 <div class="stat-card">
+                    <div class="stat-icon">
+                       <i class="fas fa-coins"></i>
+                    </div>
                     <div class="stat-info">
-                        <i class="fa-solid fa-hand-holding-dollar stat-icon"></i>
-                        <h3>Zero-Interest Loan Repayment</h3>
-                        <span class="stat-number">0</span>
-                        <h3>Amount (Without Interest)</h3>
-                        <span class="stat-number">0</span>
+                        <h3>Revenue</h3>
+                        <p>24,583</p>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>12.5%</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -127,94 +145,111 @@
         </main>
     </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-        // Dropdown Logic
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            const menu = this.nextElementSibling;
-            menu.classList.toggle('show');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dropdown Logic
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const menu = this.nextElementSibling;
+                    menu.classList.toggle('show');
+                });
+            });
+            // Notifications
+            const bell = document.querySelector('.notification-bell');
+            const dropdown = document.querySelector('.notification-dropdown');
+            bell.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            document.addEventListener('click', function() {
+                dropdown.style.display = 'none';
+            });
+            // Profile ICON
+            const profileIcon = document.querySelector('.profile-icon');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+
+            profileIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.style.display =
+                    profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+
+            document.addEventListener('click', function() {
+                profileDropdown.style.display = 'none';
+            });
+
+
+            // Charts
+            const ctxLeft = document.getElementById('barChartLeft').getContext('2d');
+            const ctxRight = document.getElementById('barChartRight').getContext('2d');
+
+            new Chart(ctxLeft, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Application Monthly Rate',
+                        data: [5, 10, 20, 30, 40, 10, 20, 30, 40, 5, 10, 20],
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            new Chart(ctxRight, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [5, 10, 20, 30, 40, 10, 20, 30, 40, 5, 10, 20],
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            console.log('Line charts initialized ✅');
         });
-    });
-    // Notifications
-    const bell = document.querySelector('.notification-bell');
-    const dropdown = document.querySelector('.notification-dropdown');
-    bell.addEventListener('click', function (e) {
-        e.stopPropagation();
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    });
-    document.addEventListener('click', function () {
-        dropdown.style.display = 'none';
-    });
-    // Profile ICON
-    const profileIcon = document.querySelector('.profile-icon');
-    const profileDropdown = document.querySelector('.profile-dropdown');
-
-    profileIcon.addEventListener('click', function(e) {
-        e.stopPropagation();
-        profileDropdown.style.display = 
-            profileDropdown.style.display === 'block' ? 'none' : 'block';
-    });
-
-    document.addEventListener('click', function() {
-        profileDropdown.style.display = 'none';
-    });
-
-
-    // Charts
-    const ctxLeft = document.getElementById('barChartLeft').getContext('2d');
-    const ctxRight = document.getElementById('barChartRight').getContext('2d');
-
-    new Chart(ctxLeft, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Application Monthly Rate',
-                data: [5, 10, 20, 30, 40, 10, 20, 30, 40,5, 10, 20],
-                borderColor: 'rgba(52, 152, 219, 1)',
-                backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                fill: true,
-                tension: 0.3,
-                pointBackgroundColor: 'rgba(52, 152, 219, 1)',
-                pointRadius: 5
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: { legend: { display: true } },
-            scales: { y: { beginAtZero: true } }
-        }
-    });
-
-    new Chart(ctxRight, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Revenue',
-                data: [5, 10, 20, 30, 40, 10, 20, 30, 40,5, 10, 20],
-                borderColor: 'rgba(52, 152, 219, 1)',
-                backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                fill: true,
-                tension: 0.3,
-                pointBackgroundColor: 'rgba(52, 152, 219, 1)',  
-                pointRadius: 5
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: { legend: { display: true } },
-            scales: { y: { beginAtZero: true } }
-        }
-    });
-
-    console.log('Line charts initialized ✅');
-});
-</script>
+    </script>
 
 
 </body>
+
 </html>
