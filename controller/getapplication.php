@@ -2,10 +2,8 @@
 session_start();
 include __DIR__ . '/../config/config.php';
 header('Content-Type: application/json');
-class Getapplication extends Database
-{
-    public function getinfo()
-    {
+class Getapplication extends Database{
+    public function getinfo(){
         $getQuery = "SELECT * FROM `loan_information`";
         $stmt = $this->conn->prepare($getQuery);
         if (!$stmt) {
@@ -25,7 +23,6 @@ class Getapplication extends Database
             $_SESSION['loan_id'] = $row['loanID'];
             $_SESSION['total_interest'] = $row['interest'];
             $_SESSION['accountID_info'] = $row['account_id'];
-            // $_SESSION['created'] = $row['created_at'];
             $_SESSION['user_student_no'] = $row['student_no'];
         }
         echo json_encode($information);

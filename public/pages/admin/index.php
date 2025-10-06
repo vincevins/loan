@@ -84,7 +84,7 @@
                     </div>
                     <div class="stat-info">
                         <h3>Total Active Loans</h3>
-                        <p>24,583</p>
+                        <p id="totalActive">24,583</p>
                         <div class="stat-trend">
                             <i class="fas fa-arrow-up"></i>
                             <span>12.5%</span>
@@ -93,11 +93,11 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">
-                     <i class="fas fa-hourglass-half"></i>
+                        <i class="fas fa-hourglass-half"></i>
                     </div>
                     <div class="stat-info">
                         <h3>Pending Application</h3>
-                        <p>24,583</p>
+                        <p id="pendingApplication">24,583</p>
                         <div class="stat-trend">
                             <i class="fas fa-arrow-up"></i>
                             <span>12.5%</span>
@@ -106,11 +106,11 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">
-                           <i class="fa-solid fa-file"></i>
+                        <i class="fa-solid fa-file"></i>
                     </div>
                     <div class="stat-info">
                         <h3>Approved Application</h3>
-                        <p>24,583</p>
+                        <p id="approvedApplication">24,583</p>
                         <div class="stat-trend">
                             <i class="fas fa-arrow-up"></i>
                             <span>12.5%</span>
@@ -119,11 +119,11 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">
-                       <i class="fas fa-coins"></i>
+                        <i class="fas fa-coins"></i>
                     </div>
                     <div class="stat-info">
                         <h3>Revenue</h3>
-                        <p>24,583</p>
+                        <p id="revenue">24,583</p>
                         <div class="stat-trend">
                             <i class="fas fa-arrow-up"></i>
                             <span>12.5%</span>
@@ -132,19 +132,30 @@
                 </div>
             </div>
 
-
-            <!-- Charts Section -->
             <div class="charts-container">
                 <div class="chart-box">
-                    <canvas id="barChartLeft"></canvas>
+                    <div class="section-header">
+                        <h3>Today's Applicant</h3>
+                        <button class="view-all-btn">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="data-list" id="applicantList"></div>
                 </div>
+
                 <div class="chart-box">
-                    <canvas id="barChartRight"></canvas>
+                    <div class="section-header">
+                        <h3>Recent Payments</h3>
+                        <button class="view-all-btn">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="data-list" id="paymentList"></div>
                 </div>
             </div>
         </main>
     </div>
-
+    <script src="../../js/adminDashboard.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Dropdown Logic
@@ -182,68 +193,68 @@
 
 
             // Charts
-            const ctxLeft = document.getElementById('barChartLeft').getContext('2d');
-            const ctxRight = document.getElementById('barChartRight').getContext('2d');
+            // const ctxLeft = document.getElementById('barChartLeft').getContext('2d');
+            // const ctxRight = document.getElementById('barChartRight').getContext('2d');
 
-            new Chart(ctxLeft, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-                    datasets: [{
-                        label: 'Application Monthly Rate',
-                        data: [5, 10, 20, 30, 40, 10, 20, 30, 40, 5, 10, 20],
-                        borderColor: 'rgba(52, 152, 219, 1)',
-                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: 'rgba(52, 152, 219, 1)',
-                        pointRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
+            // new Chart(ctxLeft, {
+            //     type: 'line',
+            //     data: {
+            //         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            //         datasets: [{
+            //             label: 'Application Monthly Rate',
+            //             data: [5, 10, 20, 30, 40, 10, 20, 30, 40, 5, 10, 20],
+            //             borderColor: 'rgba(52, 152, 219, 1)',
+            //             backgroundColor: 'rgba(52, 152, 219, 0.2)',
+            //             fill: true,
+            //             tension: 0.3,
+            //             pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+            //             pointRadius: 5
+            //         }]
+            //     },
+            //     options: {
+            //         responsive: true,
+            //         plugins: {
+            //             legend: {
+            //                 display: true
+            //             }
+            //         },
+            //         scales: {
+            //             y: {
+            //                 beginAtZero: true
+            //             }
+            //         }
+            //     }
+            // });
 
-            new Chart(ctxRight, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-                    datasets: [{
-                        label: 'Revenue',
-                        data: [5, 10, 20, 30, 40, 10, 20, 30, 40, 5, 10, 20],
-                        borderColor: 'rgba(52, 152, 219, 1)',
-                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: 'rgba(52, 152, 219, 1)',
-                        pointRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
+            // new Chart(ctxRight, {
+            //     type: 'line',
+            //     data: {
+            //         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            //         datasets: [{
+            //             label: 'Revenue',
+            //             data: [5, 10, 20, 30, 40, 10, 20, 30, 40, 5, 10, 20],
+            //             borderColor: 'rgba(52, 152, 219, 1)',
+            //             backgroundColor: 'rgba(52, 152, 219, 0.2)',
+            //             fill: true,
+            //             tension: 0.3,
+            //             pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+            //             pointRadius: 5
+            //         }]
+            //     },
+            //     options: {
+            //         responsive: true,
+            //         plugins: {
+            //             legend: {
+            //                 display: true
+            //             }
+            //         },
+            //         scales: {
+            //             y: {
+            //                 beginAtZero: true
+            //             }
+            //         }
+            //     }
+            // });
 
             console.log('Line charts initialized ✅');
         });
