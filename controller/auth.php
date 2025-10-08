@@ -6,7 +6,7 @@ session_start();
 class Auth extends Database {
     public function register($accountID, $first_name, $middle_name, $last_name, $age, $contact, $email, $password, $role) {
         $passwordHashUser = password_hash($password, PASSWORD_DEFAULT);
-        $registerQuery = "INSERT INTO `tbl_accounts`(`account_id`, `first_name`, `middle_name`, `last_name`, `age`, `contact_no`, `email`, `tmp_password`, `role`)
+        $registerQuery = "INSERT INTO `loan_accounts`(`account_id`, `first_name`, `middle_name`, `last_name`, `age`, `contact_no`, `email`, `tmp_password`, `role`)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($registerQuery);
         $stmt->bind_param('sssssssss', $accountID, $first_name, $middle_name, $last_name, $age, $contact, $email, $passwordHashUser, $role);

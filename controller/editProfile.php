@@ -4,7 +4,7 @@ require_once '../config/config.php';
 header("Content-Type: application/json; charset=UTF-8");
 class EditProfile extends Database{
     public function updateProfile($profileData, $id){
-        $updateProf = "UPDATE tbl_accounts SET profile_pic = ? WHERE account_id = ?";
+        $updateProf = "UPDATE loan_accounts SET profile_pic = ? WHERE account_id = ?";
         $stmt = $this->conn->prepare($updateProf);
         $stmt->bind_param('ss', $profileData, $id);
         if ($stmt->execute()) {

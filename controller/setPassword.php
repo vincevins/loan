@@ -5,7 +5,7 @@ header("Content-Type: application/json; charset=UTF-8");
 class SetPassword extends Database{
     public function setPassword($password,$tmpPassword, $email){
         $passwordHashUser = password_hash($password, PASSWORD_DEFAULT);
-        $setPasswordQuery = "UPDATE `tbl_accounts` SET `password`= ?,`tmp_password`= ? WHERE email = ?";
+        $setPasswordQuery = "UPDATE `loan_accounts` SET `password`= ?,`tmp_password`= ? WHERE email = ?";
         $stmt = $this->conn->prepare($setPasswordQuery);
         $stmt->bind_param('sss', $passwordHashUser,$tmpPassword, $email);
         if ($stmt->execute()) {

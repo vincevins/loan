@@ -20,7 +20,7 @@ class InsertloanInformation extends Database{
     public function hasLoan(){
         $hasLoan = true;
         $id = $_SESSION['user_account_id'];
-        $updateStatus = "UPDATE `tbl_accounts` SET hasLoan = ? where account_id = ?";
+        $updateStatus = "UPDATE `loan_accounts` SET hasLoan = ? where account_id = ?";
         $stmt = $this->conn->prepare($updateStatus);
         $stmt->bind_param('ss',$hasLoan,$id);
         if ($stmt->execute()) {

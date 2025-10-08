@@ -3,7 +3,7 @@ require_once '../config/config.php';
 header("Content-Type: application/json; charset=UTF-8");
 class AdminDashboard extends Database{
     public function countActive(){
-        $activeLoan = "SELECT COUNT(hasLoan) AS count FROM tbl_accounts WHERE hasLoan  = 1";
+        $activeLoan = "SELECT COUNT(hasLoan) AS count FROM loan_accounts WHERE hasLoan  = 1";
         $stmt = $this->conn->prepare($activeLoan);
         if (!$stmt) {
             die("Prepare failed: " . $this->conn->error);

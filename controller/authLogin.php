@@ -6,7 +6,7 @@ class AuthLogin extends Database
 {
     public function login($user_email, $user_password)
     {
-        $loginQuery = "SELECT * FROM `tbl_accounts` WHERE email = ?";
+        $loginQuery = "SELECT * FROM `loan_accounts` WHERE email = ?";
         $stmt = $this->conn->prepare($loginQuery);
         if (!$stmt) {
             return json_encode(['success' => false, 'message' => 'Database error: ' . $this->conn->error]);

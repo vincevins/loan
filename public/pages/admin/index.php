@@ -84,7 +84,7 @@
                     </div>
                     <div class="stat-info">
                         <h3>Total Active Loans</h3>
-                        <p id="totalActive">24,583</p>
+                        <p id="totalActive"></p>
                         <div class="stat-trend">
                             <i class="fas fa-arrow-up"></i>
                             <span>12.5%</span>
@@ -97,7 +97,7 @@
                     </div>
                     <div class="stat-info">
                         <h3>Pending Application</h3>
-                        <p id="pendingApplication">24,583</p>
+                        <p id="pendingApplication"></p>
                         <div class="stat-trend">
                             <i class="fas fa-arrow-up"></i>
                             <span>12.5%</span>
@@ -110,7 +110,7 @@
                     </div>
                     <div class="stat-info">
                         <h3>Approved Application</h3>
-                        <p id="approvedApplication">24,583</p>
+                        <p id="approvedApplication"></p>
                         <div class="stat-trend">
                             <i class="fas fa-arrow-up"></i>
                             <span>12.5%</span>
@@ -122,8 +122,8 @@
                         <i class="fas fa-coins"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>Revenue</h3>
-                        <p id="revenue">24,583</p>
+                        <h3>Total Profit</h3>
+                        <p id="revenue"></p>
                         <div class="stat-trend">
                             <i class="fas fa-arrow-up"></i>
                             <span>12.5%</span>
