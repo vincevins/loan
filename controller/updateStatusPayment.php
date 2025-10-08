@@ -28,22 +28,26 @@ class UpdateStatusPayment extends Database{
     }
     public function updateStatusSched(){
         $result = $this->payments();
-        while ($payment = $result->fetch_assoc()) {
+        $updatestatus = "UPDATE loan_payment_schedule set payment_status = 'paid' where schedule_id  =?";
+        $stmt = $this->conn->prepare($updatestatus);
+        while($payment = $result->fetch_assoc()) {
             $id = $payment['schedule_id'];
-            $updatestatus = "UPDATE loan_payment_schedule set payment_status = 'paid' WHERE schedule_id  =?";
-            $stmt = $this->conn->prepare($updatestatus);
-            $stmt->bind_param('s', $id);
-            if ($stmt->execute()) {
-                http_response_code(200);
-                return json_encode(["status" => "success", "message" => "updated successfully."]);
-            } else {
-                http_response_code(500);
-                return json_encode(["status" => "error", "message" => "Failed to update: " . $stmt->error]);
+            if (!$stmt) {
+                die("Prepare failed: " . $this->conn->error);
             }
+            $stmt->bind_param('s', $id);
+            $stmt->execute();
+        }
+        if($stmt->close()) {
+            http_response_code(200);
+            return json_encode(["status" => "success", "message" => "updated successfully."]);
+        }else {
+            http_response_code(500);
+            return json_encode(["status" => "error", "message" => "Failed to update: " . $stmt->error]);
         }
     }
 }
-$status= new UpdateStatusPayment();
+$status = new UpdateStatusPayment();
 $payment = $status->updatestatus();
 $sched = $status->updateStatusSched();
 echo json_encode([$payment,$sched]);
