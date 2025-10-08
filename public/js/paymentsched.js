@@ -35,8 +35,7 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
     if (data[11].payment_status === "paid") {
       totalAmmount.textContent = "₱ 0.00";
     } else {
-      totalAmmount.textContent =
-        "₱" + Number(data[0].beginning_balance).toLocaleString();
+      totalAmmount.textContent = "₱" + Number(data[0].beginning_balance).toLocaleString();
     }
     let display = null;
     for (let index = 0; index < data.length; index++) {

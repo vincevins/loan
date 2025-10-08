@@ -39,14 +39,29 @@ class AdminDashboard extends Database{
         $count = $res;
         return json_encode($count);
     }
+    public function sumRevenue(){
+        $activeLoan = "SELECT SUM(interest_paid) as paid FROM loan_payments;";
+        $stmt = $this->conn->prepare($activeLoan);
+        if (!$stmt) {
+            die("Prepare failed: " . $this->conn->error);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = [];
+        $res = $result->fetch_assoc();
+        $count = $res;
+        return json_encode($count);
+    }
 }
 $active = new AdminDashboard();
 $activeCountJson = $active->countActive();
 $countPending = $active->getPending();
 $approved = $active->getApproved();
+$revenueSum = $active->sumRevenue();
+$revenue = json_decode($revenueSum, true);
 $approvedCount = json_decode($approved, true);
 $activeCount = json_decode($activeCountJson, true);
 $pendingCount = json_decode($countPending, true);
-echo json_encode(['active' => $activeCount,'pending' => $pendingCount, 'approved' => $approvedCount]);
+echo json_encode(['active' => $activeCount,'pending' => $pendingCount, 'approved' => $approvedCount, 'paid' =>$revenue]);
 
 
