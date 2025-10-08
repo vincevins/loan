@@ -20,6 +20,19 @@ async function dataCards() {
     console.error(error.message);
   }
 }
+async function updateStatus() {
+  const url = "http://localhost/casestudy-loan/loan/controller/updateStatusPayment.php";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
 async function getData() {
   const container = document.getElementById("paymentList");
   const url = "http://localhost/casestudy-loan/loan/controller/adminDashboardCards.php";
@@ -30,6 +43,7 @@ async function getData() {
     }
     const result = await response.json();
     const payments = result
+    updateStatus();
     console.log('test data: ', payments);
     if (payments.length === 0) {
       container.innerHTML = `<div class="empty-state">
