@@ -31,25 +31,9 @@ include 'sidebar.php';
 </head>
 <body>
 <main class="main-content">
-    <header class="main-header">
-        <h1>Overdue Loans</h1>
-        <div class="user-info">
-            <div class="notification-container">
-                <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
-                <div class="notification-dropdown">
-                    <p>No new notifications</p>
-                </div>
-            </div>
-            <div class="profile-container">
-                <i class="fa-solid fa-user-circle profile-icon"></i>
-                <div class="profile-dropdown">
-                    <a href="#">My Profile</a>
-                    <a href="#">Settings</a>
-                    <a href="../loan.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php
+        include 'header.php'
+    ?>
 
     <div class="page-content">
         <!-- Overdue Loans Table -->

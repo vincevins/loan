@@ -74,7 +74,7 @@ async function getPayments() {
 } 
 async function getapplication() {
   const applicantList = document.getElementById('applicantList')
-  const url = ' http://localhost/casestudy-loan/loan/controller/getapplication.php'
+  const url = 'http://localhost/casestudy-loan/loan/controller/getapplication.php'
    try {
     const response = await fetch(url);
     if (!response.ok) {

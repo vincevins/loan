@@ -1,93 +1,34 @@
-table.dataTable {
-    border-collapse: separate;
-    border-spacing: 0 8px; 
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    background: #fff;
+.exportBtn {
+  text-align: right;
+  margin-bottom: 10px;
 }
-
-table.dataTable thead {
-    background: #3498db;
+.exportBtn button {
+  background: grey;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.exportBtn button:hover {
+  background: #4361ee;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+th {
+  background-color: #e9ecef;
+}
+th{
+    background-color: #4361ee;
     color: white;
-    font-weight: bold;
 }
-
-table.dataTable tbody tr {
-    background: #ffffff;
-    border-radius: 8px;
-    transition: background 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-table.dataTable tbody tr:hover {
-    background: #ecf6fd;
-    transform: scale(1.01);
-    cursor: pointer;
-}
-
-table.dataTable tbody td {
-    padding: 12px 15px;
-    vertical-align: middle;
-}
-
-.dt-buttons {
-    margin-bottom: 15px;
-}
-
-.dt-button {
-    background: #3498db !important;
-    border: none !important;
-    border-radius: 6px !important;
-    color: white !important;
-    font-size: 16px;
-    padding: 8px 12px !important;
-    margin-right: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.dt-button:hover {
-    background: #217dbb !important;
-}
-
-.dataTables_filter input {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 6px 10px;
-}
-
-.status-approved {
-    font-weight: bold;
-    color: #27ae60;
-}
-
-.status-pending {
-    font-weight: bold;
-    color: #f39c12;
-}
-
-.status-rejected {
-    font-weight: bold;
-    color: #e74c3c;
-}
-
-.btn-approve, .btn-reject, .btn-view {
-    border: none;
-    padding: 6px 10px;
-    margin: 2px;
-    border-radius: 6px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.btn-approve { background-color: #27ae60; }
-.btn-approve:hover { background-color: #2ecc71; }
-
-.btn-reject { background-color: #e74c3c; }
-.btn-reject:hover { background-color: #ff4d4d; }
-
-.btn-view { background-color: hsl(204, 70%, 53%); }
-.btn-view:hover { background-color: #5dade2; }

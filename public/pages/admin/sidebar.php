@@ -1,82 +1,22 @@
 <link rel="stylesheet" href="../../styles/admin_style.css">
-<div class="dashboard-container">
-        <nav class="sidebar">   
-            <div class="sidebar-header">
-                <img src="../../img/logo1.1.png" alt="Company Logo">
-                <h1>F.L.O.W</h1>
-            </div>
-            <ul class="sidebar-nav">
-                <li><a href="index.php" class="active"><i class="icon-dashboard"></i>Dashboard</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-loans"></i>Loan Application
-                        <span class="dropdown-arrow">▼</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="pending.php">Pending</a></li>
-                        <li><a href="under_review.php">Under Review</a></li>
-                        <li><a href="approved.php">Approved</a></li>
-                        <li><a href="rejected.php">Rejected</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-loans"></i>Active Loan
-                        <span class="dropdown-arrow">▼</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="paymenthistory.php">Payment History</a></li>
-                        <li><a href="../admin/overdue.php">Overdue</a></li>
-                        <li><a href="paidloans.php">Paid Loans</a></li>
-                        <li><a href="pendingloans.php">Pending Loans</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-loans"></i>Fully Paid/Closed
-                        <span class="dropdown-arrow">▼</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="emp_loan.php">Employee's Loan</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-        // Dropdown Logic
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            const menu = this.nextElementSibling;
-            menu.classList.toggle('show');
-        });
-    });
-    // Notifications
-    const bell = document.querySelector('.notification-bell');
-    const dropdown = document.querySelector('.notification-dropdown');
-    bell.addEventListener('click', function (e) {
-        e.stopPropagation();
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    });
-    document.addEventListener('click', function () {
-        dropdown.style.display = 'none';
-    });
-    // Profile ICON
-    const profileIcon = document.querySelector('.profile-icon');
-    const profileDropdown = document.querySelector('.profile-dropdown');
-
-    profileIcon.addEventListener('click', function(e) {
-        e.stopPropagation();
-        profileDropdown.style.display = 
-            profileDropdown.style.display === 'block' ? 'none' : 'block';
-    });
-
-    document.addEventListener('click', function() {
-        profileDropdown.style.display = 'none';
-    });
-    console.log('Line charts initialized ✅');
-});
-</script>
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <img src="../../img/logo1.1.png" alt="Company Logo">
+        <h1>F.L.O.W</h1>
+    </div>
+    <ul class="sidebar-nav">
+        <div class="menu-title">Main</div>
+            <li><a href="index.php" class="active"><i class="fas fa-border-all"></i>Dashboard</a></li>
+        <div class="menu-title">Application Form</div>
+            <li><a href="under_review.php"><i class="fas fa-clipboard-list"></i>Under Review</a></li>
+            
+            <li><a href="approved.php"><i class="fas fa-clipboard-check"></i>Approved</a></li>
+            <li><a href="rejected.php"><i class="fas fa-times-circle"></i> Rejected</a></li>
+        <div class="menu-title">Payment</div>
+            <li><a href="paymenthistory.php"><i class="fas fa-wallet"></i>Payment History</a></li>
+        <div class="menu-title">Active Loan</div>
+            <li><a href="../admin/overdue.php"><i class="fa-solid fa-clock"></i>Overdue</a></li>
+            <li><a href="paidloans.php"><i class="fas fa-piggy-bank"></i>Paid Loans</a></li>
+            <li><a href="pendingloans.php"><i class="fa-solid fa-clock"></i>Pending Loans</a></li>
+    </ul>
+</nav>

@@ -51,8 +51,7 @@ async function getApplication() {
       const txtAdmin = capitalizeFirstLetter(adminApproval);
       verifyStatus.textContent = txtAdmin;
     }
-    if (
-      adminApproval.trim().toLowerCase() === "approved" &&
+    if (adminApproval.trim().toLowerCase() === "approved" &&
       hrApproval.trim().toLowerCase() === "approved"
     ) {
       step4Approved.style.display = "flex";

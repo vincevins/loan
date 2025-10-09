@@ -15,9 +15,11 @@ fetch("http://localhost/casestudy-loan/loan/controller/getapplication.php")
       const application_status = document.createElement("td");
       application_status.textContent = item.application_status;
       const approveBtn = document.createElement("td");
+      const rejectBtn = document.createElement("td");
       approveBtn.innerHTML = `<button class="approve-btn" data-id="${item.id}">APPROVE</button>`;
+      rejectBtn.innerHTML = `<button class="reject-btn" data-id="${item.id}">REJECT</button>`;
 
-      tblRow.append(id, firstName, lastName, application_status, approveBtn);
+      tblRow.append(id, firstName, lastName, application_status,approveBtn,rejectBtn);
       ListContainer.appendChild(tblRow);
     });
   })
