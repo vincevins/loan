@@ -336,9 +336,11 @@ body {
 }
 
 .notification-bell {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
+  font-size: 30px; 
   cursor: pointer;
+  display: inline-block;
 }
 
 .notification-dropdown {

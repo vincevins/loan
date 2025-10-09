@@ -35,7 +35,7 @@ include 'sidebar.php';
         <h1>Pending Loans</h1>
         <div class="user-info">
             <div class="notification-container">
-                <img src="../../img/notification.gif" alt="Notifications" class="notification-bell">
+                <i class="notification-bell fas fa-bell"></i>
                 <div class="notification-dropdown">
                     <p>No new notifications</p>
                 </div>

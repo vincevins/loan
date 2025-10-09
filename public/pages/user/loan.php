@@ -3,7 +3,7 @@ include 'nav.php';
 if (!isset($_SESSION['logged_in'])) {
     session_unset();
     session_destroy();
-    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    header("location: http://localhost/casestudy-loan/loan/public/pages/user/index.php");
     exit();
 }
 $role = $_SESSION['user_role'];

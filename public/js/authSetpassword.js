@@ -51,7 +51,7 @@ setPassword.addEventListener("submit", async function (e) {
     const result = await res.json();
     if (result.loginform === true) {
       window.location.href =
-        "http://localhost/casestudy-loan/loan/public/pages/index.php";
+        "http://localhost/casestudy-loan/loan/public/pages/user/index.php";
     }
   } catch (error) {
     console.error(error.message);

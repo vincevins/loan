@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
     <div class="dashboard-container">
         <nav class="sidebar">
@@ -60,7 +58,7 @@
                 <h1>Dashboard Overview</h1>
                 <div class="user-info">
                     <div class="notification-container">
-                        <img src="../../img/logo.png" alt="Notifications" class="notification-bell">
+                        <i class="notification-bell fas fa-bell"></i>
                         <div class="notification-dropdown">
                             <p>No new notifications</p>
                         </div>
@@ -86,8 +84,7 @@
                         <h3>Total Active Loans</h3>
                         <p id="totalActive"></p>
                         <div class="stat-trend">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>12.5%</span>
+                           
                         </div>
                     </div>
                 </div>
@@ -99,8 +96,7 @@
                         <h3>Pending Application</h3>
                         <p id="pendingApplication"></p>
                         <div class="stat-trend">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>12.5%</span>
+                          
                         </div>
                     </div>
                 </div>
@@ -112,8 +108,7 @@
                         <h3>Approved Application</h3>
                         <p id="approvedApplication"></p>
                         <div class="stat-trend">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>12.5%</span>
+                           
                         </div>
                     </div>
                 </div>
@@ -125,8 +120,7 @@
                         <h3>Total Profit</h3>
                         <p id="revenue"></p>
                         <div class="stat-trend">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>12.5%</span>
+                            
                         </div>
                     </div>
                 </div>

@@ -33,8 +33,8 @@ async function updateStatus() {
     console.error(error.message);
   }
 }
-async function getData() {
-  const container = document.getElementById("paymentList");
+async function getPayments() {
+  const paymentList = document.getElementById("paymentList");
   const url = "http://localhost/casestudy-loan/loan/controller/adminDashboardCards.php";
   try {
     const response = await fetch(url);
@@ -46,13 +46,13 @@ async function getData() {
     updateStatus();
     console.log('test data: ', payments);
     if (payments.length === 0) {
-      container.innerHTML = `<div class="empty-state">
+      paymentList.innerHTML = `<div class="empty-state">
       <i class="fas fa-credit-card"></i>
       <p>No recent payments</p>
       </div>`;
       return;
     }
-    container.innerHTML = payments.map((payment) => {
+    paymentList.innerHTML = payments.map((payment) => {
     const date = new Date(payment.created_at);
     const dateFormat = date.toDateString();
     return `<div class="data-item">
@@ -60,7 +60,7 @@ async function getData() {
           <span>₱</span>
         </div>
         <div class="data-item-content">
-          <p class="data-item-title">${payment.student_no}</p>
+          <p class="data-item-title">${payment.last_name}, ${payment.first_name} - ${payment.student_no}</p>
           <p class="data-item-subtitle">₱ ${payment.payment_amount} - ${dateFormat}</p>
         </div>
         <span class="data-item-badge">
@@ -71,6 +71,53 @@ async function getData() {
   } catch (error) {
     console.error(error.message);
   }
+} 
+async function getapplication() {
+  const applicantList = document.getElementById('applicantList')
+  const url = ' http://localhost/casestudy-loan/loan/controller/getapplication.php'
+   try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const result = await response.json();
+    const applicationForm = result
+
+    const currentDate = new Date();
+    const todayApplications = applicationForm.filter(item => {
+      if (!item.created_at) return false;
+      const createdAtDate = new Date(item.created_at);
+      return currentDate.getMonth() === createdAtDate.getMonth() && currentDate.getDate() === createdAtDate.getDate();
+    });
+    // console.log('applications:', todayApplications);
+    if (todayApplications.length === 0) {
+      applicantList.innerHTML = `<div class="empty-state">
+        <i class="fa-solid fa-file"></i>
+        <p>No Applicant</p>
+      </div>`;
+      return;
+    }else{
+      applicantList.innerHTML = todayApplications.map((application) => {
+      const date = new Date(application.created_at);
+      const dateFormat = date.toDateString();
+      return `<div class="data-item">
+          <div class="data-item-icon application-icon"> 
+            <span>₱</span>
+          </div>
+          <div class="data-item-content">
+            <p class="data-item-title">${application.last_name}, ${application.first_name} - ${application.student_no}</p>
+            <p class="data-item-subtitle">₱ ${application.loan_amount} - ${dateFormat}</p>
+          </div>
+          <span class="data-item-badge">
+            ${application.application_status.charAt(0).toUpperCase() + application.application_status.slice(1)}
+          </span>
+        </div>`;
+    })
+    } 
+  } catch (error) {
+    console.error(error.message);
+  }
 }
-getData();
+getapplication()
+getPayments();
 dataCards();

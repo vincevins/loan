@@ -4,7 +4,7 @@ $role = $_SESSION['user_role'];
 if ($role != 'admin') {
     session_unset();
     session_destroy();
-    header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
+    header("location: http://localhost/casestudy-loan/loan/public/pages/user/index.php");
     exit();
 }
 ?>

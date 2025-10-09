@@ -25,8 +25,9 @@ class Getapplication extends Database{
             $_SESSION['accountID_info'] = $row['account_id'];
             $_SESSION['user_student_no'] = $row['student_no'];
         }
-        echo json_encode($information);
+        return json_encode($information);
     }
 }
 $getResched = new Getapplication();
-$getResched->getinfo();
+$application = json_decode($getResched->getinfo());
+echo json_encode($application);
