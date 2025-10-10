@@ -11,6 +11,7 @@ include 'sidebar.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../../styles/admin_style.css">
     <link rel="stylesheet" href="../../styles/table.css">
+      <link rel="stylesheet" href="../../styles/toast.css">
 </head>
 
 <body>
@@ -45,6 +46,7 @@ include 'sidebar.php';
             </table>
 
         </div>
+         <div class="toast-container" id="toastContainer"></div>
     </main>
  <script src="../../js/underReview.js"></script>
 </body>
