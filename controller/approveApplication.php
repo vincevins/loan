@@ -33,6 +33,7 @@ class ApproveApplication extends Database{
         $balance = $withInterest * $term;
         $payment_number = 0;
         $status = "unpaid";
+        $late_payment = 30;
         $approval_date = date("Y-m-d H:i:s");
         $schedules = [];
         for ($i = 1; $i <= $term; $i++) {
@@ -40,10 +41,10 @@ class ApproveApplication extends Database{
             $schedID = 'SCHEDULE-' . bin2hex(random_bytes(8));
             $dueDate = date("Y-m-d H:i:s", strtotime("+$i months", strtotime($approval_date)));
             $endBalance = $balance - $withInterest;
-            $setSchedule = "INSERT INTO `loan_payment_schedule`(`student_no`,`schedule_id`, `loanID`, `account_id`, `payment_number`, `due_date`, `monthly_payment_no_interest`,`interest`, `total_payment_due`, `beginning_balance`, `ending_balance`, `payment_status`)  
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+            $setSchedule = "INSERT INTO `loan_payment_schedule`(`student_no`,`schedule_id`, `loanID`, `account_id`, `payment_number`, `due_date`, `monthly_payment_no_interest`,`interest`, `total_payment_due`, `beginning_balance`, `ending_balance`, `payment_status`,`late_payment`)  
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $this->conn->prepare($setSchedule);
-            $stmt->bind_param('ssssisddddds', $studentNo,$schedID, $loanID,$accountID, $payment_number, $dueDate, $noInterest,$total_interest, $withInterest, $balance, $endBalance, $status);
+            $stmt->bind_param('ssssisdddddsd', $studentNo,$schedID, $loanID,$accountID, $payment_number, $dueDate, $noInterest,$total_interest, $withInterest, $balance, $endBalance, $status,$late_payment);
             $stmt->execute();
              $schedules[] = [
                 "Student_no" => $studentNo,
