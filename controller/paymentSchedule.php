@@ -1,5 +1,6 @@
 <?php
 require_once '../config/config.php';
+header("Content-Type: application/json; charset=UTF-8");
 session_start();
 class PaymentSchedule extends Database{
     public function getSchedule($id) {

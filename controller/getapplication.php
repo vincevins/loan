@@ -23,11 +23,11 @@ class Getapplication extends Database{
             $_SESSION['loan_id'] = $row['loanID'];
             $_SESSION['total_interest'] = $row['interest'];
             $_SESSION['accountID_info'] = $row['account_id'];
-            $_SESSION['user_student_no'] = $row['student_no'];
+            $_SESSION['userstudent_no'] = $row['student_no'];
         }
-        return json_encode($information);
+        return $information;
     }
 }
 $getResched = new Getapplication();
-$application = json_decode($getResched->getinfo());
-echo json_encode($application);
+
+echo json_encode($getResched->getinfo());

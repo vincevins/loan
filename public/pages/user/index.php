@@ -19,11 +19,11 @@
                 <h2 class="form-title">Welcome Back</h2>
                 <div class="input-group">
                     <i data-feather="mail"></i>
-                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="email" name="email" placeholder="Email Address" >
                 </div>
                 <div class="input-group">
                     <i data-feather="lock"></i>
-                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="password" placeholder="Password" >
                 </div>
                 <button type="submit" class="submit-btn">Login</button>
                 <div class="form-footer">
@@ -38,43 +38,43 @@
                 <div class="form-row">
                     <div class="input-group">
                         <i data-feather="user"></i>
-                        <input type="text" name="first_name" placeholder="First Name" required>
+                        <input type="text" name="first_name" placeholder="First Name" >
                     </div>
                     <div class="input-group">
                         <i data-feather="user"></i>
-                        <input type="text" name="middle_name" placeholder="Middle Name" required>
+                        <input type="text" name="middle_name" placeholder="Middle Name" >
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-group">
                         <i data-feather="user"></i>
-                        <input type="text" name="last_name" placeholder="Last Name" required>
+                        <input type="text" name="last_name" placeholder="Last Name" >
                     </div>
                     <div class="input-group">
                         <i data-feather="calendar"></i>
-                        <input type="number" name="age" placeholder="Age" min="13" max="120" required>
+                        <input type="number" name="age" placeholder="Age" min="13" max="120" >
                     </div>
                 </div>
 
                 <div class="input-group">
                     <i data-feather="phone"></i>
-                    <input type="tel" name="contact" placeholder="Contact Number" required>
+                    <input type="tel" name="contact" placeholder="Contact Number" >
                 </div>
 
                 <div class="input-group">
                     <i data-feather="mail"></i>
-                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="email" name="email" placeholder="Email Address" >
                 </div>
 
                 <div class="input-group">
                     <i data-feather="lock"></i>
-                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="password" placeholder="Password" >
                 </div>
 
                 <div class="input-group">
                     <i data-feather="lock"></i>
-                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" >
                 </div>
 
                 <button type="submit" class="submit-btn">Sign Up</button>

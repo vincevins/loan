@@ -3,16 +3,39 @@ session_start();
 require_once '../config/config.php';
 header("Content-Type: application/json; charset=UTF-8");
 class ApproveApplication extends Database{
+    public function loanInformatio($id){
+        $getQuery = "SELECT * FROM `loan_information` WHERE `id` = ?";
+        $stmt = $this->conn->prepare($getQuery);
+        if (!$stmt) {
+            die("Prepare failed: " . $this->conn->error);
+        }
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        if ($row) {
+            $_SESSION['loan_id'] = $row['loanID'];
+            $_SESSION['start_Date'] = $row['approval_date'];
+            $_SESSION['no_interest'] = $row['monthly_payment_no_interest'];
+            $_SESSION['with_interest'] = $row['monthly_payment'];
+            $_SESSION['term'] = $row['loan_term'];
+            $_SESSION['amount_loan'] = $row['loan_amount'];
+            $_SESSION['total_interest'] = $row['interest'];
+            $_SESSION['accountID_info'] = $row['account_id'];
+            $_SESSION['userstudent_no'] = $row['student_no'];
+        }
+
+        return $row;
+    }
     public function approveApplications($id){
-        $updateStatus = "UPDATE `loan_information` SET `application_status` = ?, `approval_date` = ?, `hr_approval_date` = ?, `application_status_for_admin` = ?, `assigned_admin` = ?
-        WHERE `id` = ?";
+        $updateStatus = "UPDATE `loan_information` SET `approval_date` = ?,`application_status_for_admin` = ?, `assigned_admin` = ? WHERE `id` = ?";
         $stmt = $this->conn->prepare($updateStatus);
         $status = "Approved";
         $approval_date = date("Y-m-d H:i:s");
         $fName = $_SESSION['user_first_name'];
         $lName =$_SESSION['user_last_name'];
         $assigned_admin = $lName . ", " . $fName;
-        $stmt->bind_param("sssssi", $status, $approval_date, $approval_date, $status, $assigned_admin, $id);
+        $stmt->bind_param("sssi",   $approval_date, $status, $assigned_admin, $id);
         if ($stmt->execute()) {
             http_response_code(200);
             $response = ["status" => "success", "message" => "Record updated successfully."];
@@ -23,8 +46,8 @@ class ApproveApplication extends Database{
         return $response;
     }
     public function setSched(){
-        $studentNo = $_SESSION['user_student_no'];
-        $accountID =   $_SESSION['accountID_info'];
+        $studentNo = $_SESSION['userstudent_no'];
+        $accountID =  $_SESSION['accountID_info'];
         $total_interest = $_SESSION['total_interest'];
         $loanID = $_SESSION['loan_id'];
         $noInterest = $_SESSION['no_interest'];
@@ -65,12 +88,28 @@ class ApproveApplication extends Database{
         $response = ["status" => "success", "message" => "Record sched successfully", "data" => $schedules ];
         return $response;
     }
+    public function hasLoan(){
+        $hasLoan = true;
+        $id = $_SESSION['accountID_info'];
+        $updateStatus = "UPDATE `loan_accounts` SET hasLoan = ? where account_id = ?";
+        $stmt = $this->conn->prepare($updateStatus);
+        $stmt->bind_param('ss',$hasLoan,$id);
+        if ($stmt->execute()) {
+            http_response_code(200);
+            $response = ["status" => "success", "message" => "Record updated successfully."];
+        }else {
+            http_response_code(500);
+            $response = ["status" => "error", "message" => "Failed to update record."];
+        }
+        return $response;
+    }
 
 }
 $approval = new ApproveApplication();
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
+    $fetchInfo = $approval->loanInformatio($id);
     $approvalData = $approval->approveApplications($id); 
     $schedData = $approval->setSched();
-    echo json_encode(["approval"=> $approvalData,"schedule" => $schedData]);
+    echo json_encode(["info" => $fetchInfo,"approval" => $approvalData, "schedule" => $schedData, "activee" => $approval->hasLoan()]);
 }

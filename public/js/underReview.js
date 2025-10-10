@@ -1,5 +1,3 @@
-const underReview = document.getElementById('under_reviewBody')
-
 async function getData() {
     const url = 'http://localhost/casestudy-loan/loan/controller/getapplication.php'
     try {
@@ -8,11 +6,13 @@ async function getData() {
         throw new Error(`Response status: ${response.status}`);
         }
         const result = await response.json();
-        const applicationForm = result.find(item => item.application_status === 'approved');
+        const applicationForm = result.find(item => item.application_status === 'pending');
         const list = [applicationForm]
+        console.log('dataaaa: ', result);
+        
         const ListContainer = document.querySelector(".list");
         ListContainer.innerHTML = "";
-        list.forEach((data) => {
+        result.forEach((data) => {
         const tblRow = document.createElement("tr");
         const id = document.createElement("td");
         id.textContent = data.loanID
@@ -32,8 +32,9 @@ async function getData() {
         remarks.textContent = data.remarks       
         const action = document.createElement("td");
         action.innerHTML = `<button class="approve-btn" data-id="${data.id}"><i class="fa-solid fa-check"></i></button>
-        <button class="reject-btn" data-id="${data.id}"><i class="fas fa-times"></i></button> <button class="view-btn" data-id="${data.id}"><i class='far fa-eye'></i></button>`;
-        tblRow.append(id, fName,amount,application_status,dateApplied,reviewer,reviewDate,remarks,action);
+        <button class="reject-btn" data-id="${data.id}"><i class="fas fa-times"></i></button> 
+        <button class="view-btn" data-id="${data.id}"><i class='far fa-eye'></i></button>`;
+        tblRow.append(id,fName,amount,application_status,dateApplied,reviewer,reviewDate,remarks,action);
         ListContainer.appendChild(tblRow);
         });
         
@@ -41,4 +42,27 @@ async function getData() {
         console.error(error.message);
     }
 }
+document.addEventListener("click", async function (e) {
+  if (e.target.classList.contains("approve-btn")) {
+    const id = e.target.getAttribute("data-id");
+    const url  = "http://localhost/casestudy-loan/loan/controller/approveApplication.php";
+    try {
+      const formData = new FormData();
+      formData.append("id", id);
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(response.message || `Error ${response.status}`);
+      }
+      alert(result.message || "Application approved successfully!");
+        console.log('id:: ',id);
+    } catch (error) {
+      console.error(error.message);
+      alert("Something went wrong: " + error.message);
+    }
+  }
+});
 getData()

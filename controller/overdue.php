@@ -12,16 +12,42 @@ class Overdue extends Database{
         $result = $stmt->get_result();
         return $result;
     }
-    public function sendReminders() {
-         $res = $this->checkDueDate();
-         
-    }
+    //  public function sendReminders(){
+    //     $res = $this->checkDueDate();
+    //     $today = new DateTime();
+    //     $insertReminder = "INSERT INTO `loan_reminder`(`reminder_id`, `loanID`, `schedule_id`, `account_id`, `message`) VALUES (?,?,?,?,?)";
+    //     $stmt = $this->conn->prepare($insertReminder);
+    //     while ($payment = $res->fetch_assoc()) {
+    //         $due_date = $payment['due_date'];
+    //         $id = $payment['schedule_id'];
+    //         $loanID = $payment['loanID'];
+    //         $accountid = $payment['account_id'];
+    //         $timestamp = time();
+    //         $randomNumber = mt_rand(1000, 9999);
+    //         $uniqueId = $timestamp . $randomNumber;
+    //         $days_overdue = $payment['days_overdue'];
+    //         $message = 'test kung gumagana' . $days_overdue;
+    //         $diff = $today->diff($due_date)->days;
+    //         if ($due_date > $today) {
+    //             if ($diff == 3) {
+    //                 $stmt->bind_param('sssss', $uniqueId, $loanID, $id, $accountid, $message);
+    //                 $stmt->execute();
+    //             }
+    //         }
+    //     }
+    // }
+
     public function dueDate(){
+        $timestamp = time();
+        $randomNumber = mt_rand(1000, 9999);
+        $uniqueId = $timestamp . $randomNumber;
         $res = $this->checkDueDate();
         $today = date('Y-m-d');
         $updateMonthly = "UPDATE loan_payment_schedule set monthly_payment_no_interest = ?, total_payment_due  = ?, days_overdue =?, updated_at =? where schedule_id  =?";
         $stmt = $this->conn->prepare($updateMonthly);
         while ($payment = $res->fetch_assoc()) {
+            $accountid = $payment['account_id'];
+            $loanID = $payment['loanID'];
             $id = $payment['schedule_id'];
             $due_date = $payment['due_date'];
             $late_payment = $payment['late_payment'];
@@ -33,10 +59,17 @@ class Overdue extends Database{
             $dayDue = $days_overdue + 1;
             $updated_at = $payment['updated_at'];
             $setUpdate = $today;
+            $message = "Hello, this is a reminder that your" . '₱ '. $paymentMonthly . 'day overdue: ' .$dayDue .
+            'Please remind the finance department to process your loan and settle the payment as soon as possible. Thank you for your cooperation';
             if ($due_date < $today) {
                 if ($updated_at !== $today) {
-                    $stmt->bind_param('ddsss', $paymentMonthly, $totalDue, $dayDue, $setUpdate, $id);
-                    $stmt->execute();
+                   $insertReminder = "INSERT INTO `loan_reminder`(`reminder_id`, `loanID`, `schedule_id`, `account_id`, `message`) VALUES (?,?,?,?,?)";
+                   $stmtReminder = $this->conn->prepare($insertReminder);
+                   $stmtReminder->bind_param('sssss', $uniqueId, $loanID, $id, $accountid, $message);
+                   $stmtReminder->execute();
+
+                   $stmt->bind_param('ddsss', $paymentMonthly, $totalDue, $dayDue, $setUpdate, $id);
+                   $stmt->execute();
                 }
             }
         }

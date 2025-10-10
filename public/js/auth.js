@@ -115,42 +115,53 @@
             const confirmPassword = this.querySelector('input[name="confirm_password"]').value;
             var minNumberofChars = 6;
             var maxNumberofChars = 16;
-            var regularExpression  = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-            // if(password < minNumberofChars || password > maxNumberofChars || regularExpression.test(password)){
-            //     e.preventDefault()
-            //     showToast('error','password should contain atleast one number and one special character')
-            //     return
-            // }
+            var hasNumber = /\d/.test(password);
+            var hasSpecial = /[!@#$%^&*]/.test(password);
+            var validChars = /^[a-zA-Z0-9!@#$%^&*]+$/.test(password);
+            if(password.length < minNumberofChars || password.length > maxNumberofChars){
+                e.preventDefault();
+                showToast('error','Password must be between 6 and 16 characters');
+                return;
+            }
+            if(!hasNumber || !hasSpecial || !validChars){
+                e.preventDefault();
+                showToast('error','Password should contain at least one number and one special character');
+                return;
+            }
             if (firstName.trim() === '' || middleName.trim() === '' || lastName.trim() === '' ||
                 age.trim() === '' || contact.trim() === '' || email.trim() === '' ||
                 password.trim() === '' || confirmPassword.trim() === '') {
                 e.preventDefault();
-                alert('Please fill in all fields');
+                showToast('error','Please fill in all fields');
                 return;
             }
             if (age < 13 || age > 120) {
                 e.preventDefault();
-                alert('Please enter a valid age between 13 and 120');
+                showToast('error','Please enter a valid age between 13 and 120');
                 return;
             }
 
             if (password !== confirmPassword) {
                 e.preventDefault();
-                alert('Passwords do not match');
+                showToast('error','Passwords do not match');
+               
                 return;
             }
 
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
                 e.preventDefault();
-                alert('Please enter a valid email address');
+                showToast('error','Please input valid email');
                 return;
             }
 
-            const phonePattern = /^[\+]?[1-9][\d]{0,15}$/;
-            if (!phonePattern.test(contact.replace(/[\s\-\(\)]/g, ''))) {
+            const phonePattern = /^09\d{9}$/;
+            const cleanedContact = contact.replace(/[\s\-\(\)]/g, '');
+
+            if (!phonePattern.test(cleanedContact)) {
                 e.preventDefault();
-                alert('Please enter a valid contact number');
+                showToast('error','Please enter a valid contact number');
+                return;
             }
             const url = 'http://localhost/casestudy-loan/loan/controller/auth.php';
             try{
