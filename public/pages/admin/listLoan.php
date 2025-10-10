@@ -24,27 +24,29 @@ include 'sidebar.php';
                 <button id="exportExcel"><i class="fa-regular fa-file-excel" style="font-size:20px"></i></button>
                 <button id="exportPdf"><i class="fa-solid fa-file" style="font-size:20px"></i></button>
             </div>
-            <table id="paid">
+
+            <table id="loanList">
                 <thead>
                     <tr>
                         <th>Loan ID</th>
                         <th>Borrower</th>
-                        <th>Total Payment Due</th>
-                        <th>Due Date</th>
-                        <th>Date Paid</th>
+                        <th>Amount</th>
+                        <th>Application Status</th>
+                        <th>Date Applied</th>
+                        <th>Reviewer</th>
+                        <th>Review Date</th>
+                        <th>Remarks</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
-
-                <tbody class="listPaid">
+                <tbody class="list">
 
                 </tbody>
             </table>
 
         </div>
     </main>
-    <script src="../../js/activeLoanPaid.js"></script>
+ <script src="../../js/loanList.js"></script>
 </body>
 
 </html>

@@ -170,8 +170,6 @@
                 // alert(result.message || "Application submitted successfully!");
                 if(result.success){
                     showToast('success', result.message)
-                }else{
-                    showToast('error', result.message)
                 }
                 this.reset();
                 currentStep = 0;

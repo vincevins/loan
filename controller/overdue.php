@@ -2,7 +2,6 @@
 header("Content-Type: application/json; charset=UTF-8");
 date_default_timezone_set('Asia/Manila');
 class Overdue extends Database{
-    public function sendReminders() {}
     public function checkDueDate(){
         $duedate = 'SELECT * FROM `loan_payment_schedule`';
         $stmt = $this->conn->prepare($duedate);
@@ -12,6 +11,10 @@ class Overdue extends Database{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result;
+    }
+    public function sendReminders() {
+         $res = $this->checkDueDate();
+         
     }
     public function dueDate(){
         $res = $this->checkDueDate();
@@ -32,7 +35,7 @@ class Overdue extends Database{
             $setUpdate = $today;
             if ($due_date < $today) {
                 if ($updated_at !== $today) {
-                    $stmt->bind_param('ddsss', $paymentMonthly, $totalDue, $dayDue,$setUpdate, $id);
+                    $stmt->bind_param('ddsss', $paymentMonthly, $totalDue, $dayDue, $setUpdate, $id);
                     $stmt->execute();
                 }
             }

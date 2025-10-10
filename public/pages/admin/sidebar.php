@@ -31,6 +31,6 @@ if ($role != 'admin') {
         <div class="menu-title">Active Loan</div>
             <li><a href="../admin/overdue.php"><i class="fa-solid fa-clock"></i>Overdue</a></li>
             <li><a href="paidloans.php"><i class="fas fa-piggy-bank"></i>Paid Loans</a></li>
-            <li><a href="pendingloans.php"><i class="fa-solid fa-clock"></i>Pending Loans</a></li>
+            <li><a href="listloan.php"><i class="fa-solid fa-clock"></i>List Loan Details</a></li>
     </ul>
 </nav>
