@@ -8,9 +8,11 @@ async function getData() {
         throw new Error(`Response status: ${response.status}`);
         }
         const result = await response.json();
+        const applicationForm = result.find(item => item.application_status === 'approved');
+        const list = [applicationForm]
         const ListContainer = document.querySelector(".list");
         ListContainer.innerHTML = "";
-        result.forEach((data) => {
+        list.forEach((data) => {
         const tblRow = document.createElement("tr");
         const id = document.createElement("td");
         id.textContent = data.loanID
@@ -28,12 +30,10 @@ async function getData() {
         reviewDate.textContent = data.hr_approval_date 
         const remarks = document.createElement("td")
         remarks.textContent = data.remarks       
-        const approveBtn = document.createElement("td");
-        const rejectBtn = document.createElement("td");
-        approveBtn.innerHTML = `<button class="approve-btn" data-id="${data.id}">APPROVE</button>`;
-        rejectBtn.innerHTML = `<button class="reject-btn" data-id="${data.id}">REJECT</button>`;
-
-        tblRow.append(id, fName,amount,application_status,dateApplied,reviewer,reviewDate,remarks,approveBtn,rejectBtn);
+        const action = document.createElement("td");
+        action.innerHTML = `<button class="approve-btn" data-id="${data.id}"><i class="fa-solid fa-check"></i></button>
+        <button class="reject-btn" data-id="${data.id}"><i class="fas fa-times"></i></button> <button class="view-btn" data-id="${data.id}"><i class='far fa-eye'></i></button>`;
+        tblRow.append(id, fName,amount,application_status,dateApplied,reviewer,reviewDate,remarks,action);
         ListContainer.appendChild(tblRow);
         });
         

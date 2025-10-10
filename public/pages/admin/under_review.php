@@ -20,6 +20,7 @@ include 'sidebar.php';
         ?>
         <div class="page-content">
             <div class="exportBtn">
+                <input type="text" placeholder="Search..." class="searchField">
                 <button id="exportExcel"><i class="fa-regular fa-file-excel" style="font-size:20px"></i></button>
                 <button id="exportPdf"><i class="fa-solid fa-file" style="font-size:20px"></i></button>
             </div>

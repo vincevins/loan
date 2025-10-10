@@ -11,6 +11,36 @@
   cursor: pointer;
   margin-left: 5px;
 }
+.approve-btn {
+  background: #4361ee;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+.reject-btn {
+  background: rgb(238, 36, 36);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+.view-btn {
+  background:#4361ee;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
 .exportBtn button:hover {
   background: #4361ee;
 }
@@ -28,7 +58,11 @@ td {
 th {
   background-color: #e9ecef;
 }
-th{
-    background-color: #4361ee;
-    color: white;
+th {
+  background-color: #4361ee;
+  color: white;
+}
+.searchField{
+  width: 10%;
+  height: 33px;
 }

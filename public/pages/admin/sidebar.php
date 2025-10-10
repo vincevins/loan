@@ -1,3 +1,17 @@
+<?php
+session_start();
+if (!isset($_SESSION['logged_in'])) {
+    session_unset();
+    session_destroy();
+    header("location: http://localhost/casestudy-loan/loan/public/pages/user/index.php");
+    exit();
+}
+$role = $_SESSION['user_role'];
+if ($role != 'admin') {
+    header("location: http://localhost/casestudy-loan/loan/public/pages/user/index.php");
+    exit();
+}
+?>
 <link rel="stylesheet" href="../../styles/admin_style.css">
 <nav class="sidebar">
     <div class="sidebar-header">

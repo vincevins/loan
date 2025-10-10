@@ -1,5 +1,9 @@
+
+
 <header class="main-header">
-    <h1>Dashboard Overview</h1>
+    <h1><?php
+        echo 'Welcome back,', ' ' . $_SESSION['user_first_name']
+        ?></h1>
     <div class="user-info">
         <div class="notification-container">
             <i class="notification-bell fas fa-bell"></i>

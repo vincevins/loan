@@ -90,7 +90,7 @@
                 }else if (result.role === 'user') {
                     window.location.href ="http://localhost/casestudy-loan/loan/public/pages/user/loan.php"
                 }else if(result.role === 'admin'){
-                    window.location.href ="http://localhost/casestudy-loan/loan/public/pages/testApproval.php"
+                    window.location.href ="http://localhost/casestudy-loan/loan/public/pages/admin/index.php"
                 }
                 else{
                     window.location.href = "http://localhost/casestudy-loan/loan/public/pages/user/index.php";
