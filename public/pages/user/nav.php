@@ -11,6 +11,8 @@ if ($role != 'user') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../styles/profile.css">
     <link rel="stylesheet" href="../../styles/nav.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AdDwOSNHNw7Jgf0uorqdXP-gCDnqVVv7D4kejfs1GfhN5A4RYuLCFSJdNX8navTUCToLOmKoHK7Q1Sl5&currency=PHP"></script>
     <title>Document</title>
 </head>
 <body>
@@ -273,6 +275,7 @@ if ($role != 'user') {
                                             <th>Principal</th>
                                             <th>Interest</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="paymentScheduleBody"> </tbody>

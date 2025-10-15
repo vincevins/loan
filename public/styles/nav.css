@@ -48,6 +48,18 @@
   font-weight: 600;
   font-size: 14px;
 }
+.pay-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.pay-btn:hover {
+  background-color: #45a049;
+}
 
 .profile-name {
   font-weight: 500;
