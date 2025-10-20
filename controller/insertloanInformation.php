@@ -89,7 +89,7 @@ if (isset($_POST['firstName'])) {
     $remarks = null;
     $hr_approval_date = null;
     $assigned_admin = null;
-    $application_status_for_admin = 'Pending';
+    $application_status_for_admin = 'under_review';
     $approval_date = null;
     $employee_position = $_POST['position']; 
     $date_hired = $_POST['dateHired'];

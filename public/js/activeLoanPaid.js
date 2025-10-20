@@ -35,3 +35,6 @@ async function getPaid() {
     }
 }
 getPaid()
+setInterval(() => {
+  getPaid();
+}, 5000);

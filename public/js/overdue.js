@@ -50,3 +50,8 @@ async function getOverdue() {
 }
 getData()
 getOverdue()
+ getData();
+setInterval(() => {
+  getData();
+  getOverdue();
+}, 5000);

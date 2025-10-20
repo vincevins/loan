@@ -6,17 +6,16 @@ async function getData() {
         throw new Error(`Response status: ${response.status}`);
         }
         const result = await response.json();
-        const applicationForm = result.find(item => item.application_status === 'approved');
-        const list = [applicationForm]
+        const applicationForm = result.filter(item => item.hasLoan === 1);
+        console.log('testtt', applicationForm);
         const ListContainer = document.querySelector(".list");
         ListContainer.innerHTML = "";
-        list.forEach((data) => {
+        applicationForm.forEach((data) => {
             const status = data.hasLoan
             var loanStatus;
             if(status === 1){
                 loanStatus = 'Active'
                 console.log('dasdadas');
-                
             }
             const tblRow = document.createElement("tr");
             const id = document.createElement("td");
@@ -45,4 +44,7 @@ async function getData() {
         console.error(error.message);
     }
 }
-getData()
+ getData();
+setInterval(() => {
+  getData();
+}, 5000);

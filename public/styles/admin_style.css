@@ -741,4 +741,10 @@ body {
   letter-spacing: 1px;
   opacity: 0.85;
 }
+.sidebar-nav a.active {
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+}
+
 

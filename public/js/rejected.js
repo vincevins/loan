@@ -38,4 +38,8 @@ async function getData() {
         console.error(error.message);
     }
 }
-getData()
+ getData();
+setInterval(() => {
+  getData();
+}, 5000);
+

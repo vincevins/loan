@@ -118,6 +118,11 @@ async function getapplication() {
     console.error(error.message);
   }
 }
-getapplication()
-getPayments();
-dataCards();
+  dataCards();
+  getPayments();
+  getapplication();
+setInterval(() => {
+  dataCards();
+  getPayments();
+  getapplication();
+}, 5000);

@@ -6,15 +6,13 @@ async function getData() {
       throw new Error(`Response status: ${response.status}`);
     }
     const result = await response.json();
-    const applicationForm = result.find(
-      (item) => item.application_status === "pending"
-    );
+    const applicationForm = result.filter((item) => item.application_status_for_admin === "under_review");
     const list = [applicationForm];
-    console.log("dataaaa: ", result);
+    console.log("dataaaa: ", applicationForm);
 
     const ListContainer = document.querySelector(".list");
     ListContainer.innerHTML = "";
-    result.forEach((data) => {
+    applicationForm.forEach((data) => {
       const tblRow = document.createElement("tr");
       const id = document.createElement("td");
       id.textContent = data.loanID;
@@ -95,4 +93,7 @@ document.addEventListener("click", async function (e) {
     }
   }
 });
-getData();
+ getData();
+setInterval(() => {
+  getData();
+}, 5000);

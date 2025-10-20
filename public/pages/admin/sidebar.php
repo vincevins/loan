@@ -34,3 +34,4 @@ if ($role != 'admin') {
             <li><a href="listloan.php"><i class="fa-solid fa-clock"></i>List Loan Details</a></li>
     </ul>
 </nav>
+<script src="../../js/sidebar.js"></script>

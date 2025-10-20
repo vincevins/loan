@@ -94,7 +94,7 @@
         </main>
     </div>
     <script src="../../js/adminDashboard.js"></script>
-     <script src="../../js/overdue.js"></script>
-</body>
+     <script type="module" src="../../js/overdue.js"></script>
+</body> 
 
 </html>
