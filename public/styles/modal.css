@@ -1,0 +1,110 @@
+.modal {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #4361ee;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content h1 {
+  color: black;
+  float: left;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.modal-body {
+  clear: both;
+  padding-top: 20px;
+}
+
+.content-field {
+  margin-bottom: 30px;
+}
+
+.content-field p {
+  color: #333;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.content-field strong {
+  color: #000;
+}
+
+.id-images-section {
+  border-top: 2px solid #f0f0f0;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.id-images-section h3 {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.id-images-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.id-image-wrapper {
+  text-align: center;
+}
+
+.id-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.id-image-wrapper p {
+  color: #000;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

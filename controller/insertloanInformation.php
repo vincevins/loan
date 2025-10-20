@@ -100,7 +100,7 @@ if (isset($_POST['firstName'])) {
     $employer_phone_number = $_POST['employerContactNumber'];
     $employer_email = $_POST['employerEmail'];
 
-    $uploadDir = __DIR__ . '/uploads/';
+    $uploadDir = __DIR__ . '/../public/uploads/';
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }

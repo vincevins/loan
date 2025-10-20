@@ -33,7 +33,7 @@ async function getData() {
       const action = document.createElement("td");
       action.innerHTML = `<button class="approve-btn" data-id="${data.id}"><i class="fa-solid fa-check"></i></button>
         <button class="reject-btn" data-id="${data.id}"><i class="fas fa-times"></i></button> 
-        <button class="view-btn" data-id="${data.id}"><i class='far fa-eye'></i></button>`;
+        <button class="view-btn" data-id="${data.id}"> <i class='far fa-eye'></i></button>`
       tblRow.append(id,fName, amount, application_status, dateApplied, reviewer, reviewDate, remarks, action);
       ListContainer.appendChild(tblRow);
     });
