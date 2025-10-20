@@ -18,7 +18,7 @@ class EditProfile extends Database{
 }
 
 if (isset($_FILES['profile_picture']) && is_uploaded_file($_FILES['profile_picture']['tmp_name'])) {
-    $imageData = file_get_contents($_FILES['profile_picture']['tmp_name']); // get binary data
+    $imageData = file_get_contents($_FILES['profile_picture']['tmp_name']); 
     $id = $_SESSION['user_account_id'];
     $_SESSION['profile_picture'] = $imageData;
 

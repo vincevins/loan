@@ -6,14 +6,14 @@ fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
     const remainingBalanceSched = document.getElementById("remainingBalanceSched");
     const nextPaymentDateSched = document.getElementById("nextPaymentDateSched");
     const nextPaymentAmountSched = document.getElementById("nextPaymentAmountSched");
-    if(totalLoanAmountSched === '' || totalLoanAmountSched === null){
-       totalLoanAmountSched.textContent = "₱ 0.00";
-    }else if (data[11].payment_status === "paid") {
-      totalLoanAmountSched.textContent = "₱ 0.00";
-    } else {
-      totalLoanAmountSched.textContent =
-        "₱" + Number(data[0].beginning_balance).toLocaleString();
-    }
+    // if(totalLoanAmountSched === '' || totalLoanAmountSched === null){
+    //    totalLoanAmountSched.textContent = "₱ 0.00";
+    // }else if (data[11].payment_status === "paid") {
+    //   totalLoanAmountSched.textContent = "₱ 0.00";
+    // } else {
+    //   totalLoanAmountSched.textContent =
+    //     "₱" + Number(data[0].beginning_balance).toLocaleString();
+    // }
     let dis = null;
     for (let j = 0; j < data.length; j++) {
       if (data[j].payment_status !== "paid") {

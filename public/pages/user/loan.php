@@ -85,7 +85,7 @@ if ($role != 'user') {
                     </div>
                     <div class="progress-step">
                         <div class="step-number">2</div>
-                        <div class="step-label">Financial</div>
+                        <div class="step-label">Emoloyer Information</div>
                     </div>
                     <div class="progress-step">
                         <div class="step-number">3</div>
@@ -93,6 +93,10 @@ if ($role != 'user') {
                     </div>
                     <div class="progress-step">
                         <div class="step-number">4</div>
+                        <div class="step-label">Attachment Documents</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">5</div>
                         <div class="step-label">Review</div>
                     </div>
                 </div>
@@ -104,30 +108,30 @@ if ($role != 'user') {
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" class="form-control" value="<?php echo $_SESSION['user_first_name'] ?>" required>
+                                <input type="text" id="firstName" name="firstName" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="middleName">Middle Name</label>
-                                <input type="text" id="middleName" name="middleName" class="form-control" value="<?php echo $_SESSION['user_middle_name'] ?>" required>
+                                <input type="text" id="middleName" name="middleName" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" class="form-control" value="<?php echo $_SESSION['user_last_name'] ?>" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" class="form-control" value="<?php echo $_SESSION['user_email'] ?>" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Contact Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-control" value="<?php echo $_SESSION['user_contact_no'] ?>" required>
+                                <input type="text" id="lastName" name="lastName" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" id="dob" name="dob" class="form-control" required>
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" name="dob" class="form-control" required>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
@@ -147,59 +151,91 @@ if ($role != 'user') {
                                 <input type="text" id="zipCode" name="zipCode" class="form-control" required>
                             </div>
                         </div>
+
+                        <h3 style="margin-top: 30px;">Employment Information</h3>
+                        <div class="form-group">
+                            <label for="employeeId">Employee ID</label>
+                            <input type="text" id="employeeId" name="employeeId" class="form-control" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="position">Position / Job Title</label>
+                                <input type="text" id="position" name="position" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthlySalary">Monthly Salary / Income</label>
+                                <input type="number" id="monthlySalary" name="monthlySalary" class="form-control" placeholder="₱" required>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="employmentLength">Length of Employment</label>
+                            <select id="employmentLength" name="employmentLength" class="form-control" required>
+                                <option value="">Select Employment Length</option>
+                                <option value="less_than_1_year">Less than 1 year</option>
+                                <option value="1_2_years">1-2 years</option>
+                                <option value="3_5_years">3-5 years</option>
+                                <option value="6_10_years">6-10 years</option>
+                                <option value="more_than_10_years">More than 10 years</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="employmentStatus">Employment Status</label>
+                                <select id="employmentStatus" name="employmentStatus" class="form-control" required>
+                                    <option value="">Select Status</option>
+                                    <option value="Regular">Regular</option>
+                                    <option value="Probationary">Probationary</option>
+                                    <option value="Contractual">Contractual</option>
+                                    <option value="Part-time">Part-time</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateHired">Date Hired / Years of Service</label>
+                                <input type="date" id="dateHired" name="dateHired" class="form-control" required>
+                            </div>
+                        </div>
                         <div class="form-navigation">
-                            <button type="button" class="btnLoan" id="nextBtn">Next</button>
+                            <button type="button" class="btn" id="nextBtn">Next</button>
                         </div>
                     </div>
-
                     <!-- Step 2: Employment & Financial Information -->
                     <div class="form-step" id="step2">
-                        <h3>Employment & Financial Information</h3>
+                        <h4 style="margin-top: 25px; margin-bottom: 15px; color: #333;">Employer Information</h4>
+
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="employeeID">Employee ID</label>
-                                <input type="text" id="employeeID" name="employeeID" placeholder="Input Your Student No." class="form-control" required>
+                                <label for="companyName">Company Name</label>
+                                <input type="text" id="companyName" name="companyName" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="employment">Employment Status</label>
-                                <select id="employment" name="employment" class="form-control" required>
-                                    <option value="">Select Employment Status</option>
-                                    <option value="employed">Employed</option>
-                                    <option value="self-employed">Self-Employed</option>
-                                    <option value="unemployed">Unemployed</option>
-                                    <option value="retired">Retired</option>
-                                    <option value="student">Student</option>
-                                </select>
+                                <label for="department">Department / Branch</label>
+                                <input type="text" id="department" name="department" class="form-control" required>
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyAddress">Company Address</label>
+                            <textarea id="companyAddress" name="companyAddress" class="form-control" rows="3" required></textarea>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="employerName">Employer Name</label>
-                                <input type="text" id="employerName" name="employerName" class="form-control" required>
+                                <label for="employerContactPerson">Employer Contact Person</label>
+                                <input type="text" id="employerContactPerson" name="employerContactPerson" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="employmentLength">Employment Length</label>
-                                <select id="employmentLength" name="employmentLength" class="form-control" required>
-                                    <option value="">Select Employment Length</option>
-                                    <option value="less_than_1_year">Less than 1 year</option>
-                                    <option value="1_2_years">1-2 years</option>
-                                    <option value="3_5_years">3-5 years</option>
-                                    <option value="6_10_years">6-10 years</option>
-                                    <option value="more_than_10_years">More than 10 years</option>
-                                </select>
+                                <label for="employerContactNumber">Employer Contact Number</label>
+                                <input type="tel" id="employerContactNumber" name="employerContactNumber" class="form-control" required>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="income">Annual Income ($)</label>
-                                <input type="number" id="income" name="income" class="form-control" step="0.01" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="housing">Housing Payment ($)</label>
-                                <input type="number" id="housing" name="housing" class="form-control" step="0.01" required>
-                            </div>
+
+                        <div class="form-group">
+                            <label for="employerEmail">Employer Contact Email</label>
+                            <input type="email" id="employerEmail" name="employerEmail" class="form-control" required>
                         </div>
+
                         <div class="form-navigation">
                             <button type="button" class="btnLoan" id="prevBtn">Previous</button>
                             <button type="button" class="btnLoan" id="nextBtn2">Next</button>
@@ -264,9 +300,83 @@ if ($role != 'user') {
                             <button type="button" class="btnLoan" id="nextBtn3">Next</button>
                         </div>
                     </div>
+                    <div class="form-step" id="step4">
+                        <div class="file-upload-group">
+                            <div class="file-upload-header">
+                                <h4><i class="fas fa-clipboard-list"></i> Required Documents</h4>
+                                <p>Please upload clear, readable copies of the following documents</p>
+                            </div>
+
+                            <div class="file-upload-item">
+                                <div class="file-upload-label">
+                                    <i class="fas fa-id-card icon"></i>
+                                    <span>Valid Government ID (Front) <span class="required">*</span></span>
+                                </div>
+                                <div class="file-input-wrapper">
+                                    <input type="file" id="idFront" name="idFront" accept="image/*,.pdf" required>
+                                    <button type="button" class="file-upload-btn" onclick="document.getElementById('idFront').click()">
+                                        <i class="fas fa-upload"></i>
+                                        <span>Choose File</span>
+                                    </button>
+                                    <span class="file-name" id="idFrontName">No file chosen</span>
+                                </div>
+                            </div>
+
+                            <div class="file-upload-item">
+                                <div class="file-upload-label">
+                                    <i class="fas fa-id-card-alt icon"></i>
+                                    <span>Valid Government ID (Back) <span class="required">*</span></span>
+                                </div>
+                                <div class="file-input-wrapper">
+                                    <input type="file" id="idBack" name="idBack" accept="image/*,.pdf" required>
+                                    <button type="button" class="file-upload-btn" onclick="document.getElementById('idBack').click()">
+                                        <i class="fas fa-upload"></i>
+                                        <span>Choose File</span>
+                                    </button>
+                                    <span class="file-name" id="idBackName">No file chosen</span>
+                                </div>
+                            </div>
+
+                            <div class="file-upload-item">
+                                <div class="file-upload-label">
+                                    <i class="fas fa-camera icon"></i>
+                                    <span>Selfie with ID <span class="required">*</span></span>
+                                </div>
+                                <div class="file-input-wrapper">
+                                    <input type="file" id="selfieId" name="selfieId" accept="image/*" required>
+                                    <button type="button" class="file-upload-btn" onclick="document.getElementById('selfieId').click()">
+                                        <i class="fas fa-upload"></i>
+                                        <span>Choose File</span>
+                                    </button>
+                                    <span class="file-name" id="selfieIdName">No file chosen</span>
+                                </div>
+                            </div>
+
+                            <div class="file-upload-item">
+                                <div class="file-upload-label">
+                                    <i class="fas fa-file-invoice-dollar icon"></i>
+                                    <span>Proof of Income</span>
+                                </div>
+                                <div class="file-input-wrapper">
+                                    <input type="file" id="proofIncome" name="proofIncome" accept="image/*,.pdf">
+                                    <button type="button" class="file-upload-btn" onclick="document.getElementById('proofIncome').click()">
+                                        <i class="fas fa-upload"></i>
+                                        <span>Choose File</span>
+                                    </button>
+                                    <span class="file-name" id="proofIncomeName">No file chosen (Optional)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-navigation">
+                            <button type="button" class="btnLoan" id="prevBtn3">Previous</button>
+                            <button type="button" class="btnLoan" id="nextBtn4">Next</button>
+                        </div>
+                    </div>
+
 
                     <!-- Step 4: Review Your Application -->
-                    <div class="form-step" id="step4">
+                    <div class="form-step" id="step5">
                         <h3>Review Your Application</h3>
                         <div id="reviewContent">
                             <!-- Review content will be populated by JavaScript -->
@@ -278,10 +388,12 @@ if ($role != 'user') {
                             </label>
                         </div>
                         <div class="form-navigation">
-                            <button type="button" class="btnLoan" id="prevBtn3">Previous</button>
+                            <button type="button" class="btnLoan" id="prevBtn4">Previous</button>
                             <button type="submit" class="btnLoan">Submit Application</button>
                         </div>
                     </div>
+
+
                 </form>
             </div>
             <div class="container-application" id="hasLoan" style="display:none;">
@@ -378,6 +490,9 @@ if ($role != 'user') {
     <script src="../../js/btnViewApplication.js"></script>
     <script src="../../js/loan.js"></script>
     <script src="../../js/loanForm.js"></script>
+    <script>
+        // File upload display handlers
+    </script>
 </body>
 
 </html>

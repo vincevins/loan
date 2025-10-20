@@ -1,80 +1,92 @@
-        // Toggle mobile navigation
         document.getElementById('navToggle').addEventListener('click', function() {
             document.getElementById('mainNav').classList.toggle('active');
         });
-        
+
         // Multi-step form functionality
         const formSteps = document.querySelectorAll('.form-step');
         const stepButtons = {
             nextBtn: document.getElementById('nextBtn'),
             nextBtn2: document.getElementById('nextBtn2'),
             nextBtn3: document.getElementById('nextBtn3'),
+            nextBtn4: document.getElementById('nextBtn4'),
             prevBtn: document.getElementById('prevBtn'),
             prevBtn2: document.getElementById('prevBtn2'),
-            prevBtn3: document.getElementById('prevBtn3')
+            prevBtn3: document.getElementById('prevBtn3'),
+            prevBtn4: document.getElementById('prevBtn4')
         };
-        
+
         const progressSteps = document.querySelectorAll('.progress-step');
-        
+
         let currentStep = 0;
-        
+
         // Update form steps
         function updateFormStep() {
             formSteps.forEach((step, index) => {
                 step.classList.toggle('form-step-active', index === currentStep);
             });
-            
+
             progressSteps.forEach((step, index) => {
                 step.classList.toggle('step-active', index === currentStep);
             });
-            
-            // Update review content on the last step
-            if (currentStep === 3) {
+
+            if (currentStep === 4) {
                 updateReviewContent();
             }
         }
-        
-        // Next button event listeners
+
+        // ✅ Next button event listeners
         stepButtons.nextBtn.addEventListener('click', function() {
             if (validateStep(0)) {
                 currentStep = 1;
                 updateFormStep();
             }
         });
-        
+
         stepButtons.nextBtn2.addEventListener('click', function() {
             if (validateStep(1)) {
                 currentStep = 2;
                 updateFormStep();
             }
         });
-        
+
         stepButtons.nextBtn3.addEventListener('click', function() {
             if (validateStep(2)) {
                 currentStep = 3;
                 updateFormStep();
             }
         });
-        
-        // Previous button event listeners
+
+        stepButtons.nextBtn4.addEventListener('click', function() {
+            if (validateStep(3)) {
+                currentStep = 4;
+                updateFormStep();
+            }
+        });
         stepButtons.prevBtn.addEventListener('click', function() {
             currentStep = 0;
             updateFormStep();
         });
-        
+
         stepButtons.prevBtn2.addEventListener('click', function() {
             currentStep = 1;
             updateFormStep();
         });
-        
+
         stepButtons.prevBtn3.addEventListener('click', function() {
             currentStep = 2;
             updateFormStep();
         });
+
+        // ✅ Added previous for step 4
+        stepButtons.prevBtn4.addEventListener('click', function() {
+            currentStep = 3;
+            updateFormStep();
+        });
+
         
         // Validate form step
         function validateStep(stepIndex) {
-            const inputs = formSteps[stepIndex].querySelectorAll('input, select');
+            const inputs = formSteps[stepIndex].querySelectorAll('input, select, file');
             let isValid = true;
             
             inputs.forEach(input => {
@@ -92,7 +104,24 @@
             
             return isValid;
         }
-        
+        const fileInputs = [{ input: 'idFront', display: 'idFrontName' },{ input: 'idBack', display: 'idBackName' },
+        { input: 'selfieId', display: 'selfieIdName' },{ input: 'proofIncome', display: 'proofIncomeName' }];
+
+        fileInputs.forEach(({ input, display }) => {
+            const fileInput = document.getElementById(input);
+            const fileNameSpan = document.getElementById(display);
+
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    fileNameSpan.textContent = fileName;
+                    fileNameSpan.classList.add('selected');
+                } else {
+                    fileNameSpan.textContent = input === 'proofIncome' ? 'No file chosen (Optional)' : 'No file chosen';
+                    fileNameSpan.classList.remove('selected');
+                }
+            });
+        });
         // Update review content
         function updateReviewContent() {
             const reviewContent = document.getElementById('reviewContent');
