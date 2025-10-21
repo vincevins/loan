@@ -103,13 +103,12 @@
                                 <th>Borrower</th>
                                 <th>Total Payment Due</th>
                                 <th>Due Date</th>
-                                <th>Days Overdue</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
 
-                        <tbody class="listOverdue">
+                        <tbody class="listUpcoming">
 
                         </tbody>
                     </table>

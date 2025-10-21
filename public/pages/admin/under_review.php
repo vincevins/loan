@@ -45,36 +45,75 @@ include 'sidebar.php';
             </table>
 
         </div>
-        <div id="modalView" class="modal" style="display: none;">
+        <div id="modalView" class="modal" style="display:none;">
             <div class="modal-content">
-                <h1>View Details</h1>
-                <span class="close">&times;</span>
+                <div class="modal-header">
+                    <h1>Loan Application Details</h1>
+                    <button class="close" onclick="closeModal()">&times;</button>
+                </div>
                 <div class="modal-body">
-                    <div class="content-field">
-                        <p><strong>Name:</strong> <span id="fullName"></span></p>
-                        <p><strong>Email:</strong> <span id="detailEmail"></span></p>
-                        <p><strong>Phone:</strong> <span id="detailPhone"></span></p>
-                        <p><strong>Address:</strong> <span id="detailAddress"></span></p>
-                       
+                    <div class="section">
+                        <div class="section-title">Personal Information</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Full Name</div>
+                                <div class="info-value" id="fullName"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Email Address</div>
+                                <div class="info-value" id="detailEmail"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Phone Number</div>
+                                <div class="info-value" id="detailPhone"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Address</div>
+                                <div class="info-value" id="detailAddress"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Financial Information</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Annual Income</div>
+                                <div class="info-value" id="detailAnnualincome"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Loan Amount Requested</div>
+                                <div class="info-value" id="detailLoanAmount"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Loan Purpose</div>
+                                <div class="info-value" id="detailPurpose"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Loan Term</div>
+                                <div class="info-value" id="detailLoanTerm"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="id-images-section">
-                        <h3>Valid ID Images</h3>
+                        <div class="section-title">Verification Documents</div>
                         <div class="id-images-container">
                             <div class="id-image-wrapper">
                                 <img id="idImageFront" src="" alt="Valid ID - Front" />
-                                <p>Front Side</p>
+                                <p>ID Front Side</p>
                             </div>
                             <div class="id-image-wrapper">
-                                <img id="idImageBack" src="" alt="Valid ID - Back" />
-                                <p>Back Side</p>
+
+                                <img id="idImageBack" src="" alt="Valid ID - back" />
+                                <p>ID Back Side</p>
                             </div>
                             <div class="id-image-wrapper">
-                                <img id="idSelfie" src="" alt="Valid ID - Back" />
+                                <img id="idSelfie" src="" alt="Selfie with ID" />
                                 <p>Selfie with ID</p>
                             </div>
                             <div class="id-image-wrapper">
-                                <img id="proofIncome" src="" alt="Valid ID - Back" />
+                                <img id="proofIncome" src="" alt="Proof of Income" />
                                 <p>Proof of Income</p>
                             </div>
                         </div>
@@ -82,10 +121,13 @@ include 'sidebar.php';
                 </div>
             </div>
         </div>
+        <div id="imgModal" class="img-modal" style="display:none;">
+            <span class="closePreview">&times;</span>
+            <img class="imgPreviewContent" id="modalImg">
+        </div>
         <div class="toast-container" id="toastContainer"></div>
     </main>
     <script src="../../js/underReview.js"></script>
     <script src="../../js/underReviewModal.js"></script>
 </body>
-
 </html>
