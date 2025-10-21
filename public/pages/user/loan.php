@@ -277,14 +277,25 @@ if ($role != 'user') {
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="loanTerm">Payment Method</label>
+                                <select id="paymentMethod" name="paymentMethod" class="form-control" required>
+                                    <option value="">Select Term</option>
+                                    <option value="payroll_deduction">Payroll Deduction</option>
+                                    <option value="Paypal">Paypal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                             <div class="form-group">
                                 <label for="percentageInterest">Interest Rate (%)</label>
                                 <input type="text" id="percentageInterest" name="percentageInterest" class="form-control" value="1.3" disabled required>
                             </div>
+                            <div class="form-group">
+                                <label for="totalInterest">Interest</label>
+                                <input type="text" id="totalInterest" name="totalInterest" class="form-control" readonly required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="totalInterest">Interest</label>
-                            <input type="text" id="totalInterest" name="totalInterest" class="form-control" readonly required>
-                        </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="monthlyRateNoInterest">Monthly Payment (No Interest) (₱)</label>

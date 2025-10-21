@@ -93,6 +93,30 @@ document.addEventListener("click", async function (e) {
     }
   }
 });
+document.getElementById('exportExcel').addEventListener('click', function () {
+    const table = document.getElementById('under_review');
+    const rows = table.querySelectorAll('tr');
+    let csvContent = '';
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll('th, td');
+        let rowData = [];
+        cols.forEach(col => {
+            let cellText = col.textContent.replace(/"/g, '""');
+            rowData.push(`"${cellText}"`);
+        });
+        csvContent += rowData.join(',') + '\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'under_review_table.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
  getData();
 setInterval(() => {
   getData();

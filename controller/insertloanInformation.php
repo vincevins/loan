@@ -9,7 +9,7 @@ class InsertloanInformation extends Database
             $income, $loanAmount, $loanPurpose, $loanTerm, $interestRate, $totalInterest, $monthlyPaymentNoInterest,
             $monthlyPayment, $applicationStatus, $assigned_hr, $remarks, $hr_approval_date, $appDate, $assigned_admin,
             $application_status_for_admin, $approval_date, $employee_position, $date_hired, $company_name,
-            $department, $company_address, $employer_contact_person, $employer_phone_number, $employer_email){
+            $department, $company_address, $employer_contact_person, $employer_phone_number, $employer_email,$paymentMethod){
             $insertQuery = "INSERT INTO `loan_information` (
             `student_no`, `application_id`, `loanID`, `account_id`, `first_name`, `middle_name`, `last_name`, `email`, 
             `contact_no`, `dob`, `address`, `city`, `province`, `zip_code`, `employment_status`, `employer_name`, 
@@ -17,17 +17,17 @@ class InsertloanInformation extends Database
             `interest`, `monthly_payment_no_interest`, `monthly_payment`, `application_status`, `assigned_hr`, 
             `remarks`, `hr_approval_date`, `application_date`, `assigned_admin`, `application_status_for_admin`, 
             `approval_date`, `employee_position`, `date_hired`, `company_name`, `department`, `company_address`, 
-            `employer_contact_person`, `employer_phone_number`, `employer_email`
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            `employer_contact_person`, `employer_phone_number`, `employer_email`, `payment_method`
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         $stmt = $this->conn->prepare($insertQuery);
-        $stmt->bind_param('ssssssssssssssssssdssddddssssssssssssssss',
+        $stmt->bind_param('ssssssssssssssssssdssddddsssssssssssssssss',
             $employeeID, $applicationId, $loanID, $accountId, $firstName, $middleName, $lastName, $email,
             $phone, $dob, $address, $city, $province, $zipCode, $employment, $employerName, $employmentLength,
             $income, $loanAmount, $loanPurpose, $loanTerm, $interestRate, $totalInterest, $monthlyPaymentNoInterest,
             $monthlyPayment, $applicationStatus, $assigned_hr, $remarks, $hr_approval_date, $appDate, $assigned_admin,
             $application_status_for_admin, $approval_date, $employee_position, $date_hired, $company_name,
-            $department, $company_address, $employer_contact_person, $employer_phone_number, $employer_email
+            $department, $company_address, $employer_contact_person, $employer_phone_number, $employer_email,$paymentMethod
         );
 
         if ($stmt->execute()) {
@@ -99,6 +99,7 @@ if (isset($_POST['firstName'])) {
     $employer_contact_person = $_POST['employerContactPerson'];
     $employer_phone_number = $_POST['employerContactNumber'];
     $employer_email = $_POST['employerEmail'];
+    $paymentMethod = $_POST['paymentMethod'];
 
     $uploadDir = __DIR__ . '/../public/uploads/';
     if (!is_dir($uploadDir)) {
@@ -131,7 +132,7 @@ if (isset($_POST['firstName'])) {
             $income, $loanAmount, $loanPurpose, $loanTerm, $interestRate, $totalInterest, $monthlyPaymentNoInterest,
             $monthlyPayment, $applicationStatus, $assigned_hr, $remarks, $hr_approval_date, $appDate, $assigned_admin,
             $application_status_for_admin, $approval_date, $employee_position, $date_hired, $company_name,
-            $department, $company_address, $employer_contact_person, $employer_phone_number, $employer_email);
+            $department, $company_address, $employer_contact_person, $employer_phone_number, $employer_email,$paymentMethod);
    $docuInsert =$loan->insertDocu($loanID,$ValidIDFront,$ValidIDBack,$selfieId,$proofIncome);
 
    echo json_encode (["data" => $infoInsert, $docuInsert]);
