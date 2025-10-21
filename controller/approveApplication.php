@@ -88,21 +88,7 @@ class ApproveApplication extends Database{
         $response = ["status" => "success", "message" => "Record sched successfully", "data" => $schedules ];
         return $response;
     }
-    public function hasLoan(){
-        $hasLoan = true;
-        $id = $_SESSION['accountID_info'];
-        $updateStatus = "UPDATE `loan_accounts` SET hasLoan = ? where account_id = ?";
-        $stmt = $this->conn->prepare($updateStatus);
-        $stmt->bind_param('ss',$hasLoan,$id);
-        if ($stmt->execute()) {
-            http_response_code(200);
-            $response = ["status" => "success", "message" => "Record updated successfully."];
-        }else {
-            http_response_code(500);
-            $response = ["status" => "error", "message" => "Failed to update record."];
-        }
-        return $response;
-    }
+    
 
 }
 $approval = new ApproveApplication();
@@ -111,5 +97,5 @@ if (isset($_POST['id'])) {
     $fetchInfo = $approval->loanInformatio($id);
     $approvalData = $approval->approveApplications($id); 
     $schedData = $approval->setSched();
-    echo json_encode(["info" => $fetchInfo,"approval" => $approvalData, "schedule" => $schedData, "activee" => $approval->hasLoan()]);
+    echo json_encode(["info" => $fetchInfo,"approval" => $approvalData, "schedule" => $schedData]);
 }

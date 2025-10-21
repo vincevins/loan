@@ -117,6 +117,30 @@ document.getElementById('exportExcel').addEventListener('click', function () {
     a.click();
     document.body.removeChild(a);
 });
+document.addEventListener("click", async function (e) {
+  if (e.target.classList.contains("reject-btn")) {
+    const id = e.target.getAttribute("data-id");
+    const url = "http://localhost/casestudy-loan/loan/controller/rejected.php";
+    try {
+      const formData = new FormData();
+      formData.append("id", id);
+      console.log("Sending ID:", id);
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+      const result = await response.json();
+      showToast('success', result.info.message || "Application rejected successfully!");
+    } catch (error) {
+      console.error(error.message);
+      alert("Something went wrong: " + error.message);
+    }
+  }
+});
+
  getData();
 setInterval(() => {
   getData();

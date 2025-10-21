@@ -51,6 +51,21 @@ class InsertloanInformation extends Database
             return json_encode(["status" => "error", "message" => "Failed to insert data: " . $stmt->error]);
         }
     }
+    public function hasLoan(){
+        $hasLoan = true;
+        $id = $_SESSION['user_account_id'];
+        $updateStatus = "UPDATE `loan_accounts` SET hasLoan = ? where account_id = ?";
+        $stmt = $this->conn->prepare($updateStatus);
+        $stmt->bind_param('ss',$hasLoan,$id);
+        if ($stmt->execute()) {
+            http_response_code(200);
+            $response = ["status" => "success", "message" => "Record updated successfully."];
+        }else {
+            http_response_code(500);
+            $response = ["status" => "error", "message" => "Failed to update record."];
+        }
+        return $response;
+    }
 }
 
 $loan = new InsertloanInformation();
@@ -135,5 +150,5 @@ if (isset($_POST['firstName'])) {
             $department, $company_address, $employer_contact_person, $employer_phone_number, $employer_email,$paymentMethod);
    $docuInsert =$loan->insertDocu($loanID,$ValidIDFront,$ValidIDBack,$selfieId,$proofIncome);
 
-   echo json_encode (["data" => $infoInsert, $docuInsert]);
+   echo json_encode (["data" => $infoInsert, $docuInsert,"activee" => $loan->hasLoan()]);
 }

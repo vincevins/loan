@@ -196,7 +196,10 @@
                 if (!response.ok) {
                     throw new Error(result.message || `Error ${response.status}`);
                 }
-                // alert(result.message || "Application submitted successfully!");
+                const hasLoan = document.getElementById("hasLoan");
+                const applicationform = document.getElementById("application-form");
+                hasLoan.style.display = 'block'
+                applicationform.style.display = "none"
                 if(result.success){
                     showToast('success', result.message)
                 }
