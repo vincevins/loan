@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../../styles/header_admin.css">
+<link rel="stylesheet" href="../../styles/modalProfile.css">
 <header class="main-header">
     <h1>Welcome Back, <?php echo $_SESSION['user_first_name'] ?></h1>
     <div class="user-info">
@@ -37,10 +38,44 @@
                         </a>
                     </button>
                 </div>
+                <div id="profileModal" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1>Loan Application Details</h1>
+                            <button class="btnClose" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="section">
+                                <div class="section-title">Personal Information</div>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <div class="info-label">Full Name</div>
+                                        <div class="info-value" id="detail-fullName"><?php echo  $_SESSION['user_last_name'] . ", " . $_SESSION['user_first_name'] ?></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Email Address</div>
+                                        <div class="info-value" id="detail-Email"><?php echo $_SESSION['user_email'] ?></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Phone Number</div>
+                                        <div class="info-value" id="detail-Phone"><?php echo  $_SESSION['user_contact_no'] ?></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Address</div>
+                                        <div class="info-value" id="detail-Address"><?php echo  $_SESSION['user_address']. ", " .  $_SESSION['user_city'] . ", " . 
+                                        $_SESSION['user_province'] . "," . $_SESSION['user_zip_code'] ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
 </header>
+<script src="../../js/profileAdmin.js"></script>
 <script>
     // Notifications
     const bell = document.querySelector('.notification-bell');

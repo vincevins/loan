@@ -21,10 +21,25 @@ class Rejected extends Database{
         }
         return $response;
     }
+    public function hasLoan(){
+        $hasLoan = false;
+        $id = $_SESSION['accountID_info'];
+        $updateStatus = "UPDATE `loan_accounts` SET hasLoan = ? where account_id = ?";
+        $stmt = $this->conn->prepare($updateStatus);
+        $stmt->bind_param('ss',$hasLoan,$id);
+        if ($stmt->execute()) {
+            http_response_code(200);
+            $response = ["status" => "success", "message" => "Record updated successfully."];
+        }else {
+            http_response_code(500);
+            $response = ["status" => "error", "message" => "Failed to update record."];
+        }
+        return $response;
+    }
 }
 $approval = new Rejected();
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
     $rejectedApplications = $approval->rejectedApplications($id);
-    echo json_encode(["info" => $rejectedApplications]); 
+    echo json_encode(["info" => $rejectedApplications,$approval->hasLoan()]); 
 }
