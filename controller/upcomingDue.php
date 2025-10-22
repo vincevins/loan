@@ -24,7 +24,7 @@ class UpcomingDue extends Database{
             if ($beforeDate > 0 && $beforeDate <= 3 && $updated_at !== $today) {
                 $uniqueId = time() . mt_rand(1000, 9999);
                 $message = "Your payment is due in $beforeDate day(s). Please make sure to pay on";
-                $insertReminder = "INSERT INTO loan_reminder (reminder_id, loanID, schedule_id, account_id, message) VALUES (?, ?, ?, ?, ?)";
+                $insertReminder = "INSERT INTO loan_notifications (notif_id, loanID, schedule_id, account_id, message) VALUES (?, ?, ?, ?, ?)";
                 $stmtReminder = $this->conn->prepare($insertReminder);
                 $stmtReminder->bind_param('sssss',$uniqueId, $payment['loanID'], $payment['schedule_id'], $payment['account_id'], $message);
                 $stmtReminder->execute();

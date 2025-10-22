@@ -1,5 +1,3 @@
-const underReview = document.getElementById('under_reviewBody')
-
 async function getData() {
     const url = 'http://localhost/casestudy-loan/loan/controller/getapplication.php'
     try {

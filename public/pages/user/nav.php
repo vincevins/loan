@@ -6,11 +6,13 @@ if ($role != 'user') {
 }
 ?>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../styles/profile.css">
     <link rel="stylesheet" href="../../styles/nav.css">
+    <link rel="stylesheet" href="../../styles/notif.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AdDwOSNHNw7Jgf0uorqdXP-gCDnqVVv7D4kejfs1GfhN5A4RYuLCFSJdNX8navTUCToLOmKoHK7Q1Sl5&currency=PHP"></script>
     <title>Document</title>
@@ -35,19 +37,38 @@ if ($role != 'user') {
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </nav>
+                <div class="notification-dropdown">
+                    <button class="notification-btn" id="notifBtn">
+                        <i class="fas fa-bell"></i>
+                        <span id="notifBadge" class="notification-badge" style="display: none;">0</span>
+                    </button>
+
+                    <div class="notification-dropdown-menu" id="notifDropdown">
+                        <div class="notification-header">
+                            <h3>Notifications</h3>
+                            <button id="markAllRead" class="mark-all-read">Mark all as read</button>
+                        </div>
+                        <div id="notifList" class="notification-list">
+                            <p style="text-align:center; color:#777; padding:20px;">Loading...</p>
+                        </div>
+                        <div class="notification-footer">
+                           
+                        </div>
+                    </div>
+                </div>
                 <div class="profile-dropdown">
                     <button class="profile-btn" onclick="toggleProfileDropdown()">
-                        <?php
-                        $firstName = $_SESSION['user_first_name'] ?? 'User';
-                        $lastName = $_SESSION['user_last_name'] ?? 'Name';
-                        if (!empty($_SESSION['profile_picture'])) {
-                            $base64 = base64_encode($_SESSION['profile_picture']);
-                            echo '<img src="data:image/jpeg;base64,' . $base64 . '"  alt="Profile" class="navProfile-img" id="navProfile-img">';
-                        } else {
-                            $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
-                            echo '<div class="profile-initials">' . $initials . '</div>';
-                        }
-                        ?>
+                        <div class="profile-initials"><?php
+                           $firstName = $_SESSION['user_first_name'] ?? 'User';
+                           $lastName = $_SESSION['user_last_name'] ?? 'Name';
+                           if (!empty($_SESSION['profile_picture'])) {
+                                 $base64 = base64_encode($_SESSION['profile_picture']);
+                                 echo '<img src="data:image/jpeg;base64,' . $base64 . '"  alt="Profile" class="navProfile-img" id="navProfile-img">';
+                            } else {
+                                 $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                                 echo '<div class="profile-initials">' . $initials . '</div>';
+                            }
+                            ?></div>                             
                     </button>
                     <div class="profile-dropdown-menu">
                         <button id="btnProfile" class="dropdown-item">
@@ -58,13 +79,17 @@ if ($role != 'user') {
                         </button>
                         <hr class="dropdown-divider">
                         <button class="dropdown-item logout">
+
                             <a href="http://localhost/casestudy-loan/loan/controller/logout.php" style="text-decoration: none;">
                                 <i class="fa fa-sign-out-alt"></i> Log Out
                             </a>
+
                         </button>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
         </div>
     </header>
 
@@ -289,7 +314,6 @@ if ($role != 'user') {
     </div>
     </div>
     </div>
-
     <script>
         function toggleProfileDropdown() {
             const dropdown = document.querySelector('.profile-dropdown');
@@ -340,6 +364,8 @@ if ($role != 'user') {
     </script>
     <script src="../../js/profilePic.js"></script>
     <script src="../../js/paymentsched.js"></script>
+     <script src="../../js/notif.js"></script>
+     <script src="../../js/mark.js"></script>
 </body>
 
 </html>

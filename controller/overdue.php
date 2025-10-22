@@ -36,11 +36,11 @@ class Overdue extends Database{
             $dayDue = $days_overdue + 1;
             $updated_at = $payment['updated_at'];
             $setUpdate = $today;
-            $message = "Hello, this is a reminder that your" . '₱ '. $paymentMonthly . 'day overdue: ' .$dayDue .
+            $message = "Hello, this is a reminder that your " . '₱ '. $paymentMonthly . " ".'day overdue: ' .$dayDue . " ".
             'Please remind the finance department to process your loan and settle the payment as soon as possible. Thank you for your cooperation';
             if ($due_date < $today) {
                 if ($updated_at !== $today) {
-                   $insertReminder = "INSERT INTO `loan_reminder`(`reminder_id`, `loanID`, `schedule_id`, `account_id`, `message`) VALUES (?,?,?,?,?)";
+                   $insertReminder = "INSERT INTO `loan_notifications`(`notif_id`, `loanID`, `schedule_id`, `account_id`, `message`) VALUES (?,?,?,?,?)";
                    $stmtReminder = $this->conn->prepare($insertReminder);
                    $stmtReminder->bind_param('sssss', $uniqueId, $loanID, $id, $accountid, $message);
                    $stmtReminder->execute();
