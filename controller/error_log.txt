@@ -1,0 +1,41 @@
+[22-Oct-2025 19:02:43 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 26
+[22-Oct-2025 19:02:43 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php:26
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 26
+[22-Oct-2025 19:45:04 Europe/Berlin] PHP Warning:  include(../../config/config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 9
+[22-Oct-2025 19:45:04 Europe/Berlin] PHP Warning:  include(): Failed opening '../../config/config.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 9
+[22-Oct-2025 19:45:04 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 27
+[22-Oct-2025 19:45:04 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php:27
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 27
+[22-Oct-2025 19:49:50 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 27
+[22-Oct-2025 19:49:50 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php:27
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 27
+[22-Oct-2025 19:59:01 Europe/Berlin] Connected successfully
+[22-Oct-2025 19:59:01 Europe/Berlin] Database connection initialized.
+[22-Oct-2025 19:59:01 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`casestudy_loan`.`loan_payments`, CONSTRAINT `loan_payments_ibfk_2` FOREIGN KEY (`schedule_id`) REFERENCES `loan_payment_schedule` (`schedule_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php:72
+Stack trace:
+#0 C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php(72): mysqli->query('INSERT INTO loa...')
+#1 {main}
+  thrown in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 72
+[22-Oct-2025 20:23:38 Europe/Berlin] Connected successfully
+[22-Oct-2025 20:23:38 Europe/Berlin] Database connection initialized.
+[22-Oct-2025 20:43:44 Europe/Berlin] Connected successfully
+[22-Oct-2025 20:43:44 Europe/Berlin] Database connection initialized.
+[22-Oct-2025 20:43:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'casestudy_loan.accounts' doesn't exist in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php:77
+Stack trace:
+#0 C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php(77): mysqli->query('SELECT email, f...')
+#1 {main}
+  thrown in C:\xampp\htdocs\casestudy-loan\loan\controller\updatePayment.php on line 77
+[22-Oct-2025 20:49:10 Europe/Berlin] Connected successfully
+[22-Oct-2025 20:49:10 Europe/Berlin] Database connection initialized.
+[22-Oct-2025 20:53:09 Europe/Berlin] Connected successfully
+[22-Oct-2025 20:53:09 Europe/Berlin] Database connection initialized.
+[22-Oct-2025 20:57:21 Europe/Berlin] Connected successfully
+[22-Oct-2025 20:57:21 Europe/Berlin] Database connection initialized.
+[22-Oct-2025 21:00:50 Europe/Berlin] Connected successfully
+[22-Oct-2025 21:00:50 Europe/Berlin] Database connection initialized.
