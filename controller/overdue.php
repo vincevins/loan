@@ -12,30 +12,7 @@ class Overdue extends Database{
         $result = $stmt->get_result();
         return $result;
     }
-    //  public function sendReminders(){
-    //     $res = $this->checkDueDate();
-    //     $today = new DateTime();
-    //     $insertReminder = "INSERT INTO `loan_reminder`(`reminder_id`, `loanID`, `schedule_id`, `account_id`, `message`) VALUES (?,?,?,?,?)";
-    //     $stmt = $this->conn->prepare($insertReminder);
-    //     while ($payment = $res->fetch_assoc()) {
-    //         $due_date = $payment['due_date'];
-    //         $id = $payment['schedule_id'];
-    //         $loanID = $payment['loanID'];
-    //         $accountid = $payment['account_id'];
-    //         $timestamp = time();
-    //         $randomNumber = mt_rand(1000, 9999);
-    //         $uniqueId = $timestamp . $randomNumber;
-    //         $days_overdue = $payment['days_overdue'];
-    //         $message = 'test kung gumagana' . $days_overdue;
-    //         $diff = $today->diff($due_date)->days;
-    //         if ($due_date > $today) {
-    //             if ($diff == 3) {
-    //                 $stmt->bind_param('sssss', $uniqueId, $loanID, $id, $accountid, $message);
-    //                 $stmt->execute();
-    //             }
-    //         }
-    //     }
-    // }
+
 
     public function dueDate(){
         $timestamp = time();

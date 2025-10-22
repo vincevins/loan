@@ -33,7 +33,7 @@ async function getData() {
       const action = document.createElement("td");
       action.innerHTML = `<button class="approve-btn" data-id="${data.id}"><i class="fa-solid fa-check"></i></button>
         <button class="reject-btn" data-id="${data.id}"><i class="fas fa-times"></i></button> 
-        <button class="view-btn" data-id="${data.id}"><i class='far fa-eye'></i></button>`;
+        <button class="view-btn" data-id="${data.id}"> <i class='far fa-eye'></i></button>`
       tblRow.append(id,fName, amount, application_status, dateApplied, reviewer, reviewDate, remarks, action);
       ListContainer.appendChild(tblRow);
     });
@@ -93,6 +93,54 @@ document.addEventListener("click", async function (e) {
     }
   }
 });
+document.getElementById('exportExcel').addEventListener('click', function () {
+    const table = document.getElementById('under_review');
+    const rows = table.querySelectorAll('tr');
+    let csvContent = '';
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll('th, td');
+        let rowData = [];
+        cols.forEach(col => {
+            let cellText = col.textContent.replace(/"/g, '""');
+            rowData.push(`"${cellText}"`);
+        });
+        csvContent += rowData.join(',') + '\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'under_review_table.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
+document.addEventListener("click", async function (e) {
+  if (e.target.classList.contains("reject-btn")) {
+    const id = e.target.getAttribute("data-id");
+    const url = "http://localhost/casestudy-loan/loan/controller/rejected.php";
+    try {
+      const formData = new FormData();
+      formData.append("id", id);
+      console.log("Sending ID:", id);
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+      const result = await response.json();
+      showToast('success', result.info.message || "Application rejected successfully!");
+    } catch (error) {
+      console.error(error.message);
+      alert("Something went wrong: " + error.message);
+    }
+  }
+});
+
  getData();
 setInterval(() => {
   getData();
