@@ -9,12 +9,10 @@ function loadPaymentSchedule() {
       const nextPaymentDateSched = document.getElementById("nextPaymentDateSched");
       const nextPaymentAmountSched = document.getElementById("nextPaymentAmountSched");
 
-      // Find first unpaid record (next payment)
       let dis = data.find((d) => d.payment_status !== "paid");
       if (dis) {
         remainingBalanceSched.textContent = "₱" + Number(dis.beginning_balance).toLocaleString();
-        let dateFormatter = new Date(dis.due_date).toDateString();
-        nextPaymentDateSched.textContent = dateFormatter;
+        nextPaymentDateSched.textContent = new Date(dis.due_date).toDateString();
         nextPaymentAmountSched.textContent = "₱" + Number(dis.total_payment_due).toLocaleString();
       }
 
@@ -32,46 +30,30 @@ function loadPaymentSchedule() {
         nextPayment.textContent = "₱" + Number(display.total_payment_due).toLocaleString();
       }
 
-      // 🟢 Payment Schedule Table
       const ListContainer = document.querySelector(".paymentScheduleBody");
       ListContainer.innerHTML = "";
 
-      // Find the first unpaid payment (the next one due)
       let nextUnpaid = data.find((item) => item.payment_status === "unpaid");
 
       data.forEach((item, index) => {
         const tblRow = document.createElement("tr");
 
-        const id = document.createElement("td");
-        id.textContent = index + 1;
-
-        const duedate = document.createElement("td");
-        duedate.textContent = item.due_date;
-
-        const paymentdue = document.createElement("td");
-        paymentdue.textContent = item.total_payment_due;
-
-        const no_interest = document.createElement("td");
-        no_interest.textContent = item.monthly_payment_no_interest;
-
-        const total_interest = document.createElement("td");
-        total_interest.textContent = item.interest;
-
-        const status = document.createElement("td");
-        status.textContent = item.payment_status;
-
-        const action = document.createElement("td");
-
-        // 🧩 Enable only the next unpaid row
-        if (item.payment_status === "paid") {
-          action.innerHTML = `<button class="btnPayLoan" disabled style="background:#ccc;border:none;padding:6px 12px;border-radius:6px;">Paid</button>`;
-        } else if (nextUnpaid && item.id == nextUnpaid.id) {
-          action.innerHTML = `<button class="btnPayLoan" data-id="${item.id}" data-amount="${item.total_payment_due}" style="background:#28a745;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;">Pay</button>`;
-        } else {
-          action.innerHTML = `<button class="btnPayLoan" disabled style="background:#ccc;border:none;padding:6px 12px;border-radius:6px;">Locked</button>`;
-        }
-
-        tblRow.append(id, duedate, paymentdue, no_interest, total_interest, status, action);
+        tblRow.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.due_date}</td>
+          <td>${item.total_payment_due}</td>
+          <td>${item.monthly_payment_no_interest}</td>
+          <td>${item.interest}</td>
+          <td>${item.payment_status}</td>
+          <td>
+            ${
+              item.payment_status === "paid"
+                ? `<button disabled style="background:#ccc;border:none;padding:6px 12px;border-radius:6px;">Paid</button>`
+                : nextUnpaid && item.id == nextUnpaid.id
+                ? `<button class="btnPayLoan" data-id="${item.id}" data-amount="${item.total_payment_due}" style="background:#28a745;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;">Pay</button>`
+                : `<button disabled style="background:#ccc;border:none;padding:6px 12px;border-radius:6px;">Locked</button>`
+            }
+          </td>`;
         ListContainer.appendChild(tblRow);
       });
     })
@@ -80,9 +62,9 @@ function loadPaymentSchedule() {
     });
 }
 
-// 🟢 Load payment schedule initially
 loadPaymentSchedule();
 
+// Modal buttons
 const btnPaymentSched = document.getElementById("btnPaymentSched");
 const btnPersonalInfo = document.getElementById("btnPersonalInformation");
 const personalInfoModal = document.getElementById("personalInfoModal");
@@ -109,71 +91,97 @@ document.addEventListener("click", (event) => {
       html: `<div id="paypal-button-container"></div>`,
       showConfirmButton: false,
       didOpen: () => {
-        paypal.Buttons({
-          style: {
-            layout: "vertical",
-            color: "gold",
-            shape: "rect",
-            label: "paypal",
-          },
+        paypal
+          .Buttons({
+            style: {
+              layout: "vertical",
+              color: "gold",
+              shape: "rect",
+              label: "paypal",
+            },
 
-          createOrder: function (data, actions) {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: amount,
-                    currency_code: "PHP",
+            createOrder: function (data, actions) {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: { value: amount, currency_code: "PHP" },
+                    description: "Loan Payment ID: " + scheduleId,
                   },
-                  description: "Loan Payment ID: " + scheduleId,
-                },
-              ],
-            });
-          },
+                ],
+              });
+            },
 
-          onApprove: function (data, actions) {
-            return actions.order.capture().then(function (details) {
-              const transactionId = details.id;
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function (details) {
+                console.log("✅ PayPal details:", details);
 
-              fetch("http://localhost/casestudy-loan/loan/controller/updatePayment.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
+                // ✅ Fix: Ensure we get the real transaction ID
+                const transactionId =
+                  details.purchase_units?.[0]?.payments?.captures?.[0]?.id ||
+                  details.id ||
+                  "UNKNOWN_ID";
+
+                console.log("📤 Sending to backend:", {
                   schedule_id: scheduleId,
                   paypal_order_id: transactionId,
-                }),
-              })
-                .then((res) => res.json())
-                .then((resData) => {
-                  if (resData.success) {
-                    Swal.fire({
-                      title: "Payment Successful!",
-                      html: `
+                });
+
+                fetch("http://localhost/casestudy-loan/loan/controller/updatePayment.php", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    schedule_id: scheduleId,
+                    paypal_order_id: transactionId,
+                  }),
+                })
+                  .then(async (res) => {
+                    const text = await res.text();
+                    console.log("🧾 Raw PHP Response:", text);
+
+                    let resData;
+                    try {
+                      resData = JSON.parse(text);
+                    } catch {
+                      throw new Error("Invalid JSON returned by PHP");
+                    }
+
+                    if (resData.success) {
+                      let message = `
                         <p><strong>Amount Paid:</strong> ₱${Number(amount).toLocaleString()}</p>
                         <p><strong>Transaction ID:</strong> ${transactionId}</p>
                         <p>Status has been updated to <strong>PAID</strong>.</p>
-                      `,
-                      icon: "success",
-                    }).then(() => {
-                      // 🔄 Reload only the table and summary data
-                      loadPaymentSchedule();
-                    });
-                  } else {
-                    Swal.fire("Error", resData.message || "Failed to update payment.", "error");
-                  }
-                })
-                .catch((err) => {
-                  console.error("Update error:", err);
-                  Swal.fire("Error", "Failed to update payment status.", "error");
-                });
-            });
-          },
+                      `;
 
-          onError: function (err) {
-            console.error(err);
-            Swal.fire("Error", "Payment failed. Please try again.", "error");
-          },
-        }).render("#paypal-button-container");
+                      // 🟢 If email confirmation was sent
+                      if (resData.email_sent) {
+                        message += `<p style="margin-top:10px;color:green;">A confirmation email has been sent to your registered email address.</p>`;
+                      } else {
+                        message += `<p style="margin-top:10px;color:#999;">(No confirmation email was sent.)</p>`;
+                      }
+
+                      Swal.fire({
+                        title: "Payment Successful!",
+                        html: message,
+                        icon: "success",
+                      }).then(() => loadPaymentSchedule());
+                    } else {
+                      Swal.fire("Error", resData.message || "Failed to update payment.", "error");
+                    }
+
+                  })
+                  .catch((err) => {
+                    console.error("Update error:", err);
+                    Swal.fire("Error", "Failed to update payment status.", "error");
+                  });
+              });
+            },
+
+            onError: function (err) {
+              console.error("PayPal Error:", err);
+              Swal.fire("Error", "Payment failed. Please try again.", "error");
+            },
+          })
+          .render("#paypal-button-container");
       },
     });
   }
