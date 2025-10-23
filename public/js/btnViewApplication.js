@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     hasLoan.style.display = "none";
     viewApplication.style.display = "none";
     ApplicationStatus.style.display = "block";
-    console.log("testtttttt");
   });
   ApplicationStatus.addEventListener("click", function () {
     hasLoan.style.display = "block";

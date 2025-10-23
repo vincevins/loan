@@ -1,3 +1,10 @@
+const modalActivePaid = document.getElementById('modalActivePaid')
+const paymentamount = document.getElementById('payment-amount')
+const datepayment = document.getElementById('date-payment')
+const withoutinterest = document.getElementById('without-interest')
+const interestpaid = document.getElementById('interest-paid')
+const refpayment = document.getElementById('ref-payment')
+var span = modalActivePaid.querySelector(".closeBTN");
 async function getPaid() {
     const url = "http://localhost/casestudy-loan/loan/controller/paymentActive.php";
     try {
@@ -7,11 +14,8 @@ async function getPaid() {
         }
         const result = await response.json();
         const active = result.filter(item => item.hasLoan === 1);
-        console.log(active);
         const ListContainer = document.querySelector(".listPaid");
-        ListContainer.innerHTML = "";
-        console.log("testtsts",active[0].due_Date);
-        
+        ListContainer.innerHTML = ""; 
         active.forEach((data) => {
         const tblRow = document.createElement("tr");
         const id = document.createElement("td");
@@ -21,7 +25,7 @@ async function getPaid() {
         const amount = document.createElement("td");
         amount.textContent = '₱' + data.payment_amount
         const payment_date = document.createElement("td")
-        payment_date.textContent = data.due_Date
+        payment_date.textContent = data.due_date
         const days_overdue = document.createElement("td")
         days_overdue.textContent = data.payment_date
         const payment_status = document.createElement("td");
@@ -36,6 +40,66 @@ async function getPaid() {
         console.error(error.message);
     }
 }
+document.addEventListener("click", async function (e) {
+  const viewButton = e.target.closest(".view-btn");
+
+  if (!viewButton) return;
+  const id = viewButton.getAttribute("data-id");
+  if (!id) {
+    console.error("No data-id found.");
+    return;
+  }
+  modalActivePaid.style.display = "flex";
+  const url = "http://localhost/casestudy-loan/loan/controller/viewActivePaid.php";
+  try {
+    const formData = new FormData();
+    formData.append("id", id);
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    const res = await response.json();
+    const list = res[0]
+    paymentamount.textContent = "₱ " + list.payment_amount
+    datepayment.textContent = list.payment_date
+    withoutinterest.textContent = list.monthly_payment_no_interest
+    interestpaid.textContent = list.interest_paid
+    refpayment.textContent = list.payment_reference
+  } catch (error) {
+    console.error("Fetch error:", error.message);
+  }
+});
+span.addEventListener('click', function(){
+    modalActivePaid.style.display = 'none'
+})
+document.getElementById('exportExcel').addEventListener('click', function () {
+    const table = document.getElementById('paid');
+    const rows = table.querySelectorAll('tr');
+    let csvContent = '';
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll('th, td');
+        let rowData = [];
+        cols.forEach(col => {
+            let cellText = col.textContent.replace(/"/g, '""');
+            rowData.push(`"${cellText}"`);
+        });
+        csvContent += rowData.join(',') + '\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'active_loan_payment.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
 getPaid()
 setInterval(() => {
   getPaid();

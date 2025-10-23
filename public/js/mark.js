@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const response = await fetch("http://localhost/casestudy-loan/loan/controller/getNotif.php");
       if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
       const data = await response.json();
-      console.log("notif try", data);
       const notifications = data.notifications || [];
       const unreadCount = notifications.filter(n => n.is_read == 0).length;
       badge.textContent = unreadCount;

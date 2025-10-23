@@ -6,8 +6,7 @@ async function getData() {
         throw new Error(`Response status: ${response.status}`);
         }
         const result = await response.json();
-        console.log('test data:', result);
-        const ListContainer = document.querySelector(".listApprove");
+        const ListContainer = document.querySelector(".paymentList");
         ListContainer.innerHTML = "";
         result.forEach((data) => {
         const tblRow = document.createElement("tr");
@@ -31,6 +30,30 @@ async function getData() {
         console.error(error.message);
     }
 }
+document.getElementById('exportExcel').addEventListener('click', function () {
+    const table = document.getElementById('payment');
+    const rows = table.querySelectorAll('tr');
+    let csvContent = '';
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll('th, td');
+        let rowData = [];
+        cols.forEach(col => {
+            let cellText = col.textContent.replace(/"/g, '""');
+            rowData.push(`"${cellText}"`);
+        });
+        csvContent += rowData.join(',') + '\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Payment_History.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
  getData();
 setInterval(() => {
   getData();

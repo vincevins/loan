@@ -174,7 +174,6 @@
                     showToast('success', result.message)
                 }
                 this.reset();
-                console.log(result);
 
             } catch (error) {
                 console.error(error.message);

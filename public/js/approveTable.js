@@ -47,10 +47,7 @@ async function getData() {
         throw new Error(`Response status: ${response.status}`);
         }
         const result = await response.json();
-        console.log("approved tbl", result);
-
         const applicationForm = result.filter(item => item.application_status === 'approved' && item.application_status_for_admin === 'approved');
-        
         const ListContainer = document.querySelector(".listApprove");
         ListContainer.innerHTML = "";
         applicationForm.forEach((data) => {
@@ -107,7 +104,6 @@ document.addEventListener("click", async function (e) {
     const applicationForm = result.filter((item) => item.application_status_for_admin === "approved");
 
     const applicant = applicationForm[0];
-    console.log("approved Data", applicant.email);
     fullName.textContent = applicant.last_name + ", " + applicant.first_name;
     detailEmail.textContent = applicant.email;
     detailPhone.textContent = applicant.contact_no;
@@ -121,7 +117,6 @@ document.addEventListener("click", async function (e) {
     idImageBack.src = "/casestudy-loan/loan/public/" + applicant.valid_id_back;
     idSelfie.src = "/casestudy-loan/loan/public/" + applicant.selfie_id;
     proofIncome.src = "/casestudy-loan/loan/public/" + applicant.proof_income;
-    console.log("testt", applicationForm.valid_id_front);
   } catch (error) {
     console.error("Fetch error:", error.message);
   }

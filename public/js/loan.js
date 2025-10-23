@@ -192,7 +192,6 @@
                     body: formData
                 });
                 const result =await response.json()
-                console.log("response:", result); 
                 if (!response.ok) {
                     throw new Error(result.message || `Error ${response.status}`);
                 }
@@ -207,7 +206,6 @@
                 currentStep = 0;
                 updateFormStep();
                 window.scrollTo(0, 0);
-                console.log(result);
             } catch (error) {
                 console.error(error.message);
                 alert("Something went wrong: " + error.message);
@@ -234,7 +232,6 @@
             const monthlyWithInterest = monthlyNoInterest + monthlyInterest;
             wInterest.value = monthlyWithInterest.toFixed(2);
 
-            console.log("Amount:", amount, "Term:", term, "Total Interest:", totalInterestValue);
         } else {
             monthlyRateNoInterest.value = "";
             totalInterest.value = "";

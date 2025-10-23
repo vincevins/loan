@@ -44,7 +44,6 @@ document.getElementById("file-upload").addEventListener("change", function (even
         })
         .then(response => response.text())
         .then(data => {
-            console.log("Upload success:", data);
             showToast('success', 'Profile picture updated successfully');
         })
         .catch(error => {

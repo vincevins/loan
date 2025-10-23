@@ -15,7 +15,7 @@ async function dataCards() {
     pendingApplication.textContent = result.pending.pending;
     approvedApplication.textContent = result.approved.approved;
     revenue.textContent = result.paid.paid;
-    console.log(result);
+
   } catch (error) {
     console.error(error.message);
   }
@@ -28,7 +28,7 @@ async function updateStatus() {
       throw new Error(`Response status: ${response.status}`);
     }
     const result = await response.json();
-    console.log(result);
+ 
   } catch (error) {
     console.error(error.message);
   }
@@ -44,7 +44,6 @@ async function getPayments() {
     const result = await response.json();
     const payments = result
     updateStatus();
-    console.log('test data: ', payments);
     if (payments.length === 0) {
       paymentList.innerHTML = `<div class="empty-state">
       <i class="fas fa-credit-card"></i>
@@ -89,7 +88,6 @@ async function getapplication() {
       const createdAtDate = new Date(item.created_at);
       return currentDate.getMonth() === createdAtDate.getMonth() && currentDate.getDate() === createdAtDate.getDate();
     });
-    // console.log('applications:', todayApplications);
     if (todayApplications.length === 0) {
       applicantList.innerHTML = `<div class="empty-state">
         <i class="fa-solid fa-file"></i>

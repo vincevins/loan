@@ -3,7 +3,7 @@ require_once '../config/config.php';
 header("Content-Type: application/json; charset=UTF-8");
 class PaymentActive extends Database{
     public function fetchPayments(){
-        $getPayments = "SELECT t.*, i.last_name, i.first_name, i.hasLoan, s.due_Date FROM loan_payments AS t INNER JOIN  loan_accounts AS i ON t.account_id  = i.account_id
+        $getPayments = "SELECT t.*, i.last_name, i.first_name, i.hasLoan, s.due_date FROM loan_payments AS t INNER JOIN  loan_accounts AS i ON t.account_id  = i.account_id
         INNER JOIN loan_payment_schedule as s on t.schedule_id  = s.schedule_id ";
         $stmt = $this->conn->prepare($getPayments);
         if (!$stmt) {

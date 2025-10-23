@@ -47,7 +47,6 @@ setPassword.addEventListener("submit", async function (e) {
     }else{
       showToast('success', res.message)
     }
-    
     const result = await res.json();
     if (result.loginform === true) {
       window.location.href =

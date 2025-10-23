@@ -6,7 +6,6 @@ async function getData() {
       throw new Error(`Response status: ${response.status}`);
     }
     const result = await response.json();
-    console.log('over due: ',result);
   } catch (error) {
     console.error(error.message);
   }
@@ -18,8 +17,7 @@ async function getUpcomingDue() {
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    const result = await response.json();
-    console.log('over due: ',result);
+     await response.json();
   } catch (error) {
     console.error(error.message);
   }
@@ -34,8 +32,6 @@ async function getOverdue() {
         }
         const result = await response.json();
         const active = result.filter(item => item.hasLoan === 1 && item.updated_at !== null);
-        console.log("TESTSSSSS", active);
-        
         const ListContainer = document.querySelector(".listOverdue");
         ListContainer.innerHTML = "";
         active.forEach((data) => {
@@ -71,7 +67,6 @@ async function tblUpcomingDue() {
         }
         const result = await response.json();
         const active = result.filter(item => item.hasLoan === 1 && item.updated_at_upcoming !== null);
-        console.log(active);
         
         const ListContainer = document.querySelector(".listUpcoming");
         ListContainer.innerHTML = "";

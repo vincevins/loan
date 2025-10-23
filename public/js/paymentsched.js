@@ -2,7 +2,6 @@ function loadPaymentSchedule() {
   fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
     .then((response) => response.json())
     .then((data) => {
-      console.log("Fetched:", data);
 
       const totalLoanAmountSched = document.getElementById("totalLoanAmountSched");
       const remainingBalanceSched = document.getElementById("remainingBalanceSched");
@@ -113,18 +112,12 @@ document.addEventListener("click", (event) => {
 
             onApprove: function (data, actions) {
               return actions.order.capture().then(function (details) {
-                console.log("✅ PayPal details:", details);
 
                 // ✅ Fix: Ensure we get the real transaction ID
                 const transactionId =
                   details.purchase_units?.[0]?.payments?.captures?.[0]?.id ||
                   details.id ||
                   "UNKNOWN_ID";
-
-                console.log("📤 Sending to backend:", {
-                  schedule_id: scheduleId,
-                  paypal_order_id: transactionId,
-                });
 
                 fetch("http://localhost/casestudy-loan/loan/controller/updatePayment.php", {
                   method: "POST",
@@ -136,7 +129,6 @@ document.addEventListener("click", (event) => {
                 })
                   .then(async (res) => {
                     const text = await res.text();
-                    console.log("🧾 Raw PHP Response:", text);
 
                     let resData;
                     try {

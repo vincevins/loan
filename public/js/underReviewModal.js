@@ -23,8 +23,7 @@ document.addEventListener("click", async function (e) {
     return;
   }
   modalView.style.display = "flex";
-  const url =
-    "http://localhost/casestudy-loan/loan/controller/getInformaionDocu.php";
+  const url = "http://localhost/casestudy-loan/loan/controller/getInformaionDocu.php";
   try {
     const formData = new FormData();
     formData.append("id", id);
@@ -55,7 +54,6 @@ document.addEventListener("click", async function (e) {
     idImageBack.src = "/casestudy-loan/loan/public/" + applicant.valid_id_back;
     idSelfie.src = "/casestudy-loan/loan/public/" + applicant.selfie_id;
     proofIncome.src = "/casestudy-loan/loan/public/" + applicant.proof_income;
-    console.log("testt", applicant.valid_id_front);
   } catch (error) {
     console.error("Fetch error:", error.message);
   }

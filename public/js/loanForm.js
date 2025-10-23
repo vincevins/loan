@@ -1,6 +1,5 @@
 const session = document.getElementById("sessionLoan");
 const sessionEl = session.dataset.sessionStatus;
-console.log("data: ", sessionEl);
 const hasLoan = document.getElementById("hasLoan");
 const applicationform = document.getElementById("application-form");
 if (sessionEl === "1") {
@@ -38,7 +37,6 @@ async function getApplication() {
     submittedDate.textContent = formalDate;
     const hrApproval = result[0].application_status;
     const adminApproval = result[0].application_status_for_admin;
-    console.log(hrApproval);
     if (hrApproval.trim().toLowerCase() === "approved") {
       step2Approved.style.display = "flex";
       step2Review.style.display = "none";
@@ -58,7 +56,7 @@ async function getApplication() {
       step4Review.style.display = "none";
       step4Txt.textContent = "Approved";
     }
-    console.log("Data: ", result);
+
   } catch (error) {
     // console.error(error.message);
     // alert("Something went wrong: " + error.message);

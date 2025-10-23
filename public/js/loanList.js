@@ -7,7 +7,6 @@ async function getData() {
         }
         const result = await response.json();
         const applicationForm = result.filter(item => item.hasLoan === 1);
-        console.log('testtt', applicationForm);
         const ListContainer = document.querySelector(".list");
         ListContainer.innerHTML = "";
         applicationForm.forEach((data) => {
@@ -15,7 +14,6 @@ async function getData() {
             var loanStatus;
             if(status === 1){
                 loanStatus = 'Active'
-                console.log('dasdadas');
             }
             const tblRow = document.createElement("tr");
             const id = document.createElement("td");
@@ -44,6 +42,30 @@ async function getData() {
         console.error(error.message);
     }
 }
+document.getElementById('exportExcel').addEventListener('click', function () {
+    const table = document.getElementById('loanList');
+    const rows = table.querySelectorAll('tr');
+    let csvContent = '';
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll('th, td');
+        let rowData = [];
+        cols.forEach(col => {
+            let cellText = col.textContent.replace(/"/g, '""');
+            rowData.push(`"${cellText}"`);
+        });
+        csvContent += rowData.join(',') + '\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'loanList.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
  getData();
 setInterval(() => {
   getData();

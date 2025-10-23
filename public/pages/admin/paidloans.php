@@ -11,6 +11,7 @@ include 'sidebar.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../../styles/admin_style.css">
     <link rel="stylesheet" href="../../styles/table.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
 </head>
 
 <body>
@@ -42,6 +43,41 @@ include 'sidebar.php';
                 </tbody>
             </table>
 
+        </div>
+        <div id="modalActivePaid" class="modal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Loan Application Details</h1>
+                     <span class="closeBTN">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="section">
+                        <div class="section-title">Payment Information</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Payment Amount</div>
+                                <div class="info-value" id="payment-amount"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Date of Payment</div>
+                                <div class="info-value" id="date-payment"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Payment without Interest</div>
+                                <div class="info-value" id="without-interest"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Interest paid</div>
+                                <div class="info-value" id="interest-paid"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Payment Reference #</div>
+                                <div class="info-value" id="ref-payment"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <script src="../../js/activeLoanPaid.js"></script>

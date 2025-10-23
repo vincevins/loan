@@ -7,8 +7,6 @@ async function getData() {
     }
     const result = await response.json();
     const applicationForm = result.filter((item) => item.application_status_for_admin === "under_review");
-    const list = [applicationForm];
-    console.log("dataaaa: ", applicationForm);
 
     const ListContainer = document.querySelector(".list");
     ListContainer.innerHTML = "";
@@ -86,7 +84,6 @@ document.addEventListener("click", async function (e) {
         throw new Error(response.message || `Error ${response.status}`);
       }
       showToast('success', result.message || "Application approved successfully!") 
-      console.log("id:: ", id);
     } catch (error) {
       console.error(error.message);
       alert("Something went wrong: " + error.message);
@@ -124,7 +121,6 @@ document.addEventListener("click", async function (e) {
     try {
       const formData = new FormData();
       formData.append("id", id);
-      console.log("Sending ID:", id);
       const response = await fetch(url, {
         method: "POST",
         body: formData,
