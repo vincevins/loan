@@ -51,8 +51,7 @@ document.addEventListener("click", async function (e) {
     detailPurpose.textContent = applicant.loan_purpose;
     detailLoanTerm.textContent = applicant.loan_term;
 
-    idImageFront.src =
-      "/casestudy-loan/loan/public/" + applicant.valid_id_front;
+    idImageFront.src ="/casestudy-loan/loan/public/" + applicant.valid_id_front;
     idImageBack.src = "/casestudy-loan/loan/public/" + applicant.valid_id_back;
     idSelfie.src = "/casestudy-loan/loan/public/" + applicant.selfie_id;
     proofIncome.src = "/casestudy-loan/loan/public/" + applicant.proof_income;

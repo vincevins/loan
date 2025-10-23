@@ -43,8 +43,85 @@ include 'sidebar.php';
 
                 </tbody>
             </table>
-
         </div>
+
+        <div id="modalViewApproved" class="modal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Loan Application Details</h1>
+                      <span class="btnClose">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="section">
+                        <div class="section-title">Personal Information</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Full Name</div>
+                                <div class="info-value" id="AfullName"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Email Address</div>
+                                <div class="info-value" id="detail-email"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Phone Number</div>
+                                <div class="info-value" id="detail-phone"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Address</div>
+                                <div class="info-value" id="detail-address"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Financial Information</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Annual Income</div>
+                                <div class="info-value" id="detail-Annualincome"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Loan Amount Requested</div>
+                                <div class="info-value" id="detail-LoanAmount"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Loan Purpose</div>
+                                <div class="info-value" id="detail-Purpose"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Loan Term</div>
+                                <div class="info-value" id="detail-LoanTerm"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="id-images-section">
+                        <div class="section-title">Verification Documents</div>
+                        <div class="id-images-container">
+                            <div class="id-image-wrapper">
+                                <img id="id-ImageFront" src="" alt="Valid ID - Front" />
+                                <p>ID Front Side</p>
+                            </div>
+                            <div class="id-image-wrapper">
+
+                                <img id="id-ImageBack" src="" alt="Valid ID - back" />
+                                <p>ID Back Side</p>
+                            </div>
+                            <div class="id-image-wrapper">
+                                <img id="id-Selfie" src="" alt="Selfie with ID" />
+                                <p>Selfie with ID</p>
+                            </div>
+                            <div class="id-image-wrapper">
+                                <img id="proof-Income" src="" alt="Proof of Income" />
+                                <p>Proof of Income</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <script src="../../js/approveTable.js"></script>
 </body>

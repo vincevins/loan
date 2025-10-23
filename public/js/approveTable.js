@@ -1,3 +1,18 @@
+document.addEventListener("DOMContentLoaded", function() {
+const modalView = document.getElementById("modalViewApproved");
+var span = modalView.querySelector(".btnClose");
+const fullName = document.getElementById("AfullName");
+const detailEmail = document.getElementById("detail-email");
+const detailPhone = document.getElementById("detail-phone");
+const detailAddress = document.getElementById("detail-address");
+const idImageFront = document.getElementById("id-ImageFront");
+const idImageBack = document.getElementById("id-ImageBack");
+const idSelfie = document.getElementById("id-Selfie");
+const proofIncome = document.getElementById("proof-Income");
+const detailAnnualincome = document.getElementById("detail-Annualincome");
+const detailLoanAmount = document.getElementById("detail-LoanAmount");
+const detailPurpose = document.getElementById("detail-Purpose");
+const detailLoanTerm = document.getElementById("detail-LoanTerm");
 async function getData() {
     const url = 'http://localhost/casestudy-loan/loan/controller/getapplication.php'
     try {
@@ -6,11 +21,13 @@ async function getData() {
         throw new Error(`Response status: ${response.status}`);
         }
         const result = await response.json();
-        const applicationForm = result.find(item => item.application_status === 'approved' && item.application_status_for_admin === 'approved');
-        const list = [applicationForm]
+        console.log("approved tbl", result);
+
+        const applicationForm = result.filter(item => item.application_status === 'approved' && item.application_status_for_admin === 'approved');
+        
         const ListContainer = document.querySelector(".listApprove");
         ListContainer.innerHTML = "";
-        list.forEach((data) => {
+        applicationForm.forEach((data) => {
         const tblRow = document.createElement("tr");
         const id = document.createElement("td");
         id.textContent = data.loanID
@@ -38,7 +55,63 @@ async function getData() {
         console.error(error.message);
     }
 }
+document.addEventListener("click", async function (e) {
+  const viewButton = e.target.closest(".view-btn");
+
+  if (!viewButton) return;
+  const id = viewButton.getAttribute("data-id");
+  if (!id) {
+    console.error("No data-id found.");
+    return;
+  }
+  modalView.style.display = "flex";
+  const url = "http://localhost/casestudy-loan/loan/controller/getInformaionDocu.php";
+  try {
+    const formData = new FormData();
+    formData.append("id", id);
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    const result = await response.json();
+    const applicationForm = result.filter((item) => item.application_status_for_admin === "approved");
+
+    const applicant = applicationForm[0];
+    console.log("approved Data", applicant.email);
+    fullName.textContent = applicant.last_name + ", " + applicant.first_name;
+    detailEmail.textContent = applicant.email;
+    detailPhone.textContent = applicant.contact_no;
+    detailAddress.textContent = applicant.address;
+    detailAnnualincome.textContent = applicant.annual_income;
+    detailLoanAmount.textContent = applicant.loan_amount;
+    detailPurpose.textContent = applicant.loan_purpose;
+    detailLoanTerm.textContent = applicant.loan_term;
+
+    idImageFront.src ="/casestudy-loan/loan/public/" + applicant.valid_id_front;
+    idImageBack.src = "/casestudy-loan/loan/public/" + applicant.valid_id_back;
+    idSelfie.src = "/casestudy-loan/loan/public/" + applicant.selfie_id;
+    proofIncome.src = "/casestudy-loan/loan/public/" + applicant.proof_income;
+    console.log("testt", applicationForm.valid_id_front);
+  } catch (error) {
+    console.error("Fetch error:", error.message);
+  }
+});
+  span.onclick = function() {
+    modalView.style.display = "none";
+  };
+
+window.onclick = function (event) {
+  if (event.target == modalView) {
+    modalView.style.display = "none";
+  }
+};
+
  getData();
 setInterval(() => {
   getData();
 }, 5000);
+});
