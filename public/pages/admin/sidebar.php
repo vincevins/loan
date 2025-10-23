@@ -13,6 +13,7 @@ if ($role != 'admin') {
 }
 ?>
 <link rel="stylesheet" href="../../styles/admin_style.css">
+<link rel="icon" type="image/png" href="../../img/logo1.1.png">
 <nav class="sidebar">
     <div class="sidebar-header">
         <img src="../../img/logo1.1.png" alt="Company Logo">
