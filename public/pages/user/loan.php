@@ -108,25 +108,25 @@ if ($role != 'user') {
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                <input type="text" id="firstName" name="firstName" class="form-control" value="<?php $_SESSION['user_first_name'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="middleName">Middle Name</label>
-                                <input type="text" id="middleName" name="middleName" class="form-control" required>
+                                <input type="text" id="middleName" name="middleName" class="form-control" value="<?php $_SESSION['user_middle_name'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" class="form-control" required>
+                                <input type="text" id="lastName" name="lastName" class="form-control" value="<?php $_SESSION['user_last_name'] ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
+                            <input type="email" id="email" name="email" class="form-control" value="<?php $_SESSION['user_email']?>">
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                                <input type="tel" id="phone" name="phone" class="form-control" value="<?php $_SESSION['user_contact_no'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="dob">Date of Birth</label>

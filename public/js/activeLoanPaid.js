@@ -10,6 +10,8 @@ async function getPaid() {
         console.log(active);
         const ListContainer = document.querySelector(".listPaid");
         ListContainer.innerHTML = "";
+        console.log("testtsts",active[0].due_Date);
+        
         active.forEach((data) => {
         const tblRow = document.createElement("tr");
         const id = document.createElement("td");
@@ -17,11 +19,11 @@ async function getPaid() {
         const fName = document.createElement("td");
         fName.textContent = data.last_name+ ', ' + data.first_name
         const amount = document.createElement("td");
-        amount.textContent = '₱' + data.total_payment_due
+        amount.textContent = '₱' + data.payment_amount
         const payment_date = document.createElement("td")
-        payment_date.textContent = data.payment_date
+        payment_date.textContent = data.due_Date
         const days_overdue = document.createElement("td")
-        days_overdue.textContent = data.days_overdue
+        days_overdue.textContent = data.payment_date
         const payment_status = document.createElement("td");
         payment_status.textContent = data.payment_status;
         const action = document.createElement("td");

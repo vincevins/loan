@@ -3,7 +3,7 @@ require_once '../config/config.php';
 header("Content-Type: application/json; charset=UTF-8");
 class GetOverdue extends Database{
     public function overdue(){
-        $getQuery = "SELECT L.*, A.hasLoan, A.first_name, A.last_name FROM loan_payment_schedule AS L INNER JOIN loan_accounts AS A ON L.account_id  = A.account_id ;";
+        $getQuery = "SELECT L.*, A.hasLoan, A.first_name, A.last_name FROM loan_payment_schedule AS L INNER JOIN loan_accounts AS A ON L.account_id  = A.account_id;";
         $stmt = $this->conn->prepare($getQuery);
         if (!$stmt) {
             die("Prepare failed: " . $this->conn->error);

@@ -13,6 +13,32 @@ const detailAnnualincome = document.getElementById("detail-Annualincome");
 const detailLoanAmount = document.getElementById("detail-LoanAmount");
 const detailPurpose = document.getElementById("detail-Purpose");
 const detailLoanTerm = document.getElementById("detail-LoanTerm");
+
+document.getElementById('exportExcel').addEventListener('click', function () {
+    const table = document.getElementById('approved');
+    const rows = table.querySelectorAll('tr');
+    let csvContent = '';
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll('th, td');
+        let rowData = [];
+        cols.forEach(col => {
+            let cellText = col.textContent.replace(/"/g, '""');
+            rowData.push(`"${cellText}"`);
+        });
+        csvContent += rowData.join(',') + '\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'approved_application.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
+
 async function getData() {
     const url = 'http://localhost/casestudy-loan/loan/controller/getapplication.php'
     try {

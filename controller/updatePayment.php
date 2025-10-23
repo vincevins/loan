@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('error_log', __DIR__ . '/error_log.txt');
 header("Content-Type: application/json");
-
+date_default_timezone_set('Asia/Manila');
 // ✅ Include config and connect to DB
 include '../config/config.php';
 $db = new Database();
@@ -39,9 +39,7 @@ $row = $result->fetch_assoc();
 $schedule_id = $conn->real_escape_string($row["schedule_id"]); // actual string ID like SCHEDULE-xxxx
 
 // ✅ Update payment status
-$updateSql = "UPDATE loan_payment_schedule
-              SET payment_status = 'paid', updated_at = NOW()
-              WHERE id = '$id'";
+$updateSql = "UPDATE loan_payment_schedule SET payment_status = 'paid' WHERE id = '$id'";
 if (!$conn->query($updateSql)) {
     echo json_encode(["success" => false, "message" => "Failed to update schedule.", "error" => $conn->error]);
     exit;
@@ -71,6 +69,21 @@ if (!$conn->query($insertSql)) {
     echo json_encode(["success" => false, "message" => "Failed to record payment.", "error" => $conn->error]);
     exit;
 }
+$randomNumber = mt_rand(1000, 9999);
+$timestamp = time();
+$loanID = $row['loanID'];
+$id = $row['schedule_id'];
+$accountid = $row['account_id'];
+$uniqueId = $timestamp . $randomNumber;
+$message = "Payment of " . "₱" . $total_payment . " completed successfully on" . date('Y-m-d');;
+$insertReminder = "INSERT INTO `loan_notifications`(`notif_id`, `loanID`, `schedule_id`, `account_id`, `message`) VALUES (?,?,?,?,?)";
+$stmtReminder = $conn->prepare($insertReminder);
+$stmtReminder->bind_param('sssss', $uniqueId, $loanID, $id, $accountid, $message);         
+$stmtReminder->execute();
+
+
+
+
 $emailQuery = "
     SELECT 
         email, 
@@ -99,20 +112,19 @@ if ($user && !empty($user['email'])) {
         $mail->setFrom('baenavinceiverson.bsit@gmail.com', 'Loan Payment System');
         $mail->addAddress($recipient, $fullname);
         $mail->isHTML(true);
-        $mail->Subject = 'Loan Payment Confirmation';
-        $mail->Body = "
-            <h2>Payment Successful!</h2>
-            <p>Dear <strong>{$fullname}</strong>,</p>
+        $mail->Subject = 'F.L.O.W';
+        $mail->Body = '<h2 style="margin:0; font-size:26px; font-weight:600;">Payment Successful!</h2>
+            <p>Dear <strong>' . $fullname . '</strong>,</p>
             <p>We have successfully received your payment.</p>
             <ul>
-                <li>Loan ID: {$loanID}</li>
-                <li>Schedule ID: {$schedule_id}</li>
-                <li>Amount Paid: ₱{$total_payment}</li>
-                <li>Transaction ID: {$paypal_order_id}</li>
+                <li>Loan ID: ' . $loanID . '</li>
+                <li>Schedule ID: ' . $schedule_id . '</li>
+                <li>Amount Paid: ₱' . $total_payment . '</li>
+                <li>Transaction ID: ' . $paypal_order_id . '</li>
                 <li>Payment Method: PayPal</li>
             </ul>
             <p>Thank you for your payment!</p>
-        ";
+        ';
         $mail->send();
         $email_sent = true;
     } catch (Exception $e) {

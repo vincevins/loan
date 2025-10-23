@@ -34,7 +34,7 @@ async function getOverdue() {
         }
         const result = await response.json();
         const active = result.filter(item => item.hasLoan === 1 && item.updated_at !== null);
-        console.log(active);
+        console.log("TESTSSSSS", active);
         
         const ListContainer = document.querySelector(".listOverdue");
         ListContainer.innerHTML = "";
