@@ -69,6 +69,7 @@ const btnPaymentSched = document.getElementById("btnPaymentSched");
 const btnPersonalInfo = document.getElementById("btnPersonalInformation");
 const personalInfoModal = document.getElementById("personalInfoModal");
 const paymentSchedModal = document.getElementById("paymentSchedModal");
+const btnPaymentHistory = document.getElementById("btnPaymentHistory")
 
 btnPersonalInfo.addEventListener("click", () => {
   personalInfoModal.style.display = "block";
@@ -115,7 +116,6 @@ document.addEventListener("click", (event) => {
               return actions.order.capture().then(function (details) {
                 console.log("✅ PayPal details:", details);
 
-                // ✅ Fix: Ensure we get the real transaction ID
                 const transactionId =
                   details.purchase_units?.[0]?.payments?.captures?.[0]?.id ||
                   details.id ||
