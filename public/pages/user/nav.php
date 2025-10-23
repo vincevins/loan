@@ -311,6 +311,83 @@ if ($role != 'user') {
                 </div>
             </div>
         </div>
+        <!-- PAYMENT HISTORY DITO -->
+<div id="paymentHistoryModal" style="display: none;">
+  <div class="personal-information">
+    <div class="settings-container-profile">
+      <div class="personal-information-sidebar">
+        <div>
+          <div class="profile-wrapper">
+            <label for="file-upload">
+              <?php
+              $firstName = $_SESSION['user_first_name'] ?? 'User';
+              $lastName = $_SESSION['user_last_name'] ?? 'Name';
+              if (!empty($_SESSION['profile_picture'])) {
+                $base64 = base64_encode($_SESSION['profile_picture']);
+                echo '<img src="data:image/jpeg;base64,' . $base64 . '" alt="Profile" class="profile-img" id="profile-img">';
+              } else {
+                $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                echo '<div class="profile-initials">' . $initials . '</div>';
+              }
+              ?>
+            </label>
+          </div>
+
+          <div class="user-info">
+            <h2><?php echo $_SESSION['user_last_name'] . ", " . $_SESSION['user_first_name']; ?></h2>
+            <h3><?php echo $_SESSION['user_email']; ?></h3>
+          </div>
+        </div>
+        <hr>
+        <div class="content">
+          <ul class="personal-information-sidebar">
+            <li>
+              <button id="btnPersonalInfo3" class="tab-btn">
+                <i class="fa-solid fa-table-columns"></i> Personal Information
+              </button>
+            </li>
+            <li>
+              <button id="btnPaymentSched3" class="tab-btn">
+                <i class="fa-solid fa-list"></i> Payment Schedule
+              </button>
+            </li>
+            <li>
+              <button id="btnPaymentHistory3" class="tab-btn active">
+                <i class="fa-solid fa-clock-rotate-left"></i> Payment History
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="content-container active">
+          <div class="payment-schedule">
+            <div class="schedule-header">
+              <h3>Payment History</h3>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Payment Date</th>
+                  <th>Amount Paid</th>
+                  <th>Payment Method</th>
+                  <th>Reference / Transaction ID</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody class="paymentHistoryBody">
+                <tr><td colspan="6" style="text-align:center;">Loading payment history...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
     </div>
     </div>
     </div>
@@ -339,6 +416,7 @@ if ($role != 'user') {
             const btnPersonalInfo = document.getElementById("btnPersonalInfo");
             const personalInfoModal = document.getElementById("personalInfoModal");
             const paymentSchedModal = document.getElementById("paymentSchedModal");
+            
 
             btnPersonalInfo.addEventListener("click", () => {
                 personalInfoModal.style.display = "block";
@@ -348,6 +426,16 @@ if ($role != 'user') {
                 paymentSchedModal.style.display = "block";
                 personalInfoModal.style.display = "none";
             });
+            const btnPaymentHistory = document.getElementById("btnPaymentHistory");
+const paymentHistoryModal = document.getElementById("paymentHistoryModal");
+
+btnPaymentHistory.addEventListener("click", () => {
+    personalInfoModal.style.display = "none";
+    paymentSchedModal.style.display = "none";
+    paymentHistoryModal.style.display = "block";
+    loadPaymentHistory();
+});
+
             const modal = document.getElementById("profileModal");
             const btn = document.getElementById("btnProfile");
             btn.addEventListener("click", () => {
@@ -359,6 +447,65 @@ if ($role != 'user') {
                     modal.style.display = "none";
                 }
             });
+function loadPaymentHistory() {
+  fetch("http://localhost/casestudy-loan/loan/controller/paymentHistory.php")
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.querySelector(".paymentHistoryBody");
+      tbody.innerHTML = "";
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No payment history found.</td></tr>`;
+        return;
+      }
+
+      data.forEach((row, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${i + 1}</td>
+          <td>${row.payment_date}</td>
+          <td>₱${Number(row.payment_amount).toLocaleString()}</td>
+          <td>${row.payment_method || 'N/A'}</td>
+          <td>${row.payment_reference || 'N/A'}</td>
+          <td class="${
+            row.payment_status === 'Paid' ? 'status-paid' :
+            row.payment_status === 'Pending' ? 'status-pending' :
+            'status-overdue'
+          }">${row.payment_status}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    })
+    .catch(err => {
+      console.error("Error loading payment history:", err);
+      document.querySelector(".paymentHistoryBody").innerHTML =
+        `<tr><td colspan="6" style="text-align:center;color:red;">Error loading payment history.</td></tr>`;
+    });
+}
+const btnPersonalInfo3 = document.getElementById("btnPersonalInfo3");
+const btnPaymentSched3 = document.getElementById("btnPaymentSched3");
+const btnPaymentHistory3 = document.getElementById("btnPaymentHistory3");
+
+if (btnPersonalInfo3 && btnPaymentSched3 && btnPaymentHistory3) {
+  btnPersonalInfo3.addEventListener("click", () => {
+    paymentHistoryModal.style.display = "none";
+    paymentSchedModal.style.display = "none";
+    personalInfoModal.style.display = "block";
+  });
+
+  btnPaymentSched3.addEventListener("click", () => {
+    paymentHistoryModal.style.display = "none";
+    personalInfoModal.style.display = "none";
+    paymentSchedModal.style.display = "block";
+  });
+
+  btnPaymentHistory3.addEventListener("click", () => {
+    personalInfoModal.style.display = "none";
+    paymentSchedModal.style.display = "none";
+    paymentHistoryModal.style.display = "block";
+    loadPaymentHistory();
+  });
+}
 
         });
     </script>
