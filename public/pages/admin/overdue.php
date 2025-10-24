@@ -43,6 +43,47 @@ include 'sidebar.php';
             </table>
 
         </div>
+
+        <div id="modalOverdue" class="modal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Loan Application Details</h1>
+                     <span class="BTNclose">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="section">
+                        <div class="section-title">Payment Information</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Borrower</div>
+                                <div class="info-value" id="overdueFname"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Total Payment Due</div>
+                                <div class="info-value" id="total-paymentdue"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Due Date</div>
+                                <div class="info-value" id="payment-duedate"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Days Overdue</div>
+                                <div class="info-value" id="days-overdue"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Late payment penalty</div>
+                                <div class="info-value" id="latepayment"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Payment Status</div>
+                                <div class="info-value" id="paystatus"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <script src="../../js/overdue.js"></script>
    

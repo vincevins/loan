@@ -59,7 +59,19 @@
                 toast.remove();
             }, 300);
         }
+       async function showSpinner() {
+            const spinner = document.getElementById('loginSpinner');
+            if (spinner) {
+                spinner.style.display = 'block';
+            }
+        }
 
+       async function hideSpinner() {
+            const spinner = document.getElementById('loginSpinner');
+            if (spinner) {
+                spinner.style.display = 'none';
+            }
+        }
         const loginForm = document.getElementById('loginForm');
         const signupForm = document.getElementById('signupform');
 
@@ -74,12 +86,14 @@
                 alert('Please fill in all fields');
             }
              const url = 'http://localhost/casestudy-loan/loan/controller/authLogin.php';
+             await showSpinner();
             try{
                 const res = await fetch(url,{
                     method: 'POST',
                     body: formData
                 });
                 const result =await res.json()
+                await hideSpinner();
                  if (!res.ok) {
                     throw new Error(result.message || `Error ${response.status}`);
                 }
@@ -88,6 +102,7 @@
                 } else if(result.status === 'error')  {
                  showToast('error', result.message)
                 }else if (result.role === 'user') {
+                  
                     window.location.href ="http://localhost/casestudy-loan/loan/public/pages/user/loan.php"
                 }else if(result.role === 'admin'){
                     window.location.href ="http://localhost/casestudy-loan/loan/public/pages/admin/index.php"

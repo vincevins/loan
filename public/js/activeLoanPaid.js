@@ -17,6 +17,18 @@ async function getPaid() {
         const ListContainer = document.querySelector(".listPaid");
         ListContainer.innerHTML = ""; 
         active.forEach((data) => {
+        const paymentdate = new Date(data.payment_date.replace(' ', 'T'));
+        const formattedDatepay = paymentdate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        const dueDate = new Date(data.due_date.replace(' ', 'T'));
+        const formattedDate = dueDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
         const tblRow = document.createElement("tr");
         const id = document.createElement("td");
         id.textContent = data.loanID
@@ -25,9 +37,9 @@ async function getPaid() {
         const amount = document.createElement("td");
         amount.textContent = '₱' + data.payment_amount
         const payment_date = document.createElement("td")
-        payment_date.textContent = data.due_date
+        payment_date.textContent = formattedDate
         const days_overdue = document.createElement("td")
-        days_overdue.textContent = data.payment_date
+        days_overdue.textContent = formattedDatepay
         const payment_status = document.createElement("td");
         payment_status.textContent = data.payment_status;
         const action = document.createElement("td");

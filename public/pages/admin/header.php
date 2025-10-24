@@ -33,7 +33,7 @@
                     </button>
                     <hr class="dropdown-divider">
                     <button class="dropdown-item logout">
-                        <a href="logout.php" style="text-decoration: none;">
+                        <a href="http://localhost/casestudy-loan/loan/controller/logout.php" style="text-decoration: none;">
                             <i class="fa fa-sign-out-alt"></i> Log Out
                         </a>
                     </button>

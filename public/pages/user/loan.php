@@ -9,13 +9,9 @@ if (!isset($_SESSION['logged_in'])) {
 $role = $_SESSION['user_role'];
 if ($role != 'user') {
     header("http://localhost/casestudy-loan/loan/controller/logout.php");
-    // session_unset();
-    // session_destroy();
-    // header("location: http://localhost/casestudy-loan/loan/public/pages/index.php");
     exit();
 }
-// $id =   $_SESSION['user_account_id'];
-// echo $id
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,44 +24,115 @@ if ($role != 'user') {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../styles/loan.css">
     <link rel="stylesheet" href="../../styles/progressApplication.css">
-
     <link rel="stylesheet" href="../../styles/toast.css">
 </head>
-<style>
-
-</style>
 
 <body>
-    <section class="hero">
-        <div class="container">
-            <h2>Get The Funds You Need Quickly & Securely</h2>
-            <p>Our online loan application process is fast, secure, and designed to get you the money you need with competitive rates and flexible terms.</p>
-            <a href="#apply" class="btnLoan">Start Application</a>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Get The Funds You Need Quickly
+                    <span></span>
+                </h1>
+                <p>Our online loan application process is fast, secure, and designed to get you the money you need with competitive rates and flexible terms.</p>
+                <div class="cta-buttons">
+                    <a href="#apply" class="btn-primary">Apply Now</a>
+                </div>
+            </div>
+            <div class="calculator-container">
+                <h3>Quick Loan Calculator</h3>
+                <form id="loanForm">
+                    <div class="form-group">
+                        <label for="amount">Loan Amount (₱)</label>
+                        <input type="number" id="amount" placeholder="10,000" min="1000" step="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="period">Repayment Period</label>
+                        <select id="period" required>
+                            <option value="12">12 months</option>
+                            <option value="24">24 months</option>
+                            <option value="36">36 months</option>
+                            <option value="48">48 months</option>
+                            <option value="60">60 months</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rate">Interest Rate</label>
+                        <input type="number" id="rate" placeholder="3.9" value="1.3" min="0.1" step="0.1" readonly>
+                    </div>
+
+                    <button type="submit" class="btn-calculate">Calculate Payment</button>
+                </form>
+
+                <div class="result-section" id="results">
+                    <div class="result-item">
+                        <span class="result-label">Monthly Payment:</span>
+                        <span class="result-value highlight" id="monthlyPayment">$0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Interest:</span>
+                        <span class="result-value" id="totalInterest">$0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Amount:</span>
+                        <span class="result-value" id="totalAmount">$0.00</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <div id="sessionLoan" data-session-status="<?php echo htmlspecialchars($_SESSION['user_status_loan']) ?>"></div>
-    <section class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose F.L.O.W?</h2>
-                <p>We make borrowing simple, transparent, and convenient</p>
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose F.L.O.W?</h2>
+        <p class="section-subtitle">We make borrowing simple, transparent, and convenient</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"> <i class="fas fa-bolt"></i></div>
+                <h3>Fast Approval</h3>
+                <p>Get a decision in minutes and funds as soon as the next business day.</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>Fast Approval</h3>
-                    <p>Get a decision in minutes and funds as soon as the next business day.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-lock"></i>
-                    <h3>Secure Process</h3>
-                    <p>Your information is protected with bank-level encryption technology.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-percent"></i>
-                    <h3>Competitive Rates</h3>
-                    <p>Enjoy competitive interest rates with no hidden fees or charges.</p>
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                <h3>Secure Process</h3>
+                <p>Your information is protected with bank-level encryption technology.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-percent"></i></div>
+                <h3>Competitive Rates</h3>
+                <p>Enjoy competitive interest rates with no hidden fees or charges.</p>
+            </div>
+        </div>
+    </section>
+
+     <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <button class="faq-question">How long will it take to approve my loan?</button>
+            <div class="faq-answer">
+                <p>Approval time may vary depending on verification and loan officer review.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">What are the requirements?</button>
+            <div class="faq-answer">
+                <p>A valid ID, selfie with ID, and proof of income are required to process your application.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">How do I repay the loan?</button>
+            <div class="faq-answer">
+                <p>You can repay through bank transfer, e-wallet, or partner payment centers.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Is my personal information secure?</button>
+            <div class="faq-answer">
+                <p>Yes, your data is encrypted and securely reviewed only by authorized loan officers.</p>
             </div>
         </div>
     </section>
@@ -121,7 +188,7 @@ if ($role != 'user') {
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-control" value="<?php $_SESSION['user_email']?>">
+                            <input type="email" id="email" name="email" class="form-control" value="<?php $_SESSION['user_email'] ?>">
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -286,7 +353,7 @@ if ($role != 'user') {
                             </div>
                         </div>
                         <div class="form-row">
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="percentageInterest">Interest Rate (%)</label>
                                 <input type="text" id="percentageInterest" name="percentageInterest" class="form-control" value="1.3" disabled required>
                             </div>
@@ -502,7 +569,50 @@ if ($role != 'user') {
     <script src="../../js/loan.js"></script>
     <script src="../../js/loanForm.js"></script>
     <script>
-        // File upload display handlers
+        document.getElementById("loanForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const amount = parseFloat(document.getElementById("amount").value) || 0;
+            const period = parseInt(document.getElementById("period").value) || 0;
+            const interest = 1.3; // Your fixed monthly interest %
+
+            if (amount > 0 && period > 0) {
+                const monthlyNoInterest = amount / period;
+                const convert = interest / 100;
+                const monthlyInterest = amount * convert;
+                const totalInterestValue = monthlyInterest * period;
+                const monthlyWithInterest = monthlyNoInterest + monthlyInterest;
+                const totalAmount = monthlyWithInterest * period;
+
+                document.getElementById("monthlyPayment").textContent =
+                    "₱" + monthlyWithInterest.toFixed(2);
+                document.getElementById("totalInterest").textContent =
+                    "₱" + totalInterestValue.toFixed(2);
+                document.getElementById("totalAmount").textContent =
+                    "₱" + totalAmount.toFixed(2);
+
+                document.getElementById("results").classList.add("show");
+            } else {
+                document.getElementById("monthlyPayment").textContent = "";
+                document.getElementById("totalInterest").textContent = "";
+                document.getElementById("totalAmount").textContent = "";
+                document.getElementById("results").classList.remove("show");
+            }
+        });
+
+        const faqButtons = document.querySelectorAll(".faq-question");
+
+        faqButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const answer = button.nextElementSibling;
+
+                if (answer.style.display === "block") {
+                    answer.style.display = "none";
+                } else {
+                    answer.style.display = "block";
+                }
+            });
+        });
     </script>
 </body>
 

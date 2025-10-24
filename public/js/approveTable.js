@@ -51,6 +51,12 @@ async function getData() {
         const ListContainer = document.querySelector(".listApprove");
         ListContainer.innerHTML = "";
         applicationForm.forEach((data) => {
+        const dueDate = new Date(data.created_at.replace(' ', 'T'));
+        const formattedDate = dueDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
         const tblRow = document.createElement("tr");
         const id = document.createElement("td");
         id.textContent = data.loanID
@@ -61,7 +67,7 @@ async function getData() {
         const application_status = document.createElement("td");
         application_status.textContent = data.application_status;
         const dateApplied = document.createElement("td")
-        dateApplied.textContent = data.created_at
+        dateApplied.textContent = formattedDate
         const reviewer = document.createElement("td")
         reviewer.textContent = data.assigned_hr
         const reviewDate = document.createElement("td")

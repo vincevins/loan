@@ -113,17 +113,25 @@ if ($user && !empty($user['email'])) {
         $mail->addAddress($recipient, $fullname);
         $mail->isHTML(true);
         $mail->Subject = 'F.L.O.W';
-        $mail->Body = '<h2 style="margin:0; font-size:26px; font-weight:600;">Payment Successful!</h2>
-            <p>Dear <strong>' . $fullname . '</strong>,</p>
-            <p>We have successfully received your payment.</p>
-            <ul>
-                <li>Loan ID: ' . $loanID . '</li>
-                <li>Schedule ID: ' . $schedule_id . '</li>
-                <li>Amount Paid: ₱' . $total_payment . '</li>
-                <li>Transaction ID: ' . $paypal_order_id . '</li>
-                <li>Payment Method: PayPal</li>
-            </ul>
-            <p>Thank you for your payment!</p>
+        $mail->Body = '
+        <div style="background-color: #ffffff; padding: 20px;">
+        <h2 style="margin: 0 0 15px 0; font-size: 26px; font-weight: 600; color: #3b5bfd;">
+            Payment Successful!
+        </h2>
+
+        <p>Dear <strong>' . $fullname . '</strong>,</p>
+        <p>We have successfully received your payment. Here are the details:</p>
+
+        <ul style="list-style-type: none; padding: 0;">
+            <li><strong>Loan ID:</strong> ' . $loanID . '</li>
+            <li><strong>Schedule ID:</strong> ' . $schedule_id . '</li>
+            <li><strong>Amount Paid:</strong> ₱' . $total_payment . '</li>
+            <li><strong>Transaction ID:</strong> ' . $paypal_order_id . '</li>
+            <li><strong>Payment Method:</strong> PayPal</li>
+        </ul>
+
+        <p>Thank you for your payment!</p>
+        </div>
         ';
         $mail->send();
         $email_sent = true;

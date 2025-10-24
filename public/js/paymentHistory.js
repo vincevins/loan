@@ -9,6 +9,12 @@ async function getData() {
         const ListContainer = document.querySelector(".paymentList");
         ListContainer.innerHTML = "";
         result.forEach((data) => {
+        const dueDate = new Date(data.payment_date);
+        const formattedDate = dueDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
         const tblRow = document.createElement("tr");
         const paymentID = document.createElement("td");
         paymentID.textContent = data.payment_id
@@ -17,9 +23,9 @@ async function getData() {
         const fName = document.createElement("td");
         fName.textContent = data.last_name+ ',' + data.first_name
         const amount = document.createElement("td");
-        amount.textContent = data.payment_amount
+        amount.textContent = "₱"+data.payment_amount
         const payment_date = document.createElement("td")
-        payment_date.textContent = data.payment_date
+        payment_date.textContent = formattedDate
         const payment_status = document.createElement("td");
         payment_status.textContent = data.payment_status;
         tblRow.append(paymentID,id, fName,amount,payment_date,payment_status);

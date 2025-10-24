@@ -31,15 +31,17 @@ if ($role != 'user') {
                 <nav id="mainNav">
                     <ul class="navCenter">
                         <li><a href="loan.php">Home</a></li>
-                        <!-- <li><a href="payment_tracker.php">Payment Tracker</a></li> -->
-                        <li><a href="#">Loan Options</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#rates">Rates</a></li>
+                        <li><a href="#contact">Contact</a></li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </nav>
                 <div class="notification-dropdown">
                     <button class="notification-btn" id="notifBtn">
-                        <i class="fas fa-bell"></i>
+                      <i class="fas fa-bell" style="font-size: 27px;"></i>
                         <span id="notifBadge" class="notification-badge" style="display: none;">0</span>
                     </button>
 
