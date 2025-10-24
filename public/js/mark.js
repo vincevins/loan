@@ -4,6 +4,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   const notificationList = document.querySelector(".notification-list");
   const badge = document.querySelector(".notification-badge");
   const markAllBtn = document.querySelector(".mark-all-read");
+  // document.addEventListener("keydown", function (e) {
+  //   if (e.key === "F12") {
+  //     e.preventDefault();
+  //   }
+  //   if ((e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) || 
+  //       (e.ctrlKey && e.key === "U")) {
+  //     e.preventDefault();
+  //   }
+  // });
+  // document.addEventListener("contextmenu", function (e) {
+  //   e.preventDefault();
+   
+  // });
   dropdownBtn.addEventListener("click", () => {
     dropdownMenu.classList.toggle("hidden");
   });

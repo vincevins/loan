@@ -29,7 +29,6 @@
             </ul>
         </nav>
     </header>
-
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="hero-text">
@@ -185,9 +184,19 @@
                 <p>&copy; 2025 F.L.O.W. All rights reserved.</p>
             </div>
     </footer>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const faqButtons = document.querySelectorAll(".faq-question");
+        faqButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const answer = button.nextElementSibling;
+                if (answer.style.display === "block") {
+                    answer.style.display = "none";
+                } else {
+                    answer.style.display = "block";
+                }
+            });
+        });
+    </script>
     <script src="../js/landingpage.js"></script>
-
 </body>
-
 </html>

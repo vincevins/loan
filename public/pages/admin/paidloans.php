@@ -9,6 +9,8 @@ include 'sidebar.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pending Loans</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="../../styles/admin_style.css">
     <link rel="stylesheet" href="../../styles/table.css">
     <link rel="stylesheet" href="../../styles/modal.css">
@@ -48,7 +50,7 @@ include 'sidebar.php';
             <div class="modal-content">
                 <div class="modal-header">
                     <h1>Loan Application Details</h1>
-                     <span class="closeBTN">&times;</span>
+                    <span class="closeBTN">&times;</span>
                 </div>
                 <div class="modal-body">
                     <div class="section">

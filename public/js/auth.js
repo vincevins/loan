@@ -59,7 +59,7 @@
                 toast.remove();
             }, 300);
         }
-       async function showSpinner() {
+        function showSpinner() {
             const spinner = document.getElementById('loginSpinner');
             if (spinner) {
                 spinner.style.display = 'block';
@@ -74,7 +74,6 @@
         }
         const loginForm = document.getElementById('loginForm');
         const signupForm = document.getElementById('signupform');
-
         loginForm.addEventListener('submit',async function(e) {
              e.preventDefault();
             const formData = new FormData(this); 
@@ -86,14 +85,15 @@
                 alert('Please fill in all fields');
             }
              const url = 'http://localhost/casestudy-loan/loan/controller/authLogin.php';
-           
+            showSpinner();
             try{
                 const res = await fetch(url,{
                     method: 'POST',
                     body: formData
                 });
+                setInterval(showSpinner,5000)
                 const result =await res.json()
-               
+                hideSpinner()
                  if (!res.ok) {
                     throw new Error(result.message || `Error ${response.status}`);
                 }
@@ -113,6 +113,8 @@
             } catch (error) {
                 console.error(error.message);
                 alert("Something went wrong: " + error.message);
+            }finally {
+                hideSpinner();
             }
 
         });

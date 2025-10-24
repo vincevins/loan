@@ -114,6 +114,19 @@ document.getElementById('exportExcel').addEventListener('click', function () {
     a.click();
     document.body.removeChild(a);
 });
+document.getElementById("exportPdf").addEventListener("click", async () => {
+      const { jsPDF } = window.jspdf;
+      const table = document.getElementById("under_review");
+      const canvas = await html2canvas(table, { scale: 2 });
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 10, pdfWidth, pdfHeight);
+      pdf.save("table_data.pdf");
+    });
 document.addEventListener("click", async function (e) {
   if (e.target.classList.contains("reject-btn")) {
     const id = e.target.getAttribute("data-id");
