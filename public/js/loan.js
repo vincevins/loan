@@ -214,7 +214,7 @@
         const loanAmount = document.getElementById("loanAmount");
         const loanTerm = document.getElementById("loanTerm");
         const monthlyRateNoInterest = document.getElementById("monthlyRateNoInterest");
-        const totalInterest = document.getElementById("totalInterest");
+        const ttlInterest = document.getElementById("totalInterests");
         const wInterest = document.getElementById("wInterest");
 
         function computeInterest() {
@@ -228,13 +228,14 @@
             const convert = interest / 100;
             const monthlyInterest = amount * convert;
             const totalInterestValue = monthlyInterest * term;
-            totalInterest.value = monthlyInterest.toFixed(2);
+            ttlInterest.value = monthlyInterest.toFixed(2);
             const monthlyWithInterest = monthlyNoInterest + monthlyInterest;
             wInterest.value = monthlyWithInterest.toFixed(2);
-
+            console.log("get data", ttlInterest);
+            
         } else {
             monthlyRateNoInterest.value = "";
-            totalInterest.value = "";
+            ttlInterest.value = "";
             wInterest.value = "";
         }
         }

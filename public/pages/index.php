@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,9 +24,8 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#rates">Rates</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#apply">Login</a></li>
-                <li><a href="#apply">Sign Up</a></li>
+                <li><a href="#footer">Contact</a></li>
+                <li><a href="http://localhost/casestudy-loan/loan/public/pages/user/index.php">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -38,7 +38,9 @@
                 </h1>
                 <p>Our online loan application process is fast, secure, and designed to get you the money you need with competitive rates and flexible terms.</p>
                 <div class="cta-buttons">
-                    <a href="#apply" class="btn-primary">Apply Now</a>
+                    <a href="http://localhost/casestudy-loan/loan/public/pages/user/index.php" class="btn-primary">Apply Now</a>
+                    <a href="http://localhost/casestudy-loan/loan/public/pages/user/index.php" class="btn-secondary">Download Our Application</a>
+
                 </div>
             </div>
             <div class="calculator-container">
@@ -138,14 +140,8 @@
             </div>
         </div>
     </section>
-    <!-- <section class="contact-section">
-        <h2>Contact Us</h2>
-        <p>📍 Visit us in Manila</p>
-
-        <div id="map"></div>
-    </section> -->
     <footer>
-        <div class="container">
+        <div class="container" id="footer">
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>SecureLoan</h3>
@@ -190,7 +186,8 @@
             </div>
     </footer>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-     <script src="../js/landingpage.js"></script>
+    <script src="../js/landingpage.js"></script>
 
 </body>
+
 </html>

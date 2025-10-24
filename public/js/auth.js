@@ -86,14 +86,14 @@
                 alert('Please fill in all fields');
             }
              const url = 'http://localhost/casestudy-loan/loan/controller/authLogin.php';
-             await showSpinner();
+           
             try{
                 const res = await fetch(url,{
                     method: 'POST',
                     body: formData
                 });
                 const result =await res.json()
-                await hideSpinner();
+               
                  if (!res.ok) {
                     throw new Error(result.message || `Error ${response.status}`);
                 }

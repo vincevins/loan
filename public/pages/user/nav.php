@@ -15,6 +15,7 @@ if ($role != 'user') {
     <link rel="stylesheet" href="../../styles/notif.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AdDwOSNHNw7Jgf0uorqdXP-gCDnqVVv7D4kejfs1GfhN5A4RYuLCFSJdNX8navTUCToLOmKoHK7Q1Sl5&currency=PHP"></script>
+    <link rel="icon" type="image/png" href="../../img/logo1.1.png">
     <title>Document</title>
 </head>
 <body>

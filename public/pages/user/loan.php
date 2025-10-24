@@ -28,6 +28,7 @@ if ($role != 'user') {
 </head>
 
 <body>
+
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="hero-text">
@@ -106,7 +107,7 @@ if ($role != 'user') {
         </div>
     </section>
 
-     <section id="faq">
+    <section id="faq">
         <h2>Frequently Asked Questions</h2>
 
         <div class="faq-item">
@@ -175,25 +176,25 @@ if ($role != 'user') {
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" class="form-control" value="<?php $_SESSION['user_first_name'] ?>">
+                                <input type="text" id="firstName" name="firstName" class="form-control" value="<?php echo $_SESSION['user_first_name'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="middleName">Middle Name</label>
-                                <input type="text" id="middleName" name="middleName" class="form-control" value="<?php $_SESSION['user_middle_name'] ?>">
+                                <input type="text" id="middleName" name="middleName" class="form-control" value="<?php echo $_SESSION['user_middle_name'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" class="form-control" value="<?php $_SESSION['user_last_name'] ?>">
+                                <input type="text" id="lastName" name="lastName" class="form-control" value="<?php echo $_SESSION['user_last_name'] ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-control" value="<?php $_SESSION['user_email'] ?>">
+                            <input type="email" id="email" name="email" class="form-control" value="<?php echo $_SESSION['user_email'] ?>">
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-control" value="<?php $_SESSION['user_contact_no'] ?>">
+                                <input type="tel" id="phone" name="phone" class="form-control" value="<?php echo $_SESSION['user_contact_no'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="dob">Date of Birth</label>
@@ -359,7 +360,7 @@ if ($role != 'user') {
                             </div>
                             <div class="form-group">
                                 <label for="totalInterest">Interest</label>
-                                <input type="text" id="totalInterest" name="totalInterest" class="form-control" readonly required>
+                                <input type="text" id="totalInterests" name="totalInterest" class="form-control" readonly>
                             </div>
                         </div>
 
@@ -460,11 +461,12 @@ if ($role != 'user') {
                             <!-- Review content will be populated by JavaScript -->
                         </div>
                         <div class="form-group">
-                            <label>
+                            <label class="checkbox-label">
                                 <input type="checkbox" name="terms" required>
                                 I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
                             </label>
                         </div>
+
                         <div class="form-navigation">
                             <button type="button" class="btnLoan" id="prevBtn4">Previous</button>
                             <button type="submit" class="btnLoan">Submit Application</button>
@@ -568,52 +570,6 @@ if ($role != 'user') {
     <script src="../../js/btnViewApplication.js"></script>
     <script src="../../js/loan.js"></script>
     <script src="../../js/loanForm.js"></script>
-    <script>
-        document.getElementById("loanForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-
-            const amount = parseFloat(document.getElementById("amount").value) || 0;
-            const period = parseInt(document.getElementById("period").value) || 0;
-            const interest = 1.3; // Your fixed monthly interest %
-
-            if (amount > 0 && period > 0) {
-                const monthlyNoInterest = amount / period;
-                const convert = interest / 100;
-                const monthlyInterest = amount * convert;
-                const totalInterestValue = monthlyInterest * period;
-                const monthlyWithInterest = monthlyNoInterest + monthlyInterest;
-                const totalAmount = monthlyWithInterest * period;
-
-                document.getElementById("monthlyPayment").textContent =
-                    "₱" + monthlyWithInterest.toFixed(2);
-                document.getElementById("totalInterest").textContent =
-                    "₱" + totalInterestValue.toFixed(2);
-                document.getElementById("totalAmount").textContent =
-                    "₱" + totalAmount.toFixed(2);
-
-                document.getElementById("results").classList.add("show");
-            } else {
-                document.getElementById("monthlyPayment").textContent = "";
-                document.getElementById("totalInterest").textContent = "";
-                document.getElementById("totalAmount").textContent = "";
-                document.getElementById("results").classList.remove("show");
-            }
-        });
-
-        const faqButtons = document.querySelectorAll(".faq-question");
-
-        faqButtons.forEach((button) => {
-            button.addEventListener("click", () => {
-                const answer = button.nextElementSibling;
-
-                if (answer.style.display === "block") {
-                    answer.style.display = "none";
-                } else {
-                    answer.style.display = "block";
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

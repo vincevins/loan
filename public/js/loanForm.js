@@ -2,9 +2,13 @@ const session = document.getElementById("sessionLoan");
 const sessionEl = session.dataset.sessionStatus;
 const hasLoan = document.getElementById("hasLoan");
 const applicationform = document.getElementById("application-form");
+console.log("testing",sessionEl);
+
 if (sessionEl === "1") {
   hasLoan.style.display = "block";
   applicationform.style.display = "none";
+  
+  
 }
 function capitalizeFirstLetter(str) {
   if (str.length === 0) {
@@ -49,18 +53,61 @@ async function getApplication() {
       const txtAdmin = capitalizeFirstLetter(adminApproval);
       verifyStatus.textContent = txtAdmin;
     }
-    if (adminApproval.trim().toLowerCase() === "approved" &&
+    if (
+      adminApproval.trim().toLowerCase() === "approved" &&
       hrApproval.trim().toLowerCase() === "approved"
     ) {
       step4Approved.style.display = "flex";
       step4Review.style.display = "none";
       step4Txt.textContent = "Approved";
     }
-
   } catch (error) {
     // console.error(error.message);
     // alert("Something went wrong: " + error.message);
   }
 }
-getApplication();
+document.getElementById("loanForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
+  const amount = parseFloat(document.getElementById("amount").value) || 0;
+  const period = parseInt(document.getElementById("period").value) || 0;
+  const interestt = 1.3;
+
+  if (amount > 0 && period > 0) {
+    const monthlyNoInterest = amount / period;
+    const convert = interestt / 100;
+    const monthlyInterest = amount * convert;
+    const totalInterestValue = monthlyInterest * period;
+    const monthlyWithInterest = monthlyNoInterest + monthlyInterest;
+    const totalAmount = monthlyWithInterest * period;
+
+    document.getElementById("monthlyPayment").textContent =
+      "₱" + monthlyWithInterest.toFixed(2);
+    document.getElementById("totalInterest").textContent =
+      "₱" + totalInterestValue.toFixed(2);
+    document.getElementById("totalAmount").textContent =
+      "₱" + totalAmount.toFixed(2);
+
+    document.getElementById("results").classList.add("show");
+  } else {
+    document.getElementById("monthlyPayment").textContent = "";
+    document.getElementById("totalInterest").textContent = "";
+    document.getElementById("totalAmount").textContent = "";
+    document.getElementById("results").classList.remove("show");
+  }
+});
+
+const faqButtons = document.querySelectorAll(".faq-question");
+
+faqButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const answer = button.nextElementSibling;
+
+    if (answer.style.display === "block") {
+      answer.style.display = "none";
+    } else {
+      answer.style.display = "block";
+    }
+  });
+});
+getApplication();

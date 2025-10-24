@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../styles/login.css">
     <link rel="stylesheet" href="../../styles/toast.css">
+    <link rel="icon" type="image/png" href="../../img/logo1.1.png">
 </head>
 
 
@@ -84,8 +85,7 @@
             </form>
         </div>
         <div class="welcome-container">
-            <div class="decoration-circle circle-1"></div>
-            <div class="decoration-circle circle-2"></div>
+             <img src="../../img/logo.png" alt="">
             <div class="welcome-text">
                 <h2>Hello, Friend!</h2>
                 <p>Enter your personal details and start your journey with us</p>
