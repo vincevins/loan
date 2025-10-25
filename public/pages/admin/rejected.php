@@ -26,7 +26,7 @@ include 'sidebar.php';
                 <button id="exportExcel"><i class="fa-regular fa-file-excel" style="font-size:20px"></i></button>
                 <button id="exportPdf"><i class="fa-solid fa-file" style="font-size:20px"></i></button>
             </div>
-            <table id="approved">
+            <table id="reject">
                 <thead>
                     <tr>
                         <th>Loan ID</th>
@@ -37,8 +37,6 @@ include 'sidebar.php';
                         <th>Reviewer</th>
                         <th>Review Date</th>
                         <th>Remarks</th>
-                        <th>Action</th>
-
                     </tr>
                 </thead>
                 <tbody class="listApprove">

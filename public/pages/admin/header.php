@@ -3,12 +3,6 @@
 <header class="main-header">
     <h1>Welcome Back, <?php echo $_SESSION['user_first_name'] ?></h1>
     <div class="user-info">
-        <div class="notification-container">
-            <i class="notification-bell fas fa-bell"></i>
-            <div class="notification-dropdown">
-                <p>No new notifications</p>
-            </div>
-        </div>
         <div class="profile-container">
             <div class="profile-dropdown">
                 <button class="profile-btn" onclick="toggleProfileDropdown()">

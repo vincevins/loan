@@ -14,7 +14,7 @@ async function dataCards() {
     totalActive.textContent = result.active.count;
     pendingApplication.textContent = result.pending.pending;
     approvedApplication.textContent = result.approved.approved;
-    revenue.textContent = result.paid.paid;
+    revenue.textContent = '₱'+result.paid.paid;
 
   } catch (error) {
     console.error(error.message);

@@ -10,6 +10,7 @@ function loadPaymentSchedule() {
 
       let dis = data.find((d) => d.payment_status !== "paid");
       if (dis) {
+        totalLoanAmountSched.textContent = "₱" + Number(data[0].beginning_balance).toLocaleString();
         remainingBalanceSched.textContent = "₱" + Number(dis.beginning_balance).toLocaleString();
         nextPaymentDateSched.textContent = new Date(dis.due_date).toDateString();
         nextPaymentAmountSched.textContent = "₱" + Number(dis.total_payment_due).toLocaleString();
@@ -45,13 +46,18 @@ function loadPaymentSchedule() {
           <td>${item.interest}</td>
           <td>${item.payment_status}</td>
           <td>
-            ${
-              item.payment_status === "paid"
-                ? `<button disabled style="background:#ccc;border:none;padding:6px 12px;border-radius:6px;">Paid</button>`
-                : nextUnpaid && item.id == nextUnpaid.id
-                ? `<button class="btnPayLoan" data-id="${item.id}" data-amount="${item.total_payment_due}" style="background:#28a745;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;">Pay</button>`
-                : `<button disabled style="background:#ccc;border:none;padding:6px 12px;border-radius:6px;">Locked</button>`
+            ${item.payment_method === "paypal"
+                ? `
+                    ${
+                      item.payment_status === "paid"
+                        ? `<button disabled style="background:#ccc;border:none;padding:6px 12px;border-radius:6px;">Paid</button>`
+                        : nextUnpaid && item.id == nextUnpaid.id
+                        ? `<button class="btnPayLoan" data-id="${item.id}" data-amount="${item.total_payment_due}" style="background:#28a745;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;">Pay</button>`
+                        : `<button disabled style="background:#ccc;border:none;padding:6px 12px;border-radius:6px;">Locked</button>`
+                    }`
+                : ""
             }
+
           </td>`;
         ListContainer.appendChild(tblRow);
       });

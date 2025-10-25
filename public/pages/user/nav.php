@@ -6,7 +6,6 @@ if ($role != 'user') {
 }
 ?>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,14 +30,7 @@ if ($role != 'user') {
                     <i class="fas fa-bars"></i>
                 </button>
                 <nav id="mainNav">
-                    <ul class="navCenter">
-                        <li><a href="loan.php">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#rates">Rates</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-
-                    </ul>
+                    
                 </nav>
                 <div class="notification-dropdown">
                     <button class="notification-btn" id="notifBtn">
@@ -62,16 +54,16 @@ if ($role != 'user') {
                 <div class="profile-dropdown">
                     <button class="profile-btn" onclick="toggleProfileDropdown()">
                         <div class="profile-initials"><?php
-                                                        $firstName = $_SESSION['user_first_name'] ?? 'User';
-                                                        $lastName = $_SESSION['user_last_name'] ?? 'Name';
-                                                        if (!empty($_SESSION['profile_picture'])) {
-                                                            $base64 = base64_encode($_SESSION['profile_picture']);
-                                                            echo '<img src="data:image/jpeg;base64,' . $base64 . '"  alt="Profile" class="navProfile-img" id="navProfile-img">';
-                                                        } else {
-                                                            $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
-                                                            echo '<div class="profile-initials">' . $initials . '</div>';
-                                                        }
-                                                        ?></div>
+                                    $firstName = $_SESSION['user_first_name'] ?? 'User';
+                                    $lastName = $_SESSION['user_last_name'] ?? 'Name';
+                                    if (!empty($_SESSION['profile_picture'])) {
+                                        $base64 = base64_encode($_SESSION['profile_picture']);
+                                        echo '<img src="data:image/jpeg;base64,' . $base64 . '"  alt="Profile" class="navProfile-img" id="navProfile-img">';
+                                    } else {
+                                        $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                                        echo '<div class="profile-initials">' . $initials . '</div>';
+                                    }
+                                    ?></div>                    
                     </button>
                     <div class="profile-dropdown-menu">
                         <button id="btnProfile" class="dropdown-item">
@@ -397,128 +389,13 @@ if ($role != 'user') {
     </div>
     </div>
     <script>
-        function toggleProfileDropdown() {
-            const dropdown = document.querySelector('.profile-dropdown');
-            dropdown.classList.toggle('active');
-        }
-
-        document.addEventListener('click', function(event) {
-            const dropdown = document.querySelector('.profile-dropdown');
-            if (dropdown && !dropdown.contains(event.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const dropdownMenu = document.querySelector('.profile-dropdown-menu');
-            if (dropdownMenu) {
-                dropdownMenu.addEventListener('click', function(event) {
-                    event.stopPropagation();
-                });
-            }
-
-            const btnPaymentSched = document.getElementById("btnPaymentSched");
-            const btnPersonalInfo = document.getElementById("btnPersonalInfo");
-            const personalInfoModal = document.getElementById("personalInfoModal");
-            const paymentSchedModal = document.getElementById("paymentSchedModal");
-
-
-            btnPersonalInfo.addEventListener("click", () => {
-                personalInfoModal.style.display = "block";
-                paymentSchedModal.style.display = "none";
-            });
-            btnPaymentSched.addEventListener("click", () => {
-                paymentSchedModal.style.display = "block";
-                personalInfoModal.style.display = "none";
-            });
-            const btnPaymentHistory = document.getElementById("btnPaymentHistory");
-            const paymentHistoryModal = document.getElementById("paymentHistoryModal");
-
-            btnPaymentHistory.addEventListener("click", () => {
-                personalInfoModal.style.display = "none";
-                paymentSchedModal.style.display = "none";
-                paymentHistoryModal.style.display = "block";
-                loadPaymentHistory();
-            });
-
-            const modal = document.getElementById("profileModal");
-            const btn = document.getElementById("btnProfile");
-            btn.addEventListener("click", () => {
-                modal.style.display = "block";
-                dropdownMenu.style.display = "none";
-            });
-            window.addEventListener("click", (event) => {
-                if (event.target === modal) {
-                    modal.style.display = "none";
-                }
-            });
-
-            function loadPaymentHistory() {
-                fetch("http://localhost/casestudy-loan/loan/controller/paymentHistory.php")
-                    .then(res => res.json())
-                    .then(data => {
-                        const tbody = document.querySelector(".paymentHistoryBody");
-                        tbody.innerHTML = "";
-
-                        if (!data || data.length === 0) {
-                            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No payment history found.</td></tr>`;
-                            return;
-                        }
-
-                        data.forEach((row, i) => {
-                            const tr = document.createElement("tr");
-                            tr.innerHTML = `
-          <td>${i + 1}</td>
-          <td>${row.payment_date}</td>
-          <td>₱${Number(row.payment_amount).toLocaleString()}</td>
-          <td>${row.payment_method || 'N/A'}</td>
-          <td>${row.payment_reference || 'N/A'}</td>
-          <td class="${
-            row.payment_status === 'Paid' ? 'status-paid' :
-            row.payment_status === 'Pending' ? 'status-pending' :
-            'status-overdue'
-          }">${row.payment_status}</td>
-        `;
-                            tbody.appendChild(tr);
-                        });
-                    })
-                    .catch(err => {
-                        console.error("Error loading payment history:", err);
-                        document.querySelector(".paymentHistoryBody").innerHTML =
-                            `<tr><td colspan="6" style="text-align:center;color:red;">Error loading payment history.</td></tr>`;
-                    });
-            }
-            const btnPersonalInfo3 = document.getElementById("btnPersonalInfo3");
-            const btnPaymentSched3 = document.getElementById("btnPaymentSched3");
-            const btnPaymentHistory3 = document.getElementById("btnPaymentHistory3");
-
-            if (btnPersonalInfo3 && btnPaymentSched3 && btnPaymentHistory3) {
-                btnPersonalInfo3.addEventListener("click", () => {
-                    paymentHistoryModal.style.display = "none";
-                    paymentSchedModal.style.display = "none";
-                    personalInfoModal.style.display = "block";
-                });
-
-                btnPaymentSched3.addEventListener("click", () => {
-                    paymentHistoryModal.style.display = "none";
-                    personalInfoModal.style.display = "none";
-                    paymentSchedModal.style.display = "block";
-                });
-
-                btnPaymentHistory3.addEventListener("click", () => {
-                    personalInfoModal.style.display = "none";
-                    paymentSchedModal.style.display = "none";
-                    paymentHistoryModal.style.display = "block";
-                    loadPaymentHistory();
-                });
-            }
-
-        });
+        
     </script>
     <script src="../../js/profilePic.js"></script>
     <script src="../../js/paymentsched.js"></script>
     <script src="../../js/notif.js"></script>
     <script src="../../js/mark.js"></script>
+    <script src="../../js/paymentHistoryProf.js"></script>
 </body>
 
 </html>

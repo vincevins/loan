@@ -85,58 +85,6 @@ if ($role != 'user') {
         </div>
     </section>
     <div id="sessionLoan" data-session-status="<?php echo htmlspecialchars($_SESSION['user_status_loan']) ?>"></div>
-    <section class="features" id="features">
-        <h2 class="section-title">Why Choose F.L.O.W?</h2>
-        <p class="section-subtitle">We make borrowing simple, transparent, and convenient</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon"> <i class="fas fa-bolt"></i></div>
-                <h3>Fast Approval</h3>
-                <p>Get a decision in minutes and funds as soon as the next business day.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-lock"></i></div>
-                <h3>Secure Process</h3>
-                <p>Your information is protected with bank-level encryption technology.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-percent"></i></div>
-                <h3>Competitive Rates</h3>
-                <p>Enjoy competitive interest rates with no hidden fees or charges.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq">
-        <h2>Frequently Asked Questions</h2>
-
-        <div class="faq-item">
-            <button class="faq-question">How long will it take to approve my loan?</button>
-            <div class="faq-answer">
-                <p>Approval time may vary depending on verification and loan officer review.</p>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question">What are the requirements?</button>
-            <div class="faq-answer">
-                <p>A valid ID, selfie with ID, and proof of income are required to process your application.</p>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question">How do I repay the loan?</button>
-            <div class="faq-answer">
-                <p>You can repay through bank transfer, e-wallet, or partner payment centers.</p>
-            </div>
-        </div>
-        <div class="faq-item">
-            <button class="faq-question">Is my personal information secure?</button>
-            <div class="faq-answer">
-                <p>Yes, your data is encrypted and securely reviewed only by authorized loan officers.</p>
-            </div>
-        </div>
-    </section>
 
     <section class="application-section" id="apply">
         <div class="container">
@@ -543,13 +491,6 @@ if ($role != 'user') {
                         <li><a href="#">Debt Consolidation</a></li>
                         <li><a href="#">Home Improvement Loans</a></li>
                         <li><a href="#">Auto Loans</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">How It Works</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
