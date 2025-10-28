@@ -17,8 +17,15 @@
         <nav>
             <div class="logo">
                 <img src="../img/logo1.1.png" alt=" Company Logo" style="width: 35px; height: 35px; object-fit: contain; display:block;">
-                <a href="http://localhost/casestudy-loan/loan/public/pages  /index.php" style="text-decoration: none;"><h1>F.L.O.W</h1></a> 
+                <a href="http://localhost/casestudy-loan/loan/public/pages  /index.php" style="text-decoration: none;">
+                    <h1>F.L.O.W</h1>
+                </a>
             </div>
+            <button class="burger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="http://localhost/casestudy-loan/loan/public/pages/index.php">Home</a></li>
                 <li><a href="#features">Features</a></li>
@@ -247,19 +254,6 @@
                     <p>&copy; 2025 F.L.O.W. All rights reserved.</p>
                 </div>
         </footer>
-        <script>
-            const faqButtons = document.querySelectorAll(".faq-question");
-            faqButtons.forEach((button) => {
-                button.addEventListener("click", () => {
-                    const answer = button.nextElementSibling;
-                    if (answer.style.display === "block") {
-                        answer.style.display = "none";
-                    } else {
-                        answer.style.display = "block";
-                    }
-                });
-            });
-        </script>
         <script src="../js/landingpage.js"></script>
 </body>
 

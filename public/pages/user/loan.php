@@ -8,7 +8,7 @@ if (!isset($_SESSION['logged_in'])) {
 }
 $role = $_SESSION['user_role'];
 if ($role != 'user') {
-    header("http://localhost/casestudy-loan/loan/controller/logout.php");
+    header("location: http://localhost/casestudy-loan/loan/controller/logout.php");
     exit();
 }
 

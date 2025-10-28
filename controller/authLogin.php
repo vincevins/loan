@@ -32,7 +32,7 @@ class AuthLogin extends Database
             $_SESSION['user_middle_name'] = $user['middle_name'];
             $_SESSION['user_last_name'] = $user['last_name'];
             $_SESSION['user_contact_no'] = $user['contact_no'];
-            $_SESSION['user_birthdate'] = $user['birthdate'];
+          
             $_SESSION['user_role'] = $user['role'];
             $_SESSION['user_status_loan'] = $user['hasLoan'];
             $_SESSION['user_age'] =$user['age'];

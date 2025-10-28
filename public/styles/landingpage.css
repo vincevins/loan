@@ -9,6 +9,7 @@ body {
   color: #1a1a1a;
   overflow-x: hidden;
 }
+
 header {
   background: white;
   color: #000;
@@ -34,6 +35,7 @@ nav {
   align-items: center;
   gap: 10px;
 }
+
 .logo h1 {
   font-weight: 700;
   color: #4361ee;
@@ -67,6 +69,28 @@ nav {
 .nav-links a:hover::after {
   width: 100%;
 }
+
+/* Burger Menu Styles */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1001;
+  background: none;
+  border: none;
+  padding: 5px;
+}
+
+.burger-menu span {
+  width: 25px;
+  height: 3px;
+  background: #4361ee;
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+
 
 .hero {
   background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
@@ -142,6 +166,7 @@ nav {
     transform: translateY(0);
   }
 }
+
 .hero-text p {
   font-size: 1.3rem;
   color: black;
@@ -149,6 +174,7 @@ nav {
   line-height: 1.6;
   animation: fadeInUp 0.8s ease 0.2s backwards;
 }
+
 .cta-buttons {
   display: flex;
   gap: 1.5rem;
@@ -398,8 +424,7 @@ nav {
 footer {
   background: #4361ee;
   color: #fff;
-  padding: 50px 10%;
-  justify-items: end;
+  padding: 3rem 5%;
 }
 
 .footer-content {
@@ -476,6 +501,7 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 #faq {
   padding: 50px 10%;
   background: #ffffff;
@@ -524,6 +550,7 @@ input[type="number"] {
   border-top: 1px solid #4361ee;
   line-height: 1.6;
 }
+
 .about {
   background-color: white;
   position: relative;
@@ -638,6 +665,7 @@ input[type="number"] {
   font-weight: 600;
   margin-top: 1rem;
 }
+
 .how-it-works {
   padding: 50px 10%;
   background: white;
@@ -685,6 +713,7 @@ input[type="number"] {
   line-height: 1.7;
 }
 
+/* Responsive Design */
 @media (max-width: 1024px) {
   .hero-content {
     gap: 3rem;
@@ -709,17 +738,50 @@ input[type="number"] {
 }
 
 @media (max-width: 968px) {
+  .burger-menu {
+    display: flex;
+  }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 70%;
+    max-width: 300px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    padding: 6rem 2rem 2rem;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 1rem;
+    font-size: 1.1rem;
+    color: #000;
+    text-decoration: none;
+  }
+
   header {
     padding: 1rem 5%;
   }
 
   .logo h1 {
     font-size: 1.3rem;
-  }
-
-  .nav-links {
-    gap: 1.5rem;
-    font-size: 0.9rem;
   }
 
   .hero {
@@ -764,10 +826,6 @@ input[type="number"] {
 
   .section-title {
     font-size: 2.5rem;
-  }
-
-  .about {
-    padding: 4rem 5%;
   }
 
   .about-content {
@@ -822,6 +880,7 @@ input[type="number"] {
     justify-content: center;
   }
 }
+
 
 @media (max-width: 767px) {
   header {
@@ -931,13 +990,13 @@ input[type="number"] {
     line-height: 1.5;
   }
 
-  .about {
-    padding: 2.5rem 3%;
+  /* .about {
+    padding: 2.5rem 30px;
   }
 
   .about-content {
     gap: 2rem;
-  }
+  } */
 
   .about-text h2 {
     font-size: 1.8rem;
