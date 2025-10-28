@@ -49,8 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  const mobileProfileBtn = document.getElementById("mobileProfileBtn");
   const modal = document.getElementById("profileModal");
   const btn = document.getElementById("btnProfile");
+  mobileProfileBtn.addEventListener('click',function(){
+    modal.style.display= "block"
+     dropdownMenu.style.display = "none";
+  })
+
   if (btn && modal && dropdownMenu) {
     btn.addEventListener("click", () => {
       modal.style.display = "block";

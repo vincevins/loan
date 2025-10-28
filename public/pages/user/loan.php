@@ -28,7 +28,6 @@ if ($role != 'user') {
 </head>
 
 <body>
-
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="hero-text">

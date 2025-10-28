@@ -12,6 +12,7 @@ if ($role != 'user') {
     <link rel="stylesheet" href="../../styles/profile.css">
     <link rel="stylesheet" href="../../styles/nav.css">
     <link rel="stylesheet" href="../../styles/notif.css">
+    <link rel="stylesheet" href="../../styles/toast.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AdDwOSNHNw7Jgf0uorqdXP-gCDnqVVv7D4kejfs1GfhN5A4RYuLCFSJdNX8navTUCToLOmKoHK7Q1Sl5&currency=PHP"></script>
     <link rel="icon" type="image/png" href="../../img/logo1.1.png">
@@ -20,73 +21,102 @@ if ($role != 'user') {
 
 <body>
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="../../img/logo1.1.png" alt=" Company Logo" style="width: 35px; height: 35px; object-fit: contain; display:block;">
-                    <h1>F.L.O.W</h1>
-                </div>
-                <button class="responsive-nav-toggle" id="navToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav id="mainNav">
-                    
-                </nav>
-                <div class="notification-dropdown">
-                    <button class="notification-btn" id="notifBtn">
-                        <i class="fas fa-bell" style="font-size: 27px;"></i>
-                        <span id="notifBadge" class="notification-badge" style="display: none;">0</span>
-                    </button>
-
-                    <div class="notification-dropdown-menu" id="notifDropdown">
-                        <div class="notification-header">
-                            <h3>Notifications</h3>
-                            <button id="markAllRead" class="mark-all-read">Mark all as read</button>
-                        </div>
-                        <div id="notifList" class="notification-list">
-                            <p style="text-align:center; color:#777; padding:20px;">Loading...</p>
-                        </div>
-                        <div class="notification-footer">
-
-                        </div>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <img src="../../img/logo1.1.png" alt="Company Logo" style="width: 35px; height: 35px; object-fit: contain; display:block;">
+                <h1>F.L.O.W</h1>
+            </div>
+            
+            <button class="responsive-nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <div class="mobile-user-section">
+                    <div class="mobile-notifications">
+                        <button class="mobile-notif-btn" id="mobileNotifBtn">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span id="mobileNotifBadge" class="mobile-badge" style="display: none;">0</span>
+                        </button>
                     </div>
-                </div>
-                <div class="profile-dropdown">
-                    <button class="profile-btn" onclick="toggleProfileDropdown()">
-                        <div class="profile-initials"><?php
-                                    $firstName = $_SESSION['user_first_name'] ?? 'User';
-                                    $lastName = $_SESSION['user_last_name'] ?? 'Name';
-                                    if (!empty($_SESSION['profile_picture'])) {
-                                        $base64 = base64_encode($_SESSION['profile_picture']);
-                                        echo '<img src="data:image/jpeg;base64,' . $base64 . '"  alt="Profile" class="navProfile-img" id="navProfile-img">';
-                                    } else {
-                                        $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
-                                        echo '<div class="profile-initials">' . $initials . '</div>';
-                                    }
-                                    ?></div>                    
-                    </button>
-                    <div class="profile-dropdown-menu">
-                        <button id="btnProfile" class="dropdown-item">
+                    
+                    <div class="mobile-profile">
+                        <div class="mobile-profile-info">
+                            <?php
+                            $firstName = $_SESSION['user_first_name'] ?? 'User';
+                            $lastName = $_SESSION['user_last_name'] ?? 'Name';
+                            if (!empty($_SESSION['profile_picture'])) {
+                                $base64 = base64_encode($_SESSION['profile_picture']);
+                                echo '<img src="data:image/jpeg;base64,' . $base64 . '" alt="Profile" class="mobile-profile-img">';
+                            } else {
+                                $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                                echo '<div class="mobile-profile-initials">' . $initials . '</div>';
+                            }
+                            echo '<span class="mobile-profile-name">' . htmlspecialchars($firstName . ' ' . $lastName) . '</span>';
+                            ?>
+                        </div>
+                        <button id="mobileProfileBtn" class="mobile-dropdown-item">
                             <i class="fa fa-user"></i> Profile
                         </button>
-                        <button onclick="window.location.href='settings'" class="dropdown-item">
-                            <i class="fa fa-cogs"></i> Settings
-                        </button>
-                        <hr class="dropdown-divider">
-                        <button class="dropdown-item logout">
-
-                            <a href="http://localhost/casestudy-loan/loan/controller/logout.php" style="text-decoration: none;">
+                        <hr class="mobile-divider">
+                        <button class="mobile-dropdown-item logout">
+                            <a href="http://localhost/casestudy-loan/loan/controller/logout.php" style="text-decoration: none; color: inherit;">
                                 <i class="fa fa-sign-out-alt"></i> Log Out
                             </a>
-
                         </button>
                     </div>
+                </div>
+            </nav>
+            
+            <div class="notification-dropdown desktop-only">
+                <button class="notification-btn" id="notifBtn">
+                    <i class="fas fa-bell" style="font-size: 27px;"></i>
+                    <span id="notifBadge" class="notification-badge" style="display: none;">0</span>
+                </button>
+
+                <div class="notification-dropdown-menu" id="notifDropdown">
+                    <div class="notification-header">
+                        <h3>Notifications</h3>
+                        <button id="markAllRead" class="mark-all-read">Mark all as read</button>
+                    </div>
+                    <div id="notifList" class="notification-list">
+                        <p style="text-align:center; color:#777; padding:20px;">Loading...</p>
+                    </div>
+                    <div class="notification-footer"></div>
+                </div>
+            </div>
+            
+            <div class="profile-dropdown desktop-only">
+                <button class="profile-btn" onclick="toggleProfileDropdown()">
+                    <div class="profile-initials"><?php
+                        $firstName = $_SESSION['user_first_name'] ?? 'User';
+                        $lastName = $_SESSION['user_last_name'] ?? 'Name';
+                        if (!empty($_SESSION['profile_picture'])) {
+                            $base64 = base64_encode($_SESSION['profile_picture']);
+                            echo '<img src="data:image/jpeg;base64,' . $base64 . '" alt="Profile" class="navProfile-img" id="navProfile-img">';
+                        } else {
+                            $initials = strtoupper(substr($firstName, 0, 1) . substr($lastName, 0, 1));
+                            echo '<div class="profile-initials">' . $initials . '</div>';
+                        }
+                    ?></div>
+                </button>
+                <div class="profile-dropdown-menu">
+                    <button id="btnProfile" class="dropdown-item">
+                        <i class="fa fa-user"></i> Profile
+                    </button>
+                    <hr class="dropdown-divider">
+                    <button class="dropdown-item logout">
+                        <a href="http://localhost/casestudy-loan/loan/controller/logout.php" style="text-decoration: none;">
+                            <i class="fa fa-sign-out-alt"></i> Log Out
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>
-        </div>
-        </div>
-    </header>
+    </div>
+</header>
 
 
     <div id="profileModal" class="modal">
@@ -245,17 +275,17 @@ if ($role != 'user') {
                         <div class="content">
                             <ul class="personal-information-sidebar">
                                 <li>
-                                    <button id="btnPersonalInformation" class="tab-btn active">
+                                    <button id="btnPersonalInformation" class="tab-btn ">
                                         <i class="fa-solid fa-table-columns"></i> Personal Information
                                     </button>
                                 </li>
                                 <li>
-                                    <button id="btnPaymentSched" class="tab-btn">
+                                    <button id="btnPaymentSched" class="tab-btn active">
                                         <i class="fa-solid fa-list"></i> Payment Schedule
                                     </button>
                                 </li>
                                 <li>
-                                    <button id="btnPaymentHistory" class="tab-btn">
+                                    <button id="btnPaymentHistory3" class="tab-btn">
                                         <i class="fa-solid fa-list"></i> Payment History
                                     </button>
                                 </li>
@@ -388,9 +418,7 @@ if ($role != 'user') {
     </div>
     </div>
     </div>
-    <script>
-        
-    </script>
+     <div class="toast-container" id="toastContainer"></div>
     <script src="../../js/profilePic.js"></script>
     <script src="../../js/paymentsched.js"></script>
     <script src="../../js/notif.js"></script>

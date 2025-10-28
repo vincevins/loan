@@ -2,18 +2,30 @@ function loadPaymentSchedule() {
   fetch("http://localhost/casestudy-loan/loan/controller/paymentSchedule.php")
     .then((response) => response.json())
     .then((data) => {
-
-      const totalLoanAmountSched = document.getElementById("totalLoanAmountSched");
-      const remainingBalanceSched = document.getElementById("remainingBalanceSched");
-      const nextPaymentDateSched = document.getElementById("nextPaymentDateSched");
-      const nextPaymentAmountSched = document.getElementById("nextPaymentAmountSched");
+      const totalLoanAmountSched = document.getElementById(
+        "totalLoanAmountSched"
+      );
+      const remainingBalanceSched = document.getElementById(
+        "remainingBalanceSched"
+      );
+      const nextPaymentDateSched = document.getElementById(
+        "nextPaymentDateSched"
+      );
+      const nextPaymentAmountSched = document.getElementById(
+        "nextPaymentAmountSched"
+      );
 
       let dis = data.find((d) => d.payment_status !== "paid");
       if (dis) {
-        totalLoanAmountSched.textContent = "₱" + Number(data[0].beginning_balance).toLocaleString();
-        remainingBalanceSched.textContent = "₱" + Number(dis.beginning_balance).toLocaleString();
-        nextPaymentDateSched.textContent = new Date(dis.due_date).toDateString();
-        nextPaymentAmountSched.textContent = "₱" + Number(dis.total_payment_due).toLocaleString();
+        totalLoanAmountSched.textContent =
+          "₱" + Number(data[0].beginning_balance).toLocaleString();
+        remainingBalanceSched.textContent =
+          "₱" + Number(dis.beginning_balance).toLocaleString();
+        nextPaymentDateSched.textContent = new Date(
+          dis.due_date
+        ).toDateString();
+        nextPaymentAmountSched.textContent =
+          "₱" + Number(dis.total_payment_due).toLocaleString();
       }
 
       const totalAmmount = document.getElementById("totalLoanAmount");
@@ -21,13 +33,16 @@ function loadPaymentSchedule() {
       const nextDue = document.getElementById("nextPaymentDate");
       const nextPayment = document.getElementById("nextPaymentAmount");
 
-      totalAmmount.textContent = "₱" + Number(data[0].beginning_balance).toLocaleString();
+      totalAmmount.textContent =
+        "₱" + Number(data[0].beginning_balance).toLocaleString();
 
       let display = data.find((item) => item.payment_status !== "paid");
       if (display) {
-        remaining.textContent = "₱" + Number(display.beginning_balance).toLocaleString();
+        remaining.textContent =
+          "₱" + Number(display.beginning_balance).toLocaleString();
         nextDue.textContent = new Date(display.due_date).toDateString();
-        nextPayment.textContent = "₱" + Number(display.total_payment_due).toLocaleString();
+        nextPayment.textContent =
+          "₱" + Number(display.total_payment_due).toLocaleString();
       }
 
       const ListContainer = document.querySelector(".paymentScheduleBody");
@@ -46,7 +61,8 @@ function loadPaymentSchedule() {
           <td>${item.interest}</td>
           <td>${item.payment_status}</td>
           <td>
-            ${item.payment_method === "paypal"
+            ${
+              item.payment_method === "paypal"
                 ? `
                     ${
                       item.payment_status === "paid"
@@ -69,7 +85,36 @@ function loadPaymentSchedule() {
 
 loadPaymentSchedule();
 
-// Modal buttons
+function showToast(type, message) {
+  const container = document.getElementById("toastContainer");
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  let iconClass = "";
+  if (type === "success") {
+    iconClass = "fa fa-check";
+  } else if (type === "error") {
+    iconClass = "fa fa-times";
+  }
+  toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="${iconClass}" aria-hidden="true"></i>
+                </div>
+                <div class="toast-message">${message}</div>
+                <button class="toast-close" onclick="closeToast(this)">x</button>
+            `;
+  container.appendChild(toast);
+  setTimeout(() => {
+    closeToast(toast.querySelector(".toast-close"));
+  }, 5000);
+}
+function closeToast(btn) {
+  const toast = btn.parentElement;
+  toast.classList.add("removing");
+
+  setTimeout(() => {
+    toast.remove();
+  }, 300);
+}
 const btnPaymentSched = document.getElementById("btnPaymentSched");
 const btnPersonalInfo = document.getElementById("btnPersonalInformation");
 const personalInfoModal = document.getElementById("personalInfoModal");
@@ -118,21 +163,23 @@ document.addEventListener("click", (event) => {
 
             onApprove: function (data, actions) {
               return actions.order.capture().then(function (details) {
-
                 // ✅ Fix: Ensure we get the real transaction ID
                 const transactionId =
                   details.purchase_units?.[0]?.payments?.captures?.[0]?.id ||
                   details.id ||
                   "UNKNOWN_ID";
 
-                fetch("http://localhost/casestudy-loan/loan/controller/updatePayment.php", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    schedule_id: scheduleId,
-                    paypal_order_id: transactionId,
-                  }),
-                })
+                fetch(
+                  "http://localhost/casestudy-loan/loan/controller/updatePayment.php",
+                  {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      schedule_id: scheduleId,
+                      paypal_order_id: transactionId,
+                    }),
+                  }
+                )
                   .then(async (res) => {
                     const text = await res.text();
 
@@ -144,32 +191,25 @@ document.addEventListener("click", (event) => {
                     }
 
                     if (resData.success) {
-                      let message = `
-                        <p><strong>Amount Paid:</strong> ₱${Number(amount).toLocaleString()}</p>
-                        <p><strong>Transaction ID:</strong> ${transactionId}</p>
-                        <p>Status has been updated to <strong>PAID</strong>.</p>
-                      `;
-
-                      // 🟢 If email confirmation was sent
-                      if (resData.email_sent) {
-                        message += `<p style="margin-top:10px;color:green;">A confirmation email has been sent to your registered email address.</p>`;
-                      } else {
-                        message += `<p style="margin-top:10px;color:#999;">(No confirmation email was sent.)</p>`;
-                      }
-
-                      Swal.fire({
-                        title: "Payment Successful!",
-                        html: message,
-                        icon: "success",
-                      }).then(() => loadPaymentSchedule());
+                      showToast(
+                        "success",
+                        "Payment has been successfully updated!"
+                      );
+                      loadPaymentSchedule();
                     } else {
-                      Swal.fire("Error", resData.message || "Failed to update payment.", "error");
+                      showToast(
+                        "error",
+                        resData.message || "Failed to update payment."
+                      );
                     }
-
                   })
                   .catch((err) => {
                     console.error("Update error:", err);
-                    Swal.fire("Error", "Failed to update payment status.", "error");
+                    Swal.fire(
+                      "Error",
+                      "Failed to update payment status.",
+                      "error"
+                    );
                   });
               });
             },
